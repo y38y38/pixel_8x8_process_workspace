@@ -1,0 +1,2596 @@
+23:31:33 INFO  : Launching XSCT server: xsct -n  -interactive /home/y/fpga/project_9/workspace/temp_xsdb_launch_script.tcl
+23:31:33 INFO  : Registering command handlers for Vitis TCF services
+23:31:35 INFO  : Platform repository initialization has completed.
+23:31:36 INFO  : XSCT server has started successfully.
+23:31:36 INFO  : Successfully done setting XSCT server connection channel  
+23:31:36 INFO  : plnx-install-location is set to ''
+23:31:36 INFO  : Successfully done setting workspace for the tool. 
+23:31:36 INFO  : Successfully done query RDI_DATADIR 
+23:33:21 INFO  : Result from executing command 'getProjects': design_1_wrapper
+23:33:21 INFO  : Result from executing command 'getPlatforms': 
+23:33:21 WARN  : An unexpected exception occurred in the module 'platform project logging'
+23:33:21 INFO  : Platform 'design_1_wrapper' is added to custom repositories.
+23:33:33 INFO  : Platform 'design_1_wrapper' is added to custom repositories.
+23:43:43 INFO  : Result from executing command 'getProjects': design_1_wrapper
+23:43:43 INFO  : Result from executing command 'getPlatforms': design_1_wrapper|/home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/design_1_wrapper.xpfm
+23:44:03 INFO  : Checking for BSP changes to sync application flags for project 'hello'...
+23:44:10 INFO  : Updating application flags with new BSP settings...
+23:44:10 INFO  : Successfully updated application flags for project hello.
+23:45:57 INFO  : Checking for BSP changes to sync application flags for project 'hello'...
+23:46:19 INFO  : Connected to target on host '127.0.0.1' and port '3121'.
+23:46:20 INFO  : Jtag cable 'Avnet USB-to-JTAG/UART Pod V1 1234-oj1A' is selected.
+23:46:20 INFO  : 'jtag frequency' command is executed.
+23:46:20 INFO  : Sourcing of '/tools/Xilinx/Vitis/2020.2/scripts/vitis/util/zynqmp_utils.tcl' is done.
+23:46:20 INFO  : Context for 'APU' is selected.
+23:46:21 INFO  : System reset is completed.
+23:46:24 INFO  : 'after 3000' command is executed.
+23:46:24 INFO  : 'targets -set -filter {jtag_cable_name =~ "Avnet USB-to-JTAG/UART Pod V1 1234-oj1A" && level==0 && jtag_device_ctx=="jsn-USB-to-JTAG/UART Pod V1-1234-oj1A-14710093-0"}' command is executed.
+23:46:27 INFO  : Device configured successfully with "/home/y/fpga/project_9/workspace/hello/_ide/bitstream/design_1_wrapper.bit"
+23:46:27 INFO  : Context for 'APU' is selected.
+23:46:27 INFO  : Hardware design and registers information is loaded from '/home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/hw/design_1_wrapper.xsa'.
+23:46:27 INFO  : 'configparams force-mem-access 1' command is executed.
+23:46:28 INFO  : Context for 'APU' is selected.
+23:46:28 INFO  : Boot mode is read from the target.
+23:46:34 INFO  : Boot mode of the target is set to jtag.
+23:46:34 INFO  : Context for processor 'psu_cortexa53_0' is selected.
+23:46:34 INFO  : Processor reset is completed for 'psu_cortexa53_0'.
+23:46:35 INFO  : The application '/home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/sw/design_1_wrapper/boot/fsbl.elf' is downloaded to processor 'psu_cortexa53_0'.
+23:46:35 INFO  : 'set bp_46_35_fsbl_bp [bpadd -addr &XFsbl_Exit]' command is executed.
+23:47:17 WARN  : Exit breakpoint of FSBL (XFsbl_Exit) is not hit within allocated wait time of '60' seconds.
+Note: To wait for a fixed amount of time specify the FSBL function as empty in launch configuration. Use 'IDE_FSBL_BP_HIT_WAIT_TIME' environment variable in launch configuration to modify the wait time (seconds).
+Reason: 'con -block -timeout 60' is cancelled.
+23:47:17 INFO  : ----------------XSDB Script----------------
+connect -url tcp:127.0.0.1:3121
+source /tools/Xilinx/Vitis/2020.2/scripts/vitis/util/zynqmp_utils.tcl
+targets -set -nocase -filter {name =~"APU*"}
+rst -system
+after 3000
+targets -set -filter {jtag_cable_name =~ "Avnet USB-to-JTAG/UART Pod V1 1234-oj1A" && level==0 && jtag_device_ctx=="jsn-USB-to-JTAG/UART Pod V1-1234-oj1A-14710093-0"}
+fpga -file /home/y/fpga/project_9/workspace/hello/_ide/bitstream/design_1_wrapper.bit
+targets -set -nocase -filter {name =~"APU*"}
+loadhw -hw /home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/hw/design_1_wrapper.xsa -mem-ranges [list {0x80000000 0xbfffffff} {0x400000000 0x5ffffffff} {0x1000000000 0x7fffffffff}] -regs
+configparams force-mem-access 1
+targets -set -nocase -filter {name =~"APU*"}
+set mode [expr [mrd -value 0xFF5E0200] & 0xf]
+mask_write 0xFF5E0200 0xf000 0
+targets -set -nocase -filter {name =~ "*A53*#0"}
+rst -processor
+dow /home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/sw/design_1_wrapper/boot/fsbl.elf
+set bp_46_35_fsbl_bp [bpadd -addr &XFsbl_Exit]
+con -block -timeout 60
+bpremove $bp_46_35_fsbl_bp
+----------------End of Script----------------
+
+23:47:35 INFO  : Connected to target on host '127.0.0.1' and port '3121'.
+23:47:36 INFO  : Jtag cable 'Avnet USB-to-JTAG/UART Pod V1 1234-oj1A' is selected.
+23:47:36 INFO  : 'jtag frequency' command is executed.
+23:47:36 INFO  : Sourcing of '/tools/Xilinx/Vitis/2020.2/scripts/vitis/util/zynqmp_utils.tcl' is done.
+23:47:36 INFO  : Context for 'APU' is selected.
+23:47:36 INFO  : System reset is completed.
+23:47:40 INFO  : 'after 3000' command is executed.
+23:47:40 INFO  : 'targets -set -filter {jtag_cable_name =~ "Avnet USB-to-JTAG/UART Pod V1 1234-oj1A" && level==0 && jtag_device_ctx=="jsn-USB-to-JTAG/UART Pod V1-1234-oj1A-14710093-0"}' command is executed.
+23:47:43 INFO  : Device configured successfully with "/home/y/fpga/project_9/workspace/hello/_ide/bitstream/design_1_wrapper.bit"
+23:47:43 INFO  : Context for 'APU' is selected.
+23:47:43 INFO  : Hardware design and registers information is loaded from '/home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/hw/design_1_wrapper.xsa'.
+23:47:43 INFO  : 'configparams force-mem-access 1' command is executed.
+23:47:43 INFO  : Context for 'APU' is selected.
+23:47:43 INFO  : Boot mode is read from the target.
+23:47:43 INFO  : Context for processor 'psu_cortexa53_0' is selected.
+23:47:43 INFO  : Processor reset is completed for 'psu_cortexa53_0'.
+23:47:44 INFO  : The application '/home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/sw/design_1_wrapper/boot/fsbl.elf' is downloaded to processor 'psu_cortexa53_0'.
+23:47:44 INFO  : 'set bp_47_44_fsbl_bp [bpadd -addr &XFsbl_Exit]' command is executed.
+23:47:45 INFO  : 'con -block -timeout 60' command is executed.
+23:47:45 INFO  : 'bpremove $bp_47_44_fsbl_bp' command is executed.
+23:47:45 INFO  : Context for processor 'psu_cortexa53_0' is selected.
+23:47:45 INFO  : Processor reset is completed for 'psu_cortexa53_0'.
+23:47:45 INFO  : The application '/home/y/fpga/project_9/workspace/hello/Debug/hello.elf' is downloaded to processor 'psu_cortexa53_0'.
+23:47:45 INFO  : 'configparams force-mem-access 0' command is executed.
+23:47:45 INFO  : ----------------XSDB Script----------------
+connect -url tcp:127.0.0.1:3121
+source /tools/Xilinx/Vitis/2020.2/scripts/vitis/util/zynqmp_utils.tcl
+targets -set -nocase -filter {name =~"APU*"}
+rst -system
+after 3000
+targets -set -filter {jtag_cable_name =~ "Avnet USB-to-JTAG/UART Pod V1 1234-oj1A" && level==0 && jtag_device_ctx=="jsn-USB-to-JTAG/UART Pod V1-1234-oj1A-14710093-0"}
+fpga -file /home/y/fpga/project_9/workspace/hello/_ide/bitstream/design_1_wrapper.bit
+targets -set -nocase -filter {name =~"APU*"}
+loadhw -hw /home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/hw/design_1_wrapper.xsa -mem-ranges [list {0x80000000 0xbfffffff} {0x400000000 0x5ffffffff} {0x1000000000 0x7fffffffff}] -regs
+configparams force-mem-access 1
+targets -set -nocase -filter {name =~"APU*"}
+set mode [expr [mrd -value 0xFF5E0200] & 0xf]
+targets -set -nocase -filter {name =~ "*A53*#0"}
+rst -processor
+dow /home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/sw/design_1_wrapper/boot/fsbl.elf
+set bp_47_44_fsbl_bp [bpadd -addr &XFsbl_Exit]
+con -block -timeout 60
+bpremove $bp_47_44_fsbl_bp
+targets -set -nocase -filter {name =~ "*A53*#0"}
+rst -processor
+dow /home/y/fpga/project_9/workspace/hello/Debug/hello.elf
+configparams force-mem-access 0
+----------------End of Script----------------
+
+23:47:45 INFO  : Context for processor 'psu_cortexa53_0' is selected.
+23:47:45 INFO  : 'con' command is executed.
+23:47:45 INFO  : ----------------XSDB Script (After Launch)----------------
+targets -set -nocase -filter {name =~ "*A53*#0"}
+con
+----------------End of Script----------------
+
+23:47:45 INFO  : Launch script is exported to file '/home/y/fpga/project_9/workspace/hello_system/_ide/scripts/systemdebugger_hello_system_standalone.tcl'
+23:50:41 INFO  : Checking for BSP changes to sync application flags for project 'hello'...
+23:51:15 INFO  : Disconnected from the channel tcfchan#4.
+23:51:15 INFO  : Connected to target on host '127.0.0.1' and port '3121'.
+23:51:15 INFO  : Jtag cable 'Avnet USB-to-JTAG/UART Pod V1 1234-oj1A' is selected.
+23:51:15 INFO  : 'jtag frequency' command is executed.
+23:51:15 INFO  : Sourcing of '/tools/Xilinx/Vitis/2020.2/scripts/vitis/util/zynqmp_utils.tcl' is done.
+23:51:15 INFO  : Context for 'APU' is selected.
+23:51:16 INFO  : System reset is completed.
+23:51:19 INFO  : 'after 3000' command is executed.
+23:51:19 INFO  : 'targets -set -filter {jtag_cable_name =~ "Avnet USB-to-JTAG/UART Pod V1 1234-oj1A" && level==0 && jtag_device_ctx=="jsn-USB-to-JTAG/UART Pod V1-1234-oj1A-14710093-0"}' command is executed.
+23:51:22 INFO  : Device configured successfully with "/home/y/fpga/project_9/workspace/hello/_ide/bitstream/design_1_wrapper.bit"
+23:51:22 INFO  : Context for 'APU' is selected.
+23:51:22 INFO  : Hardware design and registers information is loaded from '/home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/hw/design_1_wrapper.xsa'.
+23:51:22 INFO  : 'configparams force-mem-access 1' command is executed.
+23:51:22 INFO  : Context for 'APU' is selected.
+23:51:22 INFO  : Boot mode is read from the target.
+23:51:22 INFO  : Context for processor 'psu_cortexa53_0' is selected.
+23:51:22 INFO  : Processor reset is completed for 'psu_cortexa53_0'.
+23:51:23 INFO  : The application '/home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/sw/design_1_wrapper/boot/fsbl.elf' is downloaded to processor 'psu_cortexa53_0'.
+23:51:23 INFO  : 'set bp_51_23_fsbl_bp [bpadd -addr &XFsbl_Exit]' command is executed.
+23:51:24 INFO  : 'con -block -timeout 60' command is executed.
+23:51:24 INFO  : 'bpremove $bp_51_23_fsbl_bp' command is executed.
+23:51:24 INFO  : Context for processor 'psu_cortexa53_0' is selected.
+23:51:24 INFO  : Processor reset is completed for 'psu_cortexa53_0'.
+23:51:24 INFO  : The application '/home/y/fpga/project_9/workspace/hello/Debug/hello.elf' is downloaded to processor 'psu_cortexa53_0'.
+23:51:24 INFO  : 'configparams force-mem-access 0' command is executed.
+23:51:24 INFO  : ----------------XSDB Script----------------
+connect -url tcp:127.0.0.1:3121
+source /tools/Xilinx/Vitis/2020.2/scripts/vitis/util/zynqmp_utils.tcl
+targets -set -nocase -filter {name =~"APU*"}
+rst -system
+after 3000
+targets -set -filter {jtag_cable_name =~ "Avnet USB-to-JTAG/UART Pod V1 1234-oj1A" && level==0 && jtag_device_ctx=="jsn-USB-to-JTAG/UART Pod V1-1234-oj1A-14710093-0"}
+fpga -file /home/y/fpga/project_9/workspace/hello/_ide/bitstream/design_1_wrapper.bit
+targets -set -nocase -filter {name =~"APU*"}
+loadhw -hw /home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/hw/design_1_wrapper.xsa -mem-ranges [list {0x80000000 0xbfffffff} {0x400000000 0x5ffffffff} {0x1000000000 0x7fffffffff}] -regs
+configparams force-mem-access 1
+targets -set -nocase -filter {name =~"APU*"}
+set mode [expr [mrd -value 0xFF5E0200] & 0xf]
+targets -set -nocase -filter {name =~ "*A53*#0"}
+rst -processor
+dow /home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/sw/design_1_wrapper/boot/fsbl.elf
+set bp_51_23_fsbl_bp [bpadd -addr &XFsbl_Exit]
+con -block -timeout 60
+bpremove $bp_51_23_fsbl_bp
+targets -set -nocase -filter {name =~ "*A53*#0"}
+rst -processor
+dow /home/y/fpga/project_9/workspace/hello/Debug/hello.elf
+configparams force-mem-access 0
+----------------End of Script----------------
+
+23:51:24 INFO  : Context for processor 'psu_cortexa53_0' is selected.
+23:51:24 INFO  : 'con' command is executed.
+23:51:24 INFO  : ----------------XSDB Script (After Launch)----------------
+targets -set -nocase -filter {name =~ "*A53*#0"}
+con
+----------------End of Script----------------
+
+23:51:24 INFO  : Launch script is exported to file '/home/y/fpga/project_9/workspace/hello_system/_ide/scripts/systemdebugger_hello_system_standalone.tcl'
+00:07:22 INFO  : Hardware specification for platform project 'design_1_wrapper' is updated.
+00:07:40 INFO  : Disconnected from the channel tcfchan#6.
+00:07:40 INFO  : Connected to target on host '127.0.0.1' and port '3121'.
+00:07:41 INFO  : Jtag cable 'Avnet USB-to-JTAG/UART Pod V1 1234-oj1A' is selected.
+00:07:41 INFO  : 'jtag frequency' command is executed.
+00:07:41 INFO  : Sourcing of '/tools/Xilinx/Vitis/2020.2/scripts/vitis/util/zynqmp_utils.tcl' is done.
+00:07:41 INFO  : Context for 'APU' is selected.
+00:07:41 INFO  : System reset is completed.
+00:07:44 INFO  : 'after 3000' command is executed.
+00:07:45 INFO  : 'targets -set -filter {jtag_cable_name =~ "Avnet USB-to-JTAG/UART Pod V1 1234-oj1A" && level==0 && jtag_device_ctx=="jsn-USB-to-JTAG/UART Pod V1-1234-oj1A-14710093-0"}' command is executed.
+00:07:48 INFO  : Device configured successfully with "/home/y/fpga/project_9/workspace/hello/_ide/bitstream/design_1_wrapper.bit"
+00:07:48 INFO  : Context for 'APU' is selected.
+00:07:48 INFO  : Hardware design and registers information is loaded from '/home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/hw/design_1_wrapper.xsa'.
+00:07:48 INFO  : 'configparams force-mem-access 1' command is executed.
+00:07:48 INFO  : Context for 'APU' is selected.
+00:07:48 INFO  : Boot mode is read from the target.
+00:07:48 INFO  : Context for processor 'psu_cortexa53_0' is selected.
+00:07:48 INFO  : Processor reset is completed for 'psu_cortexa53_0'.
+00:07:49 INFO  : The application '/home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/sw/design_1_wrapper/boot/fsbl.elf' is downloaded to processor 'psu_cortexa53_0'.
+00:07:49 INFO  : 'set bp_7_49_fsbl_bp [bpadd -addr &XFsbl_Exit]' command is executed.
+00:07:50 INFO  : 'con -block -timeout 60' command is executed.
+00:07:50 INFO  : 'bpremove $bp_7_49_fsbl_bp' command is executed.
+00:07:50 INFO  : Context for processor 'psu_cortexa53_0' is selected.
+00:07:50 INFO  : Processor reset is completed for 'psu_cortexa53_0'.
+00:07:50 INFO  : The application '/home/y/fpga/project_9/workspace/hello/Debug/hello.elf' is downloaded to processor 'psu_cortexa53_0'.
+00:07:50 INFO  : 'configparams force-mem-access 0' command is executed.
+00:07:50 INFO  : ----------------XSDB Script----------------
+connect -url tcp:127.0.0.1:3121
+source /tools/Xilinx/Vitis/2020.2/scripts/vitis/util/zynqmp_utils.tcl
+targets -set -nocase -filter {name =~"APU*"}
+rst -system
+after 3000
+targets -set -filter {jtag_cable_name =~ "Avnet USB-to-JTAG/UART Pod V1 1234-oj1A" && level==0 && jtag_device_ctx=="jsn-USB-to-JTAG/UART Pod V1-1234-oj1A-14710093-0"}
+fpga -file /home/y/fpga/project_9/workspace/hello/_ide/bitstream/design_1_wrapper.bit
+targets -set -nocase -filter {name =~"APU*"}
+loadhw -hw /home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/hw/design_1_wrapper.xsa -mem-ranges [list {0x80000000 0xbfffffff} {0x400000000 0x5ffffffff} {0x1000000000 0x7fffffffff}] -regs
+configparams force-mem-access 1
+targets -set -nocase -filter {name =~"APU*"}
+set mode [expr [mrd -value 0xFF5E0200] & 0xf]
+targets -set -nocase -filter {name =~ "*A53*#0"}
+rst -processor
+dow /home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/sw/design_1_wrapper/boot/fsbl.elf
+set bp_7_49_fsbl_bp [bpadd -addr &XFsbl_Exit]
+con -block -timeout 60
+bpremove $bp_7_49_fsbl_bp
+targets -set -nocase -filter {name =~ "*A53*#0"}
+rst -processor
+dow /home/y/fpga/project_9/workspace/hello/Debug/hello.elf
+configparams force-mem-access 0
+----------------End of Script----------------
+
+00:07:50 INFO  : Context for processor 'psu_cortexa53_0' is selected.
+00:07:50 INFO  : 'con' command is executed.
+00:07:50 INFO  : ----------------XSDB Script (After Launch)----------------
+targets -set -nocase -filter {name =~ "*A53*#0"}
+con
+----------------End of Script----------------
+
+00:07:50 INFO  : Launch script is exported to file '/home/y/fpga/project_9/workspace/hello_system/_ide/scripts/systemdebugger_hello_system_standalone.tcl'
+00:13:23 INFO  : Result from executing command 'getProjects': design_1_wrapper
+00:13:23 INFO  : Result from executing command 'getPlatforms': design_1_wrapper|/home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/design_1_wrapper.xpfm
+00:13:27 INFO  : Checking for BSP changes to sync application flags for project 'hello'...
+00:13:35 INFO  : The hardware specfication used by project 'hello' is out of sync with the platform. Resource files extracted from the hardware specfiication will be updated.
+00:13:35 INFO  : The file '/home/y/fpga/project_9/workspace/hello/_ide/bitstream/design_1_wrapper.bit' stored in project is removed.
+00:13:35 INFO  : The updated bitstream files are copied from platform to folder '/home/y/fpga/project_9/workspace/hello/_ide/bitstream' in project 'hello'.
+00:13:35 INFO  : The file '/home/y/fpga/project_9/workspace/hello/_ide/psinit/psu_init.tcl' stored in project is removed.
+00:13:36 INFO  : The updated ps init files are copied from platform to folder '/home/y/fpga/project_9/workspace/hello/_ide/psinit' in project 'hello'.
+00:23:47 INFO  : Disconnected from the channel tcfchan#7.
+00:23:47 INFO  : Connected to target on host '127.0.0.1' and port '3121'.
+00:23:47 INFO  : Jtag cable 'Avnet USB-to-JTAG/UART Pod V1 1234-oj1A' is selected.
+00:23:47 INFO  : 'jtag frequency' command is executed.
+00:23:47 INFO  : Sourcing of '/tools/Xilinx/Vitis/2020.2/scripts/vitis/util/zynqmp_utils.tcl' is done.
+00:23:47 INFO  : Context for 'APU' is selected.
+00:23:48 INFO  : System reset is completed.
+00:23:51 INFO  : 'after 3000' command is executed.
+00:23:51 INFO  : 'targets -set -filter {jtag_cable_name =~ "Avnet USB-to-JTAG/UART Pod V1 1234-oj1A" && level==0 && jtag_device_ctx=="jsn-USB-to-JTAG/UART Pod V1-1234-oj1A-14710093-0"}' command is executed.
+00:23:54 INFO  : Device configured successfully with "/home/y/fpga/project_9/workspace/hello/_ide/bitstream/design_1_wrapper.bit"
+00:23:55 INFO  : Context for 'APU' is selected.
+00:23:55 INFO  : Hardware design and registers information is loaded from '/home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/hw/design_1_wrapper.xsa'.
+00:23:55 INFO  : 'configparams force-mem-access 1' command is executed.
+00:23:55 INFO  : Context for 'APU' is selected.
+00:23:55 INFO  : Boot mode is read from the target.
+00:23:55 INFO  : Context for processor 'psu_cortexa53_0' is selected.
+00:23:55 INFO  : Processor reset is completed for 'psu_cortexa53_0'.
+00:23:55 INFO  : The application '/home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/sw/design_1_wrapper/boot/fsbl.elf' is downloaded to processor 'psu_cortexa53_0'.
+00:23:56 INFO  : 'set bp_23_55_fsbl_bp [bpadd -addr &XFsbl_Exit]' command is executed.
+00:23:57 INFO  : 'con -block -timeout 60' command is executed.
+00:23:57 INFO  : 'bpremove $bp_23_55_fsbl_bp' command is executed.
+00:23:57 INFO  : Context for processor 'psu_cortexa53_0' is selected.
+00:23:57 INFO  : Processor reset is completed for 'psu_cortexa53_0'.
+00:23:57 INFO  : The application '/home/y/fpga/project_9/workspace/hello/Debug/hello.elf' is downloaded to processor 'psu_cortexa53_0'.
+00:23:57 INFO  : 'configparams force-mem-access 0' command is executed.
+00:23:57 INFO  : ----------------XSDB Script----------------
+connect -url tcp:127.0.0.1:3121
+source /tools/Xilinx/Vitis/2020.2/scripts/vitis/util/zynqmp_utils.tcl
+targets -set -nocase -filter {name =~"APU*"}
+rst -system
+after 3000
+targets -set -filter {jtag_cable_name =~ "Avnet USB-to-JTAG/UART Pod V1 1234-oj1A" && level==0 && jtag_device_ctx=="jsn-USB-to-JTAG/UART Pod V1-1234-oj1A-14710093-0"}
+fpga -file /home/y/fpga/project_9/workspace/hello/_ide/bitstream/design_1_wrapper.bit
+targets -set -nocase -filter {name =~"APU*"}
+loadhw -hw /home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/hw/design_1_wrapper.xsa -mem-ranges [list {0x80000000 0xbfffffff} {0x400000000 0x5ffffffff} {0x1000000000 0x7fffffffff}] -regs
+configparams force-mem-access 1
+targets -set -nocase -filter {name =~"APU*"}
+set mode [expr [mrd -value 0xFF5E0200] & 0xf]
+targets -set -nocase -filter {name =~ "*A53*#0"}
+rst -processor
+dow /home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/sw/design_1_wrapper/boot/fsbl.elf
+set bp_23_55_fsbl_bp [bpadd -addr &XFsbl_Exit]
+con -block -timeout 60
+bpremove $bp_23_55_fsbl_bp
+targets -set -nocase -filter {name =~ "*A53*#0"}
+rst -processor
+dow /home/y/fpga/project_9/workspace/hello/Debug/hello.elf
+configparams force-mem-access 0
+----------------End of Script----------------
+
+00:23:57 INFO  : Context for processor 'psu_cortexa53_0' is selected.
+00:23:57 INFO  : 'con' command is executed.
+00:23:57 INFO  : ----------------XSDB Script (After Launch)----------------
+targets -set -nocase -filter {name =~ "*A53*#0"}
+con
+----------------End of Script----------------
+
+00:23:57 INFO  : Launch script is exported to file '/home/y/fpga/project_9/workspace/hello_system/_ide/scripts/systemdebugger_hello_system_standalone.tcl'
+00:25:37 INFO  : Checking for BSP changes to sync application flags for project 'hello'...
+00:25:59 INFO  : Checking for BSP changes to sync application flags for project 'hello'...
+00:26:25 INFO  : Disconnected from the channel tcfchan#10.
+00:26:25 INFO  : Connected to target on host '127.0.0.1' and port '3121'.
+00:26:25 INFO  : Jtag cable 'Avnet USB-to-JTAG/UART Pod V1 1234-oj1A' is selected.
+00:26:25 INFO  : 'jtag frequency' command is executed.
+00:26:25 INFO  : Sourcing of '/tools/Xilinx/Vitis/2020.2/scripts/vitis/util/zynqmp_utils.tcl' is done.
+00:26:25 INFO  : Context for 'APU' is selected.
+00:26:26 INFO  : System reset is completed.
+00:26:29 INFO  : 'after 3000' command is executed.
+00:26:29 INFO  : 'targets -set -filter {jtag_cable_name =~ "Avnet USB-to-JTAG/UART Pod V1 1234-oj1A" && level==0 && jtag_device_ctx=="jsn-USB-to-JTAG/UART Pod V1-1234-oj1A-14710093-0"}' command is executed.
+00:26:32 INFO  : Device configured successfully with "/home/y/fpga/project_9/workspace/hello/_ide/bitstream/design_1_wrapper.bit"
+00:26:32 INFO  : Context for 'APU' is selected.
+00:26:32 INFO  : Hardware design and registers information is loaded from '/home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/hw/design_1_wrapper.xsa'.
+00:26:32 INFO  : 'configparams force-mem-access 1' command is executed.
+00:26:32 INFO  : Context for 'APU' is selected.
+00:26:32 INFO  : Boot mode is read from the target.
+00:26:32 INFO  : Context for processor 'psu_cortexa53_0' is selected.
+00:26:32 INFO  : Processor reset is completed for 'psu_cortexa53_0'.
+00:26:33 INFO  : The application '/home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/sw/design_1_wrapper/boot/fsbl.elf' is downloaded to processor 'psu_cortexa53_0'.
+00:26:33 INFO  : 'set bp_26_33_fsbl_bp [bpadd -addr &XFsbl_Exit]' command is executed.
+00:26:34 INFO  : 'con -block -timeout 60' command is executed.
+00:26:34 INFO  : 'bpremove $bp_26_33_fsbl_bp' command is executed.
+00:26:34 INFO  : Context for processor 'psu_cortexa53_0' is selected.
+00:26:34 INFO  : Processor reset is completed for 'psu_cortexa53_0'.
+00:26:34 INFO  : The application '/home/y/fpga/project_9/workspace/hello/Debug/hello.elf' is downloaded to processor 'psu_cortexa53_0'.
+00:26:34 INFO  : 'configparams force-mem-access 0' command is executed.
+00:26:34 INFO  : ----------------XSDB Script----------------
+connect -url tcp:127.0.0.1:3121
+source /tools/Xilinx/Vitis/2020.2/scripts/vitis/util/zynqmp_utils.tcl
+targets -set -nocase -filter {name =~"APU*"}
+rst -system
+after 3000
+targets -set -filter {jtag_cable_name =~ "Avnet USB-to-JTAG/UART Pod V1 1234-oj1A" && level==0 && jtag_device_ctx=="jsn-USB-to-JTAG/UART Pod V1-1234-oj1A-14710093-0"}
+fpga -file /home/y/fpga/project_9/workspace/hello/_ide/bitstream/design_1_wrapper.bit
+targets -set -nocase -filter {name =~"APU*"}
+loadhw -hw /home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/hw/design_1_wrapper.xsa -mem-ranges [list {0x80000000 0xbfffffff} {0x400000000 0x5ffffffff} {0x1000000000 0x7fffffffff}] -regs
+configparams force-mem-access 1
+targets -set -nocase -filter {name =~"APU*"}
+set mode [expr [mrd -value 0xFF5E0200] & 0xf]
+targets -set -nocase -filter {name =~ "*A53*#0"}
+rst -processor
+dow /home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/sw/design_1_wrapper/boot/fsbl.elf
+set bp_26_33_fsbl_bp [bpadd -addr &XFsbl_Exit]
+con -block -timeout 60
+bpremove $bp_26_33_fsbl_bp
+targets -set -nocase -filter {name =~ "*A53*#0"}
+rst -processor
+dow /home/y/fpga/project_9/workspace/hello/Debug/hello.elf
+configparams force-mem-access 0
+----------------End of Script----------------
+
+00:26:34 INFO  : Context for processor 'psu_cortexa53_0' is selected.
+00:26:34 INFO  : 'con' command is executed.
+00:26:34 INFO  : ----------------XSDB Script (After Launch)----------------
+targets -set -nocase -filter {name =~ "*A53*#0"}
+con
+----------------End of Script----------------
+
+00:26:34 INFO  : Launch script is exported to file '/home/y/fpga/project_9/workspace/hello_system/_ide/scripts/systemdebugger_hello_system_standalone.tcl'
+00:42:29 INFO  : Hardware specification for platform project 'design_1_wrapper' is updated.
+00:42:47 INFO  : Disconnected from the channel tcfchan#13.
+00:42:47 INFO  : Connected to target on host '127.0.0.1' and port '3121'.
+00:42:47 INFO  : Jtag cable 'Avnet USB-to-JTAG/UART Pod V1 1234-oj1A' is selected.
+00:42:47 INFO  : 'jtag frequency' command is executed.
+00:42:47 INFO  : Sourcing of '/tools/Xilinx/Vitis/2020.2/scripts/vitis/util/zynqmp_utils.tcl' is done.
+00:42:47 INFO  : Context for 'APU' is selected.
+00:42:48 INFO  : System reset is completed.
+00:42:51 INFO  : 'after 3000' command is executed.
+00:42:51 INFO  : 'targets -set -filter {jtag_cable_name =~ "Avnet USB-to-JTAG/UART Pod V1 1234-oj1A" && level==0 && jtag_device_ctx=="jsn-USB-to-JTAG/UART Pod V1-1234-oj1A-14710093-0"}' command is executed.
+00:42:54 INFO  : Device configured successfully with "/home/y/fpga/project_9/workspace/hello/_ide/bitstream/design_1_wrapper.bit"
+00:42:54 INFO  : Context for 'APU' is selected.
+00:42:54 INFO  : Hardware design and registers information is loaded from '/home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/hw/design_1_wrapper.xsa'.
+00:42:54 INFO  : 'configparams force-mem-access 1' command is executed.
+00:42:54 INFO  : Context for 'APU' is selected.
+00:42:54 INFO  : Boot mode is read from the target.
+00:42:54 INFO  : Context for processor 'psu_cortexa53_0' is selected.
+00:42:54 INFO  : Processor reset is completed for 'psu_cortexa53_0'.
+00:42:55 INFO  : The application '/home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/sw/design_1_wrapper/boot/fsbl.elf' is downloaded to processor 'psu_cortexa53_0'.
+00:42:55 INFO  : 'set bp_42_55_fsbl_bp [bpadd -addr &XFsbl_Exit]' command is executed.
+00:42:56 INFO  : 'con -block -timeout 60' command is executed.
+00:42:56 INFO  : 'bpremove $bp_42_55_fsbl_bp' command is executed.
+00:42:56 INFO  : Context for processor 'psu_cortexa53_0' is selected.
+00:42:56 INFO  : Processor reset is completed for 'psu_cortexa53_0'.
+00:42:56 INFO  : The application '/home/y/fpga/project_9/workspace/hello/Debug/hello.elf' is downloaded to processor 'psu_cortexa53_0'.
+00:42:56 INFO  : 'configparams force-mem-access 0' command is executed.
+00:42:56 INFO  : ----------------XSDB Script----------------
+connect -url tcp:127.0.0.1:3121
+source /tools/Xilinx/Vitis/2020.2/scripts/vitis/util/zynqmp_utils.tcl
+targets -set -nocase -filter {name =~"APU*"}
+rst -system
+after 3000
+targets -set -filter {jtag_cable_name =~ "Avnet USB-to-JTAG/UART Pod V1 1234-oj1A" && level==0 && jtag_device_ctx=="jsn-USB-to-JTAG/UART Pod V1-1234-oj1A-14710093-0"}
+fpga -file /home/y/fpga/project_9/workspace/hello/_ide/bitstream/design_1_wrapper.bit
+targets -set -nocase -filter {name =~"APU*"}
+loadhw -hw /home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/hw/design_1_wrapper.xsa -mem-ranges [list {0x80000000 0xbfffffff} {0x400000000 0x5ffffffff} {0x1000000000 0x7fffffffff}] -regs
+configparams force-mem-access 1
+targets -set -nocase -filter {name =~"APU*"}
+set mode [expr [mrd -value 0xFF5E0200] & 0xf]
+targets -set -nocase -filter {name =~ "*A53*#0"}
+rst -processor
+dow /home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/sw/design_1_wrapper/boot/fsbl.elf
+set bp_42_55_fsbl_bp [bpadd -addr &XFsbl_Exit]
+con -block -timeout 60
+bpremove $bp_42_55_fsbl_bp
+targets -set -nocase -filter {name =~ "*A53*#0"}
+rst -processor
+dow /home/y/fpga/project_9/workspace/hello/Debug/hello.elf
+configparams force-mem-access 0
+----------------End of Script----------------
+
+00:42:56 INFO  : Context for processor 'psu_cortexa53_0' is selected.
+00:42:56 INFO  : 'con' command is executed.
+00:42:56 INFO  : ----------------XSDB Script (After Launch)----------------
+targets -set -nocase -filter {name =~ "*A53*#0"}
+con
+----------------End of Script----------------
+
+00:42:56 INFO  : Launch script is exported to file '/home/y/fpga/project_9/workspace/hello_system/_ide/scripts/systemdebugger_hello_system_standalone.tcl'
+01:21:14 INFO  : Disconnected from the channel tcfchan#14.
+19:09:03 INFO  : Launching XSCT server: xsct -n  -interactive /home/y/fpga/project_9/workspace/temp_xsdb_launch_script.tcl
+19:09:06 INFO  : XSCT server has started successfully.
+19:09:06 INFO  : Successfully done setting XSCT server connection channel  
+19:09:06 INFO  : plnx-install-location is set to ''
+19:09:06 INFO  : Successfully done setting workspace for the tool. 
+19:09:08 INFO  : Platform repository initialization has completed.
+19:09:08 INFO  : Registering command handlers for Vitis TCF services
+19:09:09 INFO  : Successfully done query RDI_DATADIR 
+19:09:45 INFO  : Hardware specification for platform project 'design_1_wrapper' is updated.
+19:10:35 INFO  : Connected to target on host '127.0.0.1' and port '3121'.
+19:10:35 INFO  : Jtag cable 'Avnet USB-to-JTAG/UART Pod V1 1234-oj1A' is selected.
+19:10:35 INFO  : 'jtag frequency' command is executed.
+19:10:35 INFO  : Sourcing of '/tools/Xilinx/Vitis/2020.2/scripts/vitis/util/zynqmp_utils.tcl' is done.
+19:10:35 INFO  : Context for 'APU' is selected.
+19:10:36 INFO  : System reset is completed.
+19:10:39 INFO  : 'after 3000' command is executed.
+19:10:39 INFO  : 'targets -set -filter {jtag_cable_name =~ "Avnet USB-to-JTAG/UART Pod V1 1234-oj1A" && level==0 && jtag_device_ctx=="jsn-USB-to-JTAG/UART Pod V1-1234-oj1A-14710093-0"}' command is executed.
+19:10:43 INFO  : Device configured successfully with "/home/y/fpga/project_9/workspace/hello/_ide/bitstream/design_1_wrapper.bit"
+19:10:43 INFO  : Context for 'APU' is selected.
+19:10:43 INFO  : Hardware design and registers information is loaded from '/home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/hw/design_1_wrapper.xsa'.
+19:10:43 INFO  : 'configparams force-mem-access 1' command is executed.
+19:10:43 INFO  : Context for 'APU' is selected.
+19:10:43 INFO  : Boot mode is read from the target.
+19:10:43 INFO  : Context for processor 'psu_cortexa53_0' is selected.
+19:10:43 INFO  : Processor reset is completed for 'psu_cortexa53_0'.
+19:10:44 INFO  : The application '/home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/sw/design_1_wrapper/boot/fsbl.elf' is downloaded to processor 'psu_cortexa53_0'.
+19:10:44 INFO  : 'set bp_10_44_fsbl_bp [bpadd -addr &XFsbl_Exit]' command is executed.
+19:10:45 INFO  : 'con -block -timeout 60' command is executed.
+19:10:45 INFO  : 'bpremove $bp_10_44_fsbl_bp' command is executed.
+19:10:45 INFO  : Context for processor 'psu_cortexa53_0' is selected.
+19:10:45 INFO  : Processor reset is completed for 'psu_cortexa53_0'.
+19:10:45 INFO  : The application '/home/y/fpga/project_9/workspace/hello/Debug/hello.elf' is downloaded to processor 'psu_cortexa53_0'.
+19:10:45 INFO  : 'configparams force-mem-access 0' command is executed.
+19:10:45 INFO  : ----------------XSDB Script----------------
+connect -url tcp:127.0.0.1:3121
+source /tools/Xilinx/Vitis/2020.2/scripts/vitis/util/zynqmp_utils.tcl
+targets -set -nocase -filter {name =~"APU*"}
+rst -system
+after 3000
+targets -set -filter {jtag_cable_name =~ "Avnet USB-to-JTAG/UART Pod V1 1234-oj1A" && level==0 && jtag_device_ctx=="jsn-USB-to-JTAG/UART Pod V1-1234-oj1A-14710093-0"}
+fpga -file /home/y/fpga/project_9/workspace/hello/_ide/bitstream/design_1_wrapper.bit
+targets -set -nocase -filter {name =~"APU*"}
+loadhw -hw /home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/hw/design_1_wrapper.xsa -mem-ranges [list {0x80000000 0xbfffffff} {0x400000000 0x5ffffffff} {0x1000000000 0x7fffffffff}] -regs
+configparams force-mem-access 1
+targets -set -nocase -filter {name =~"APU*"}
+set mode [expr [mrd -value 0xFF5E0200] & 0xf]
+targets -set -nocase -filter {name =~ "*A53*#0"}
+rst -processor
+dow /home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/sw/design_1_wrapper/boot/fsbl.elf
+set bp_10_44_fsbl_bp [bpadd -addr &XFsbl_Exit]
+con -block -timeout 60
+bpremove $bp_10_44_fsbl_bp
+targets -set -nocase -filter {name =~ "*A53*#0"}
+rst -processor
+dow /home/y/fpga/project_9/workspace/hello/Debug/hello.elf
+configparams force-mem-access 0
+----------------End of Script----------------
+
+19:10:45 INFO  : Context for processor 'psu_cortexa53_0' is selected.
+19:10:45 INFO  : 'con' command is executed.
+19:10:45 INFO  : ----------------XSDB Script (After Launch)----------------
+targets -set -nocase -filter {name =~ "*A53*#0"}
+con
+----------------End of Script----------------
+
+19:10:45 INFO  : Launch script is exported to file '/home/y/fpga/project_9/workspace/hello_system/_ide/scripts/systemdebugger_hello_system_standalone.tcl'
+19:40:46 INFO  : Result from executing command 'getProjects': design_1_wrapper
+19:40:46 INFO  : Result from executing command 'getPlatforms': design_1_wrapper|/home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/design_1_wrapper.xpfm
+19:40:49 INFO  : Checking for BSP changes to sync application flags for project 'hello'...
+19:40:58 INFO  : The hardware specfication used by project 'hello' is out of sync with the platform. Resource files extracted from the hardware specfiication will be updated.
+19:40:58 INFO  : The file '/home/y/fpga/project_9/workspace/hello/_ide/bitstream/design_1_wrapper.bit' stored in project is removed.
+19:40:58 INFO  : The updated bitstream files are copied from platform to folder '/home/y/fpga/project_9/workspace/hello/_ide/bitstream' in project 'hello'.
+19:40:58 INFO  : The file '/home/y/fpga/project_9/workspace/hello/_ide/psinit/psu_init.tcl' stored in project is removed.
+19:40:59 INFO  : The updated ps init files are copied from platform to folder '/home/y/fpga/project_9/workspace/hello/_ide/psinit' in project 'hello'.
+19:41:28 INFO  : Disconnected from the channel tcfchan#1.
+19:41:29 INFO  : Connected to target on host '127.0.0.1' and port '3121'.
+19:41:29 INFO  : Jtag cable 'Avnet USB-to-JTAG/UART Pod V1 1234-oj1A' is selected.
+19:41:29 INFO  : 'jtag frequency' command is executed.
+19:41:29 INFO  : Sourcing of '/tools/Xilinx/Vitis/2020.2/scripts/vitis/util/zynqmp_utils.tcl' is done.
+19:41:29 INFO  : Context for 'APU' is selected.
+19:41:30 INFO  : System reset is completed.
+19:41:33 INFO  : 'after 3000' command is executed.
+19:41:33 INFO  : 'targets -set -filter {jtag_cable_name =~ "Avnet USB-to-JTAG/UART Pod V1 1234-oj1A" && level==0 && jtag_device_ctx=="jsn-USB-to-JTAG/UART Pod V1-1234-oj1A-14710093-0"}' command is executed.
+19:41:36 INFO  : Device configured successfully with "/home/y/fpga/project_9/workspace/hello/_ide/bitstream/design_1_wrapper.bit"
+19:41:36 INFO  : Context for 'APU' is selected.
+19:41:36 INFO  : Hardware design and registers information is loaded from '/home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/hw/design_1_wrapper.xsa'.
+19:41:36 INFO  : 'configparams force-mem-access 1' command is executed.
+19:41:36 INFO  : Context for 'APU' is selected.
+19:41:36 INFO  : Boot mode is read from the target.
+19:41:36 INFO  : Context for processor 'psu_cortexa53_0' is selected.
+19:41:36 INFO  : Processor reset is completed for 'psu_cortexa53_0'.
+19:41:37 INFO  : The application '/home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/sw/design_1_wrapper/boot/fsbl.elf' is downloaded to processor 'psu_cortexa53_0'.
+19:41:37 INFO  : 'set bp_41_37_fsbl_bp [bpadd -addr &XFsbl_Exit]' command is executed.
+19:41:38 INFO  : 'con -block -timeout 60' command is executed.
+19:41:38 INFO  : 'bpremove $bp_41_37_fsbl_bp' command is executed.
+19:41:38 INFO  : Context for processor 'psu_cortexa53_0' is selected.
+19:41:38 INFO  : Processor reset is completed for 'psu_cortexa53_0'.
+19:41:38 INFO  : The application '/home/y/fpga/project_9/workspace/hello/Debug/hello.elf' is downloaded to processor 'psu_cortexa53_0'.
+19:41:38 INFO  : 'configparams force-mem-access 0' command is executed.
+19:41:38 INFO  : ----------------XSDB Script----------------
+connect -url tcp:127.0.0.1:3121
+source /tools/Xilinx/Vitis/2020.2/scripts/vitis/util/zynqmp_utils.tcl
+targets -set -nocase -filter {name =~"APU*"}
+rst -system
+after 3000
+targets -set -filter {jtag_cable_name =~ "Avnet USB-to-JTAG/UART Pod V1 1234-oj1A" && level==0 && jtag_device_ctx=="jsn-USB-to-JTAG/UART Pod V1-1234-oj1A-14710093-0"}
+fpga -file /home/y/fpga/project_9/workspace/hello/_ide/bitstream/design_1_wrapper.bit
+targets -set -nocase -filter {name =~"APU*"}
+loadhw -hw /home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/hw/design_1_wrapper.xsa -mem-ranges [list {0x80000000 0xbfffffff} {0x400000000 0x5ffffffff} {0x1000000000 0x7fffffffff}] -regs
+configparams force-mem-access 1
+targets -set -nocase -filter {name =~"APU*"}
+set mode [expr [mrd -value 0xFF5E0200] & 0xf]
+targets -set -nocase -filter {name =~ "*A53*#0"}
+rst -processor
+dow /home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/sw/design_1_wrapper/boot/fsbl.elf
+set bp_41_37_fsbl_bp [bpadd -addr &XFsbl_Exit]
+con -block -timeout 60
+bpremove $bp_41_37_fsbl_bp
+targets -set -nocase -filter {name =~ "*A53*#0"}
+rst -processor
+dow /home/y/fpga/project_9/workspace/hello/Debug/hello.elf
+configparams force-mem-access 0
+----------------End of Script----------------
+
+19:41:38 INFO  : Context for processor 'psu_cortexa53_0' is selected.
+19:41:39 INFO  : 'con' command is executed.
+19:41:39 INFO  : ----------------XSDB Script (After Launch)----------------
+targets -set -nocase -filter {name =~ "*A53*#0"}
+con
+----------------End of Script----------------
+
+19:41:39 INFO  : Launch script is exported to file '/home/y/fpga/project_9/workspace/hello_system/_ide/scripts/systemdebugger_hello_system_standalone.tcl'
+20:00:30 INFO  : Checking for BSP changes to sync application flags for project 'hello'...
+20:01:15 INFO  : Hardware specification for platform project 'design_1_wrapper' is updated.
+20:02:58 INFO  : Disconnected from the channel tcfchan#4.
+20:02:58 INFO  : Connected to target on host '127.0.0.1' and port '3121'.
+20:02:59 INFO  : Jtag cable 'Avnet USB-to-JTAG/UART Pod V1 1234-oj1A' is selected.
+20:02:59 INFO  : 'jtag frequency' command is executed.
+20:02:59 INFO  : Sourcing of '/tools/Xilinx/Vitis/2020.2/scripts/vitis/util/zynqmp_utils.tcl' is done.
+20:02:59 INFO  : Context for 'APU' is selected.
+20:02:59 INFO  : Cleared APU and A53 resets
+20:02:59 INFO  : Context for 'APU' is selected.
+20:02:59 INFO  : Hardware design and registers information is loaded from '/home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/hw/design_1_wrapper.xsa'.
+20:02:59 INFO  : 'configparams force-mem-access 1' command is executed.
+20:02:59 INFO  : Context for 'APU' is selected.
+20:02:59 INFO  : Boot mode is read from the target.
+20:02:59 INFO  : Context for processor 'psu_cortexa53_0' is selected.
+20:02:59 INFO  : Processor reset is completed for 'psu_cortexa53_0'.
+20:02:59 INFO  : The application '/home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/sw/design_1_wrapper/boot/fsbl.elf' is downloaded to processor 'psu_cortexa53_0'.
+20:02:59 INFO  : 'set bp_2_59_fsbl_bp [bpadd -addr &XFsbl_Exit]' command is executed.
+20:04:00 WARN  : Exit breakpoint of FSBL (XFsbl_Exit) is not hit within allocated wait time of '60' seconds.
+Note: To wait for a fixed amount of time specify the FSBL function as empty in launch configuration. Use 'IDE_FSBL_BP_HIT_WAIT_TIME' environment variable in launch configuration to modify the wait time (seconds).
+Reason: timeout: target has not halted
+20:04:00 INFO  : 'bpremove $bp_2_59_fsbl_bp' command is executed.
+20:04:07 INFO  : Context for processor 'psu_cortexa53_0' is selected.
+20:04:07 INFO  : Processor reset is completed for 'psu_cortexa53_0'.
+20:04:07 ERROR : Memory write error at 0xB00. Cortex-A53 #0: EDITR not ready
+20:04:07 INFO  : ----------------XSDB Script----------------
+connect -url tcp:127.0.0.1:3121
+source /tools/Xilinx/Vitis/2020.2/scripts/vitis/util/zynqmp_utils.tcl
+targets -set -nocase -filter {name =~"APU*"}
+reset_apu
+targets -set -nocase -filter {name =~"APU*"}
+loadhw -hw /home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/hw/design_1_wrapper.xsa -mem-ranges [list {0x80000000 0xbfffffff} {0x400000000 0x5ffffffff} {0x1000000000 0x7fffffffff}] -regs
+configparams force-mem-access 1
+targets -set -nocase -filter {name =~"APU*"}
+set mode [expr [mrd -value 0xFF5E0200] & 0xf]
+targets -set -nocase -filter {name =~ "*A53*#0"}
+rst -processor
+dow /home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/sw/design_1_wrapper/boot/fsbl.elf
+set bp_2_59_fsbl_bp [bpadd -addr &XFsbl_Exit]
+con -block -timeout 60
+bpremove $bp_2_59_fsbl_bp
+targets -set -nocase -filter {name =~ "*A53*#0"}
+rst -processor
+dow /home/y/fpga/project_9/workspace/hello/Debug/hello.elf
+----------------End of Script----------------
+
+20:04:07 ERROR : Memory write error at 0xB00. Cortex-A53 #0: EDITR not ready
+20:04:49 INFO  : Connected to target on host '127.0.0.1' and port '3121'.
+20:04:50 INFO  : Jtag cable 'Avnet USB-to-JTAG/UART Pod V1 1234-oj1A' is selected.
+20:04:50 INFO  : 'jtag frequency' command is executed.
+20:04:50 INFO  : Sourcing of '/tools/Xilinx/Vitis/2020.2/scripts/vitis/util/zynqmp_utils.tcl' is done.
+20:04:50 INFO  : Context for 'APU' is selected.
+20:04:50 INFO  : Hardware design and registers information is loaded from '/home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/hw/design_1_wrapper.xsa'.
+20:04:50 INFO  : 'configparams force-mem-access 1' command is executed.
+20:04:50 INFO  : Context for 'APU' is selected.
+20:04:50 INFO  : Boot mode is read from the target.
+20:04:50 INFO  : Context for processor 'psu_cortexa53_0' is selected.
+20:04:50 INFO  : Processor reset is completed for 'psu_cortexa53_0'.
+20:04:50 INFO  : The application '/home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/sw/design_1_wrapper/boot/fsbl.elf' is downloaded to processor 'psu_cortexa53_0'.
+20:04:50 INFO  : 'set bp_4_50_fsbl_bp [bpadd -addr &XFsbl_Exit]' command is executed.
+20:04:50 INFO  : 'con -block -timeout 60' command is executed.
+20:04:50 INFO  : 'bpremove $bp_4_50_fsbl_bp' command is executed.
+20:04:50 INFO  : Context for processor 'psu_cortexa53_0' is selected.
+20:04:50 INFO  : Processor reset is completed for 'psu_cortexa53_0'.
+20:04:51 INFO  : The application '/home/y/fpga/project_9/workspace/hello/Debug/hello.elf' is downloaded to processor 'psu_cortexa53_0'.
+20:04:51 INFO  : 'configparams force-mem-access 0' command is executed.
+20:04:51 INFO  : ----------------XSDB Script----------------
+connect -url tcp:127.0.0.1:3121
+source /tools/Xilinx/Vitis/2020.2/scripts/vitis/util/zynqmp_utils.tcl
+targets -set -nocase -filter {name =~"APU*"}
+loadhw -hw /home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/hw/design_1_wrapper.xsa -mem-ranges [list {0x80000000 0xbfffffff} {0x400000000 0x5ffffffff} {0x1000000000 0x7fffffffff}] -regs
+configparams force-mem-access 1
+targets -set -nocase -filter {name =~"APU*"}
+set mode [expr [mrd -value 0xFF5E0200] & 0xf]
+targets -set -nocase -filter {name =~ "*A53*#0"}
+rst -processor
+dow /home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/sw/design_1_wrapper/boot/fsbl.elf
+set bp_4_50_fsbl_bp [bpadd -addr &XFsbl_Exit]
+con -block -timeout 60
+bpremove $bp_4_50_fsbl_bp
+targets -set -nocase -filter {name =~ "*A53*#0"}
+rst -processor
+dow /home/y/fpga/project_9/workspace/hello/Debug/hello.elf
+configparams force-mem-access 0
+----------------End of Script----------------
+
+20:04:51 INFO  : Context for processor 'psu_cortexa53_0' is selected.
+20:04:51 INFO  : 'con' command is executed.
+20:04:51 INFO  : ----------------XSDB Script (After Launch)----------------
+targets -set -nocase -filter {name =~ "*A53*#0"}
+con
+----------------End of Script----------------
+
+20:04:51 INFO  : Launch script is exported to file '/home/y/fpga/project_9/workspace/hello_system/_ide/scripts/systemdebugger_hello_system_standalone.tcl'
+20:13:29 INFO  : Result from executing command 'getProjects': design_1_wrapper
+20:13:29 INFO  : Result from executing command 'getPlatforms': design_1_wrapper|/home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/design_1_wrapper.xpfm
+20:13:32 INFO  : Checking for BSP changes to sync application flags for project 'hello'...
+20:13:41 INFO  : The hardware specfication used by project 'hello' is out of sync with the platform. Resource files extracted from the hardware specfiication will be updated.
+20:13:41 INFO  : The file '/home/y/fpga/project_9/workspace/hello/_ide/bitstream/design_1_wrapper.bit' stored in project is removed.
+20:13:41 INFO  : The updated bitstream files are copied from platform to folder '/home/y/fpga/project_9/workspace/hello/_ide/bitstream' in project 'hello'.
+20:13:41 INFO  : The file '/home/y/fpga/project_9/workspace/hello/_ide/psinit/psu_init.tcl' stored in project is removed.
+20:13:43 INFO  : The updated ps init files are copied from platform to folder '/home/y/fpga/project_9/workspace/hello/_ide/psinit' in project 'hello'.
+20:15:09 INFO  : Disconnected from the channel tcfchan#6.
+20:15:09 INFO  : Connected to target on host '127.0.0.1' and port '3121'.
+20:15:10 INFO  : Jtag cable 'Avnet USB-to-JTAG/UART Pod V1 1234-oj1A' is selected.
+20:15:10 INFO  : 'jtag frequency' command is executed.
+20:15:10 INFO  : Sourcing of '/tools/Xilinx/Vitis/2020.2/scripts/vitis/util/zynqmp_utils.tcl' is done.
+20:15:10 INFO  : Context for 'APU' is selected.
+20:15:10 INFO  : Hardware design and registers information is loaded from '/home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/hw/design_1_wrapper.xsa'.
+20:15:10 INFO  : 'configparams force-mem-access 1' command is executed.
+20:15:10 INFO  : Context for 'APU' is selected.
+20:15:10 INFO  : Boot mode is read from the target.
+20:15:10 INFO  : Context for processor 'psu_cortexa53_0' is selected.
+20:15:10 INFO  : Processor reset is completed for 'psu_cortexa53_0'.
+20:15:11 INFO  : The application '/home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/sw/design_1_wrapper/boot/fsbl.elf' is downloaded to processor 'psu_cortexa53_0'.
+20:15:11 INFO  : 'set bp_15_11_fsbl_bp [bpadd -addr &XFsbl_Exit]' command is executed.
+20:15:12 INFO  : 'con -block -timeout 60' command is executed.
+20:15:12 INFO  : 'bpremove $bp_15_11_fsbl_bp' command is executed.
+20:15:12 INFO  : Context for processor 'psu_cortexa53_0' is selected.
+20:15:12 INFO  : Processor reset is completed for 'psu_cortexa53_0'.
+20:15:12 INFO  : The application '/home/y/fpga/project_9/workspace/hello/Debug/hello.elf' is downloaded to processor 'psu_cortexa53_0'.
+20:15:12 INFO  : 'configparams force-mem-access 0' command is executed.
+20:15:12 INFO  : ----------------XSDB Script----------------
+connect -url tcp:127.0.0.1:3121
+source /tools/Xilinx/Vitis/2020.2/scripts/vitis/util/zynqmp_utils.tcl
+targets -set -nocase -filter {name =~"APU*"}
+loadhw -hw /home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/hw/design_1_wrapper.xsa -mem-ranges [list {0x80000000 0xbfffffff} {0x400000000 0x5ffffffff} {0x1000000000 0x7fffffffff}] -regs
+configparams force-mem-access 1
+targets -set -nocase -filter {name =~"APU*"}
+set mode [expr [mrd -value 0xFF5E0200] & 0xf]
+targets -set -nocase -filter {name =~ "*A53*#0"}
+rst -processor
+dow /home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/sw/design_1_wrapper/boot/fsbl.elf
+set bp_15_11_fsbl_bp [bpadd -addr &XFsbl_Exit]
+con -block -timeout 60
+bpremove $bp_15_11_fsbl_bp
+targets -set -nocase -filter {name =~ "*A53*#0"}
+rst -processor
+dow /home/y/fpga/project_9/workspace/hello/Debug/hello.elf
+configparams force-mem-access 0
+----------------End of Script----------------
+
+20:15:12 INFO  : Context for processor 'psu_cortexa53_0' is selected.
+20:15:12 INFO  : 'con' command is executed.
+20:15:12 INFO  : ----------------XSDB Script (After Launch)----------------
+targets -set -nocase -filter {name =~ "*A53*#0"}
+con
+----------------End of Script----------------
+
+20:15:12 INFO  : Launch script is exported to file '/home/y/fpga/project_9/workspace/hello_system/_ide/scripts/systemdebugger_hello_system_standalone.tcl'
+23:14:57 INFO  : Disconnected from the channel tcfchan#9.
+23:14:57 INFO  : Connected to target on host '127.0.0.1' and port '3121'.
+23:14:57 INFO  : Jtag cable 'Avnet USB-to-JTAG/UART Pod V1 1234-oj1A' is selected.
+23:14:57 INFO  : 'jtag frequency' command is executed.
+23:14:57 INFO  : Sourcing of '/tools/Xilinx/Vitis/2020.2/scripts/vitis/util/zynqmp_utils.tcl' is done.
+23:14:57 INFO  : Context for 'APU' is selected.
+23:14:57 INFO  : Hardware design and registers information is loaded from '/home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/hw/design_1_wrapper.xsa'.
+23:14:57 INFO  : 'configparams force-mem-access 1' command is executed.
+23:14:57 INFO  : Context for 'APU' is selected.
+23:14:57 INFO  : Boot mode is read from the target.
+23:14:57 INFO  : Context for processor 'psu_cortexa53_0' is selected.
+23:14:57 INFO  : Processor reset is completed for 'psu_cortexa53_0'.
+23:14:58 INFO  : The application '/home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/sw/design_1_wrapper/boot/fsbl.elf' is downloaded to processor 'psu_cortexa53_0'.
+23:14:58 INFO  : 'set bp_14_58_fsbl_bp [bpadd -addr &XFsbl_Exit]' command is executed.
+23:14:59 INFO  : 'con -block -timeout 60' command is executed.
+23:14:59 INFO  : 'bpremove $bp_14_58_fsbl_bp' command is executed.
+23:14:59 INFO  : Context for processor 'psu_cortexa53_0' is selected.
+23:14:59 INFO  : Processor reset is completed for 'psu_cortexa53_0'.
+23:14:59 INFO  : The application '/home/y/fpga/project_9/workspace/hello/Debug/hello.elf' is downloaded to processor 'psu_cortexa53_0'.
+23:14:59 INFO  : 'configparams force-mem-access 0' command is executed.
+23:14:59 INFO  : ----------------XSDB Script----------------
+connect -url tcp:127.0.0.1:3121
+source /tools/Xilinx/Vitis/2020.2/scripts/vitis/util/zynqmp_utils.tcl
+targets -set -nocase -filter {name =~"APU*"}
+loadhw -hw /home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/hw/design_1_wrapper.xsa -mem-ranges [list {0x80000000 0xbfffffff} {0x400000000 0x5ffffffff} {0x1000000000 0x7fffffffff}] -regs
+configparams force-mem-access 1
+targets -set -nocase -filter {name =~"APU*"}
+set mode [expr [mrd -value 0xFF5E0200] & 0xf]
+targets -set -nocase -filter {name =~ "*A53*#0"}
+rst -processor
+dow /home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/sw/design_1_wrapper/boot/fsbl.elf
+set bp_14_58_fsbl_bp [bpadd -addr &XFsbl_Exit]
+con -block -timeout 60
+bpremove $bp_14_58_fsbl_bp
+targets -set -nocase -filter {name =~ "*A53*#0"}
+rst -processor
+dow /home/y/fpga/project_9/workspace/hello/Debug/hello.elf
+configparams force-mem-access 0
+----------------End of Script----------------
+
+23:14:59 INFO  : Context for processor 'psu_cortexa53_0' is selected.
+23:15:00 INFO  : 'con' command is executed.
+23:15:00 INFO  : ----------------XSDB Script (After Launch)----------------
+targets -set -nocase -filter {name =~ "*A53*#0"}
+con
+----------------End of Script----------------
+
+23:15:00 INFO  : Launch script is exported to file '/home/y/fpga/project_9/workspace/hello_system/_ide/scripts/systemdebugger_hello_system_standalone.tcl'
+02:10:34 INFO  : Disconnected from the channel tcfchan#10.
+12:35:28 INFO  : Launching XSCT server: xsct -n  -interactive /home/y/fpga/project_9/workspace/temp_xsdb_launch_script.tcl
+12:35:31 INFO  : XSCT server has started successfully.
+12:35:31 INFO  : plnx-install-location is set to ''
+12:35:31 INFO  : Successfully done setting XSCT server connection channel  
+12:35:31 INFO  : Successfully done setting workspace for the tool. 
+12:35:32 INFO  : Platform repository initialization has completed.
+12:35:33 INFO  : Registering command handlers for Vitis TCF services
+12:35:33 INFO  : Successfully done query RDI_DATADIR 
+22:46:18 INFO  : Launching XSCT server: xsct -n  -interactive /home/y/fpga/project_9/workspace/temp_xsdb_launch_script.tcl
+22:46:21 INFO  : XSCT server has started successfully.
+22:46:21 INFO  : Successfully done setting XSCT server connection channel  
+22:46:21 INFO  : plnx-install-location is set to ''
+22:46:21 INFO  : Successfully done setting workspace for the tool. 
+22:46:23 INFO  : Platform repository initialization has completed.
+22:46:23 INFO  : Registering command handlers for Vitis TCF services
+22:46:24 INFO  : Successfully done query RDI_DATADIR 
+22:57:35 INFO  : Connected to target on host '127.0.0.1' and port '3121'.
+22:57:35 INFO  : Jtag cable 'Avnet USB-to-JTAG/UART Pod V1 1234-oj1A' is selected.
+22:57:35 INFO  : 'jtag frequency' command is executed.
+22:57:35 INFO  : Sourcing of '/tools/Xilinx/Vitis/2020.2/scripts/vitis/util/zynqmp_utils.tcl' is done.
+22:57:35 INFO  : Context for 'APU' is selected.
+22:57:36 INFO  : Hardware design and registers information is loaded from '/home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/hw/design_1_wrapper.xsa'.
+22:57:36 INFO  : 'configparams force-mem-access 1' command is executed.
+22:57:36 INFO  : Context for 'APU' is selected.
+22:57:36 INFO  : Boot mode is read from the target.
+22:57:36 INFO  : Context for processor 'psu_cortexa53_0' is selected.
+22:57:36 INFO  : Processor reset is completed for 'psu_cortexa53_0'.
+22:57:36 INFO  : The application '/home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/sw/design_1_wrapper/boot/fsbl.elf' is downloaded to processor 'psu_cortexa53_0'.
+22:57:36 INFO  : 'set bp_57_36_fsbl_bp [bpadd -addr &XFsbl_Exit]' command is executed.
+22:57:37 INFO  : 'con -block -timeout 60' command is executed.
+22:57:37 INFO  : 'bpremove $bp_57_36_fsbl_bp' command is executed.
+22:57:37 INFO  : Context for processor 'psu_cortexa53_0' is selected.
+22:57:37 INFO  : Processor reset is completed for 'psu_cortexa53_0'.
+22:57:38 INFO  : The application '/home/y/fpga/project_9/workspace/hello/Debug/hello.elf' is downloaded to processor 'psu_cortexa53_0'.
+22:57:38 INFO  : 'configparams force-mem-access 0' command is executed.
+22:57:38 INFO  : ----------------XSDB Script----------------
+connect -url tcp:127.0.0.1:3121
+source /tools/Xilinx/Vitis/2020.2/scripts/vitis/util/zynqmp_utils.tcl
+targets -set -nocase -filter {name =~"APU*"}
+loadhw -hw /home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/hw/design_1_wrapper.xsa -mem-ranges [list {0x80000000 0xbfffffff} {0x400000000 0x5ffffffff} {0x1000000000 0x7fffffffff}] -regs
+configparams force-mem-access 1
+targets -set -nocase -filter {name =~"APU*"}
+set mode [expr [mrd -value 0xFF5E0200] & 0xf]
+targets -set -nocase -filter {name =~ "*A53*#0"}
+rst -processor
+dow /home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/sw/design_1_wrapper/boot/fsbl.elf
+set bp_57_36_fsbl_bp [bpadd -addr &XFsbl_Exit]
+con -block -timeout 60
+bpremove $bp_57_36_fsbl_bp
+targets -set -nocase -filter {name =~ "*A53*#0"}
+rst -processor
+dow /home/y/fpga/project_9/workspace/hello/Debug/hello.elf
+configparams force-mem-access 0
+----------------End of Script----------------
+
+22:57:38 INFO  : Context for processor 'psu_cortexa53_0' is selected.
+22:57:38 INFO  : 'con' command is executed.
+22:57:38 INFO  : ----------------XSDB Script (After Launch)----------------
+targets -set -nocase -filter {name =~ "*A53*#0"}
+con
+----------------End of Script----------------
+
+22:57:38 INFO  : Launch script is exported to file '/home/y/fpga/project_9/workspace/hello_system/_ide/scripts/systemdebugger_hello_system_standalone.tcl'
+00:30:02 INFO  : Disconnected from the channel tcfchan#1.
+20:13:54 INFO  : Launching XSCT server: xsct -n  -interactive /home/y/fpga/project_9/workspace/temp_xsdb_launch_script.tcl
+20:13:57 INFO  : XSCT server has started successfully.
+20:13:57 INFO  : Successfully done setting XSCT server connection channel  
+20:13:57 INFO  : plnx-install-location is set to ''
+20:13:57 INFO  : Successfully done setting workspace for the tool. 
+20:13:58 INFO  : Platform repository initialization has completed.
+20:13:58 INFO  : Registering command handlers for Vitis TCF services
+20:13:59 INFO  : Successfully done query RDI_DATADIR 
+20:15:43 INFO  : Hardware specification for platform project 'design_1_wrapper' is updated.
+21:23:17 INFO  : Connected to target on host '127.0.0.1' and port '3121'.
+21:23:17 INFO  : Jtag cable 'Avnet USB-to-JTAG/UART Pod V1 1234-oj1A' is selected.
+21:23:17 INFO  : 'jtag frequency' command is executed.
+21:23:17 INFO  : Sourcing of '/tools/Xilinx/Vitis/2020.2/scripts/vitis/util/zynqmp_utils.tcl' is done.
+21:23:17 INFO  : Context for 'APU' is selected.
+21:23:18 INFO  : Hardware design and registers information is loaded from '/home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/hw/design_1_wrapper.xsa'.
+21:23:18 INFO  : 'configparams force-mem-access 1' command is executed.
+21:23:18 INFO  : Context for 'APU' is selected.
+21:23:18 INFO  : Boot mode is read from the target.
+21:23:18 INFO  : Context for processor 'psu_cortexa53_0' is selected.
+21:23:18 INFO  : Processor reset is completed for 'psu_cortexa53_0'.
+21:23:18 INFO  : The application '/home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/sw/design_1_wrapper/boot/fsbl.elf' is downloaded to processor 'psu_cortexa53_0'.
+21:23:19 INFO  : 'set bp_23_18_fsbl_bp [bpadd -addr &XFsbl_Exit]' command is executed.
+21:23:19 INFO  : 'con -block -timeout 60' command is executed.
+21:23:19 INFO  : 'bpremove $bp_23_18_fsbl_bp' command is executed.
+21:23:19 INFO  : Context for processor 'psu_cortexa53_0' is selected.
+21:23:19 INFO  : Processor reset is completed for 'psu_cortexa53_0'.
+21:23:19 INFO  : The application '/home/y/fpga/project_9/workspace/hello/Debug/hello.elf' is downloaded to processor 'psu_cortexa53_0'.
+21:23:19 INFO  : 'configparams force-mem-access 0' command is executed.
+21:23:19 INFO  : ----------------XSDB Script----------------
+connect -url tcp:127.0.0.1:3121
+source /tools/Xilinx/Vitis/2020.2/scripts/vitis/util/zynqmp_utils.tcl
+targets -set -nocase -filter {name =~"APU*"}
+loadhw -hw /home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/hw/design_1_wrapper.xsa -mem-ranges [list {0x80000000 0xbfffffff} {0x400000000 0x5ffffffff} {0x1000000000 0x7fffffffff}] -regs
+configparams force-mem-access 1
+targets -set -nocase -filter {name =~"APU*"}
+set mode [expr [mrd -value 0xFF5E0200] & 0xf]
+targets -set -nocase -filter {name =~ "*A53*#0"}
+rst -processor
+dow /home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/sw/design_1_wrapper/boot/fsbl.elf
+set bp_23_18_fsbl_bp [bpadd -addr &XFsbl_Exit]
+con -block -timeout 60
+bpremove $bp_23_18_fsbl_bp
+targets -set -nocase -filter {name =~ "*A53*#0"}
+rst -processor
+dow /home/y/fpga/project_9/workspace/hello/Debug/hello.elf
+configparams force-mem-access 0
+----------------End of Script----------------
+
+21:23:19 INFO  : Context for processor 'psu_cortexa53_0' is selected.
+21:23:19 INFO  : 'con' command is executed.
+21:23:19 INFO  : ----------------XSDB Script (After Launch)----------------
+targets -set -nocase -filter {name =~ "*A53*#0"}
+con
+----------------End of Script----------------
+
+21:23:19 INFO  : Launch script is exported to file '/home/y/fpga/project_9/workspace/hello_system/_ide/scripts/systemdebugger_hello_system_standalone.tcl'
+21:25:30 INFO  : Result from executing command 'getProjects': design_1_wrapper
+21:25:30 INFO  : Result from executing command 'getPlatforms': design_1_wrapper|/home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/design_1_wrapper.xpfm
+21:25:57 INFO  : Checking for BSP changes to sync application flags for project 'hello'...
+21:26:07 INFO  : The hardware specfication used by project 'hello' is out of sync with the platform. Resource files extracted from the hardware specfiication will be updated.
+21:26:08 INFO  : The updated bitstream files are copied from platform to folder '/home/y/fpga/project_9/workspace/hello/_ide/bitstream' in project 'hello'.
+21:26:08 INFO  : The file '/home/y/fpga/project_9/workspace/hello/_ide/psinit/psu_init.tcl' stored in project is removed.
+21:26:08 INFO  : The updated ps init files are copied from platform to folder '/home/y/fpga/project_9/workspace/hello/_ide/psinit' in project 'hello'.
+21:26:40 INFO  : Disconnected from the channel tcfchan#1.
+21:26:40 INFO  : Connected to target on host '127.0.0.1' and port '3121'.
+21:26:40 INFO  : Jtag cable 'Avnet USB-to-JTAG/UART Pod V1 1234-oj1A' is selected.
+21:26:40 INFO  : 'jtag frequency' command is executed.
+21:26:40 INFO  : Sourcing of '/tools/Xilinx/Vitis/2020.2/scripts/vitis/util/zynqmp_utils.tcl' is done.
+21:26:40 INFO  : Context for 'APU' is selected.
+21:26:41 INFO  : System reset is completed.
+21:26:44 INFO  : 'after 3000' command is executed.
+21:26:44 INFO  : 'targets -set -filter {jtag_cable_name =~ "Avnet USB-to-JTAG/UART Pod V1 1234-oj1A" && level==0 && jtag_device_ctx=="jsn-USB-to-JTAG/UART Pod V1-1234-oj1A-14710093-0"}' command is executed.
+21:26:47 INFO  : Device configured successfully with "/home/y/fpga/project_9/workspace/hello/_ide/bitstream/design_1_wrapper.bit"
+21:26:47 INFO  : Context for 'APU' is selected.
+21:26:48 INFO  : Hardware design and registers information is loaded from '/home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/hw/design_1_wrapper.xsa'.
+21:26:48 INFO  : 'configparams force-mem-access 1' command is executed.
+21:26:48 INFO  : Context for 'APU' is selected.
+21:26:48 INFO  : Boot mode is read from the target.
+21:26:48 INFO  : Context for processor 'psu_cortexa53_0' is selected.
+21:26:48 INFO  : Processor reset is completed for 'psu_cortexa53_0'.
+21:26:49 INFO  : The application '/home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/sw/design_1_wrapper/boot/fsbl.elf' is downloaded to processor 'psu_cortexa53_0'.
+21:26:49 INFO  : 'set bp_26_49_fsbl_bp [bpadd -addr &XFsbl_Exit]' command is executed.
+21:26:49 INFO  : 'con -block -timeout 60' command is executed.
+21:26:49 INFO  : 'bpremove $bp_26_49_fsbl_bp' command is executed.
+21:26:49 INFO  : Context for processor 'psu_cortexa53_0' is selected.
+21:26:49 INFO  : Processor reset is completed for 'psu_cortexa53_0'.
+21:26:49 INFO  : The application '/home/y/fpga/project_9/workspace/hello/Debug/hello.elf' is downloaded to processor 'psu_cortexa53_0'.
+21:26:49 INFO  : 'configparams force-mem-access 0' command is executed.
+21:26:49 INFO  : ----------------XSDB Script----------------
+connect -url tcp:127.0.0.1:3121
+source /tools/Xilinx/Vitis/2020.2/scripts/vitis/util/zynqmp_utils.tcl
+targets -set -nocase -filter {name =~"APU*"}
+rst -system
+after 3000
+targets -set -filter {jtag_cable_name =~ "Avnet USB-to-JTAG/UART Pod V1 1234-oj1A" && level==0 && jtag_device_ctx=="jsn-USB-to-JTAG/UART Pod V1-1234-oj1A-14710093-0"}
+fpga -file /home/y/fpga/project_9/workspace/hello/_ide/bitstream/design_1_wrapper.bit
+targets -set -nocase -filter {name =~"APU*"}
+loadhw -hw /home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/hw/design_1_wrapper.xsa -mem-ranges [list {0x80000000 0xbfffffff} {0x400000000 0x5ffffffff} {0x1000000000 0x7fffffffff}] -regs
+configparams force-mem-access 1
+targets -set -nocase -filter {name =~"APU*"}
+set mode [expr [mrd -value 0xFF5E0200] & 0xf]
+targets -set -nocase -filter {name =~ "*A53*#0"}
+rst -processor
+dow /home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/sw/design_1_wrapper/boot/fsbl.elf
+set bp_26_49_fsbl_bp [bpadd -addr &XFsbl_Exit]
+con -block -timeout 60
+bpremove $bp_26_49_fsbl_bp
+targets -set -nocase -filter {name =~ "*A53*#0"}
+rst -processor
+dow /home/y/fpga/project_9/workspace/hello/Debug/hello.elf
+configparams force-mem-access 0
+----------------End of Script----------------
+
+21:26:49 INFO  : Context for processor 'psu_cortexa53_0' is selected.
+21:26:49 INFO  : 'con' command is executed.
+21:26:49 INFO  : ----------------XSDB Script (After Launch)----------------
+targets -set -nocase -filter {name =~ "*A53*#0"}
+con
+----------------End of Script----------------
+
+21:26:49 INFO  : Launch script is exported to file '/home/y/fpga/project_9/workspace/hello_system/_ide/scripts/systemdebugger_hello_system_standalone.tcl'
+21:31:12 INFO  : Checking for BSP changes to sync application flags for project 'hello'...
+21:31:26 INFO  : Disconnected from the channel tcfchan#4.
+21:31:26 INFO  : Connected to target on host '127.0.0.1' and port '3121'.
+21:31:26 INFO  : Jtag cable 'Avnet USB-to-JTAG/UART Pod V1 1234-oj1A' is selected.
+21:31:26 INFO  : 'jtag frequency' command is executed.
+21:31:26 INFO  : Sourcing of '/tools/Xilinx/Vitis/2020.2/scripts/vitis/util/zynqmp_utils.tcl' is done.
+21:31:26 INFO  : Context for 'APU' is selected.
+21:31:27 INFO  : System reset is completed.
+21:31:30 INFO  : 'after 3000' command is executed.
+21:31:30 INFO  : 'targets -set -filter {jtag_cable_name =~ "Avnet USB-to-JTAG/UART Pod V1 1234-oj1A" && level==0 && jtag_device_ctx=="jsn-USB-to-JTAG/UART Pod V1-1234-oj1A-14710093-0"}' command is executed.
+21:31:33 INFO  : Device configured successfully with "/home/y/fpga/project_9/workspace/hello/_ide/bitstream/design_1_wrapper.bit"
+21:31:33 INFO  : Context for 'APU' is selected.
+21:31:33 INFO  : Hardware design and registers information is loaded from '/home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/hw/design_1_wrapper.xsa'.
+21:31:33 INFO  : 'configparams force-mem-access 1' command is executed.
+21:31:33 INFO  : Context for 'APU' is selected.
+21:31:33 INFO  : Boot mode is read from the target.
+21:31:33 INFO  : Context for processor 'psu_cortexa53_0' is selected.
+21:31:33 INFO  : Processor reset is completed for 'psu_cortexa53_0'.
+21:31:34 INFO  : The application '/home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/sw/design_1_wrapper/boot/fsbl.elf' is downloaded to processor 'psu_cortexa53_0'.
+21:31:34 INFO  : 'set bp_31_34_fsbl_bp [bpadd -addr &XFsbl_Exit]' command is executed.
+21:31:35 INFO  : 'con -block -timeout 60' command is executed.
+21:31:35 INFO  : 'bpremove $bp_31_34_fsbl_bp' command is executed.
+21:31:35 INFO  : Context for processor 'psu_cortexa53_0' is selected.
+21:31:35 INFO  : Processor reset is completed for 'psu_cortexa53_0'.
+21:31:35 INFO  : The application '/home/y/fpga/project_9/workspace/hello/Debug/hello.elf' is downloaded to processor 'psu_cortexa53_0'.
+21:31:35 INFO  : 'configparams force-mem-access 0' command is executed.
+21:31:35 INFO  : ----------------XSDB Script----------------
+connect -url tcp:127.0.0.1:3121
+source /tools/Xilinx/Vitis/2020.2/scripts/vitis/util/zynqmp_utils.tcl
+targets -set -nocase -filter {name =~"APU*"}
+rst -system
+after 3000
+targets -set -filter {jtag_cable_name =~ "Avnet USB-to-JTAG/UART Pod V1 1234-oj1A" && level==0 && jtag_device_ctx=="jsn-USB-to-JTAG/UART Pod V1-1234-oj1A-14710093-0"}
+fpga -file /home/y/fpga/project_9/workspace/hello/_ide/bitstream/design_1_wrapper.bit
+targets -set -nocase -filter {name =~"APU*"}
+loadhw -hw /home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/hw/design_1_wrapper.xsa -mem-ranges [list {0x80000000 0xbfffffff} {0x400000000 0x5ffffffff} {0x1000000000 0x7fffffffff}] -regs
+configparams force-mem-access 1
+targets -set -nocase -filter {name =~"APU*"}
+set mode [expr [mrd -value 0xFF5E0200] & 0xf]
+targets -set -nocase -filter {name =~ "*A53*#0"}
+rst -processor
+dow /home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/sw/design_1_wrapper/boot/fsbl.elf
+set bp_31_34_fsbl_bp [bpadd -addr &XFsbl_Exit]
+con -block -timeout 60
+bpremove $bp_31_34_fsbl_bp
+targets -set -nocase -filter {name =~ "*A53*#0"}
+rst -processor
+dow /home/y/fpga/project_9/workspace/hello/Debug/hello.elf
+configparams force-mem-access 0
+----------------End of Script----------------
+
+21:31:35 INFO  : Context for processor 'psu_cortexa53_0' is selected.
+21:31:36 INFO  : 'con' command is executed.
+21:31:36 INFO  : ----------------XSDB Script (After Launch)----------------
+targets -set -nocase -filter {name =~ "*A53*#0"}
+con
+----------------End of Script----------------
+
+21:31:36 INFO  : Launch script is exported to file '/home/y/fpga/project_9/workspace/hello_system/_ide/scripts/systemdebugger_hello_system_standalone.tcl'
+21:53:45 INFO  : Checking for BSP changes to sync application flags for project 'hello'...
+21:54:00 INFO  : Checking for BSP changes to sync application flags for project 'hello'...
+21:54:27 INFO  : Disconnected from the channel tcfchan#6.
+21:54:27 INFO  : Connected to target on host '127.0.0.1' and port '3121'.
+21:54:28 INFO  : Jtag cable 'Avnet USB-to-JTAG/UART Pod V1 1234-oj1A' is selected.
+21:54:28 INFO  : 'jtag frequency' command is executed.
+21:54:28 INFO  : Sourcing of '/tools/Xilinx/Vitis/2020.2/scripts/vitis/util/zynqmp_utils.tcl' is done.
+21:54:28 INFO  : Context for 'APU' is selected.
+21:54:29 INFO  : System reset is completed.
+21:54:32 INFO  : 'after 3000' command is executed.
+21:54:32 INFO  : 'targets -set -filter {jtag_cable_name =~ "Avnet USB-to-JTAG/UART Pod V1 1234-oj1A" && level==0 && jtag_device_ctx=="jsn-USB-to-JTAG/UART Pod V1-1234-oj1A-14710093-0"}' command is executed.
+21:54:35 INFO  : Device configured successfully with "/home/y/fpga/project_9/workspace/hello/_ide/bitstream/design_1_wrapper.bit"
+21:54:35 INFO  : Context for 'APU' is selected.
+21:54:35 INFO  : Hardware design and registers information is loaded from '/home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/hw/design_1_wrapper.xsa'.
+21:54:35 INFO  : 'configparams force-mem-access 1' command is executed.
+21:54:35 INFO  : Context for 'APU' is selected.
+21:54:35 INFO  : Boot mode is read from the target.
+21:54:35 INFO  : Context for processor 'psu_cortexa53_0' is selected.
+21:54:35 INFO  : Processor reset is completed for 'psu_cortexa53_0'.
+21:54:36 INFO  : The application '/home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/sw/design_1_wrapper/boot/fsbl.elf' is downloaded to processor 'psu_cortexa53_0'.
+21:54:36 INFO  : 'set bp_54_36_fsbl_bp [bpadd -addr &XFsbl_Exit]' command is executed.
+21:54:37 INFO  : 'con -block -timeout 60' command is executed.
+21:54:37 INFO  : 'bpremove $bp_54_36_fsbl_bp' command is executed.
+21:54:37 INFO  : Context for processor 'psu_cortexa53_0' is selected.
+21:54:37 INFO  : Processor reset is completed for 'psu_cortexa53_0'.
+21:54:37 INFO  : The application '/home/y/fpga/project_9/workspace/hello/Debug/hello.elf' is downloaded to processor 'psu_cortexa53_0'.
+21:54:37 INFO  : 'configparams force-mem-access 0' command is executed.
+21:54:37 INFO  : ----------------XSDB Script----------------
+connect -url tcp:127.0.0.1:3121
+source /tools/Xilinx/Vitis/2020.2/scripts/vitis/util/zynqmp_utils.tcl
+targets -set -nocase -filter {name =~"APU*"}
+rst -system
+after 3000
+targets -set -filter {jtag_cable_name =~ "Avnet USB-to-JTAG/UART Pod V1 1234-oj1A" && level==0 && jtag_device_ctx=="jsn-USB-to-JTAG/UART Pod V1-1234-oj1A-14710093-0"}
+fpga -file /home/y/fpga/project_9/workspace/hello/_ide/bitstream/design_1_wrapper.bit
+targets -set -nocase -filter {name =~"APU*"}
+loadhw -hw /home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/hw/design_1_wrapper.xsa -mem-ranges [list {0x80000000 0xbfffffff} {0x400000000 0x5ffffffff} {0x1000000000 0x7fffffffff}] -regs
+configparams force-mem-access 1
+targets -set -nocase -filter {name =~"APU*"}
+set mode [expr [mrd -value 0xFF5E0200] & 0xf]
+targets -set -nocase -filter {name =~ "*A53*#0"}
+rst -processor
+dow /home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/sw/design_1_wrapper/boot/fsbl.elf
+set bp_54_36_fsbl_bp [bpadd -addr &XFsbl_Exit]
+con -block -timeout 60
+bpremove $bp_54_36_fsbl_bp
+targets -set -nocase -filter {name =~ "*A53*#0"}
+rst -processor
+dow /home/y/fpga/project_9/workspace/hello/Debug/hello.elf
+configparams force-mem-access 0
+----------------End of Script----------------
+
+21:54:37 INFO  : Context for processor 'psu_cortexa53_0' is selected.
+21:54:37 INFO  : 'con' command is executed.
+21:54:37 INFO  : ----------------XSDB Script (After Launch)----------------
+targets -set -nocase -filter {name =~ "*A53*#0"}
+con
+----------------End of Script----------------
+
+21:54:37 INFO  : Launch script is exported to file '/home/y/fpga/project_9/workspace/hello_system/_ide/scripts/systemdebugger_hello_system_standalone.tcl'
+21:58:24 INFO  : Checking for BSP changes to sync application flags for project 'hello'...
+22:01:02 INFO  : Disconnected from the channel tcfchan#9.
+22:01:02 INFO  : Connected to target on host '127.0.0.1' and port '3121'.
+22:01:03 INFO  : Jtag cable 'Avnet USB-to-JTAG/UART Pod V1 1234-oj1A' is selected.
+22:01:03 INFO  : 'jtag frequency' command is executed.
+22:01:03 INFO  : Sourcing of '/tools/Xilinx/Vitis/2020.2/scripts/vitis/util/zynqmp_utils.tcl' is done.
+22:01:03 INFO  : Context for 'APU' is selected.
+22:01:03 INFO  : System reset is completed.
+22:01:06 INFO  : 'after 3000' command is executed.
+22:01:06 INFO  : 'targets -set -filter {jtag_cable_name =~ "Avnet USB-to-JTAG/UART Pod V1 1234-oj1A" && level==0 && jtag_device_ctx=="jsn-USB-to-JTAG/UART Pod V1-1234-oj1A-14710093-0"}' command is executed.
+22:01:10 INFO  : Device configured successfully with "/home/y/fpga/project_9/workspace/hello/_ide/bitstream/design_1_wrapper.bit"
+22:01:10 INFO  : Context for 'APU' is selected.
+22:01:10 INFO  : Hardware design and registers information is loaded from '/home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/hw/design_1_wrapper.xsa'.
+22:01:10 INFO  : 'configparams force-mem-access 1' command is executed.
+22:01:10 INFO  : Context for 'APU' is selected.
+22:01:10 INFO  : Boot mode is read from the target.
+22:01:10 INFO  : Context for processor 'psu_cortexa53_0' is selected.
+22:01:10 INFO  : Processor reset is completed for 'psu_cortexa53_0'.
+22:01:10 INFO  : The application '/home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/sw/design_1_wrapper/boot/fsbl.elf' is downloaded to processor 'psu_cortexa53_0'.
+22:01:10 INFO  : 'set bp_1_10_fsbl_bp [bpadd -addr &XFsbl_Exit]' command is executed.
+22:01:11 INFO  : 'con -block -timeout 60' command is executed.
+22:01:11 INFO  : 'bpremove $bp_1_10_fsbl_bp' command is executed.
+22:01:11 INFO  : Context for processor 'psu_cortexa53_0' is selected.
+22:01:12 INFO  : Processor reset is completed for 'psu_cortexa53_0'.
+22:01:12 INFO  : The application '/home/y/fpga/project_9/workspace/hello/Debug/hello.elf' is downloaded to processor 'psu_cortexa53_0'.
+22:01:12 INFO  : 'configparams force-mem-access 0' command is executed.
+22:01:12 INFO  : ----------------XSDB Script----------------
+connect -url tcp:127.0.0.1:3121
+source /tools/Xilinx/Vitis/2020.2/scripts/vitis/util/zynqmp_utils.tcl
+targets -set -nocase -filter {name =~"APU*"}
+rst -system
+after 3000
+targets -set -filter {jtag_cable_name =~ "Avnet USB-to-JTAG/UART Pod V1 1234-oj1A" && level==0 && jtag_device_ctx=="jsn-USB-to-JTAG/UART Pod V1-1234-oj1A-14710093-0"}
+fpga -file /home/y/fpga/project_9/workspace/hello/_ide/bitstream/design_1_wrapper.bit
+targets -set -nocase -filter {name =~"APU*"}
+loadhw -hw /home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/hw/design_1_wrapper.xsa -mem-ranges [list {0x80000000 0xbfffffff} {0x400000000 0x5ffffffff} {0x1000000000 0x7fffffffff}] -regs
+configparams force-mem-access 1
+targets -set -nocase -filter {name =~"APU*"}
+set mode [expr [mrd -value 0xFF5E0200] & 0xf]
+targets -set -nocase -filter {name =~ "*A53*#0"}
+rst -processor
+dow /home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/sw/design_1_wrapper/boot/fsbl.elf
+set bp_1_10_fsbl_bp [bpadd -addr &XFsbl_Exit]
+con -block -timeout 60
+bpremove $bp_1_10_fsbl_bp
+targets -set -nocase -filter {name =~ "*A53*#0"}
+rst -processor
+dow /home/y/fpga/project_9/workspace/hello/Debug/hello.elf
+configparams force-mem-access 0
+----------------End of Script----------------
+
+22:01:12 INFO  : Context for processor 'psu_cortexa53_0' is selected.
+22:01:12 INFO  : 'con' command is executed.
+22:01:12 INFO  : ----------------XSDB Script (After Launch)----------------
+targets -set -nocase -filter {name =~ "*A53*#0"}
+con
+----------------End of Script----------------
+
+22:01:12 INFO  : Launch script is exported to file '/home/y/fpga/project_9/workspace/hello_system/_ide/scripts/systemdebugger_hello_system_standalone.tcl'
+22:03:13 INFO  : Disconnected from the channel tcfchan#11.
+22:03:13 INFO  : Connected to target on host '127.0.0.1' and port '3121'.
+22:03:13 INFO  : Jtag cable 'Avnet USB-to-JTAG/UART Pod V1 1234-oj1A' is selected.
+22:03:13 INFO  : 'jtag frequency' command is executed.
+22:03:13 INFO  : Sourcing of '/tools/Xilinx/Vitis/2020.2/scripts/vitis/util/zynqmp_utils.tcl' is done.
+22:03:13 INFO  : Context for 'APU' is selected.
+22:03:14 INFO  : System reset is completed.
+22:03:17 INFO  : 'after 3000' command is executed.
+22:03:17 INFO  : 'targets -set -filter {jtag_cable_name =~ "Avnet USB-to-JTAG/UART Pod V1 1234-oj1A" && level==0 && jtag_device_ctx=="jsn-USB-to-JTAG/UART Pod V1-1234-oj1A-14710093-0"}' command is executed.
+22:03:20 INFO  : Device configured successfully with "/home/y/fpga/project_9/workspace/hello/_ide/bitstream/design_1_wrapper.bit"
+22:03:20 INFO  : Context for 'APU' is selected.
+22:03:20 INFO  : Hardware design and registers information is loaded from '/home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/hw/design_1_wrapper.xsa'.
+22:03:20 INFO  : 'configparams force-mem-access 1' command is executed.
+22:03:20 INFO  : Context for 'APU' is selected.
+22:03:20 INFO  : Boot mode is read from the target.
+22:03:20 INFO  : Context for processor 'psu_cortexa53_0' is selected.
+22:03:20 INFO  : Processor reset is completed for 'psu_cortexa53_0'.
+22:03:21 INFO  : The application '/home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/sw/design_1_wrapper/boot/fsbl.elf' is downloaded to processor 'psu_cortexa53_0'.
+22:03:21 INFO  : 'set bp_3_21_fsbl_bp [bpadd -addr &XFsbl_Exit]' command is executed.
+22:03:22 INFO  : 'con -block -timeout 60' command is executed.
+22:03:22 INFO  : 'bpremove $bp_3_21_fsbl_bp' command is executed.
+22:03:22 INFO  : Context for processor 'psu_cortexa53_0' is selected.
+22:03:22 INFO  : Processor reset is completed for 'psu_cortexa53_0'.
+22:03:22 INFO  : The application '/home/y/fpga/project_9/workspace/hello/Debug/hello.elf' is downloaded to processor 'psu_cortexa53_0'.
+22:03:22 INFO  : 'configparams force-mem-access 0' command is executed.
+22:03:22 INFO  : ----------------XSDB Script----------------
+connect -url tcp:127.0.0.1:3121
+source /tools/Xilinx/Vitis/2020.2/scripts/vitis/util/zynqmp_utils.tcl
+targets -set -nocase -filter {name =~"APU*"}
+rst -system
+after 3000
+targets -set -filter {jtag_cable_name =~ "Avnet USB-to-JTAG/UART Pod V1 1234-oj1A" && level==0 && jtag_device_ctx=="jsn-USB-to-JTAG/UART Pod V1-1234-oj1A-14710093-0"}
+fpga -file /home/y/fpga/project_9/workspace/hello/_ide/bitstream/design_1_wrapper.bit
+targets -set -nocase -filter {name =~"APU*"}
+loadhw -hw /home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/hw/design_1_wrapper.xsa -mem-ranges [list {0x80000000 0xbfffffff} {0x400000000 0x5ffffffff} {0x1000000000 0x7fffffffff}] -regs
+configparams force-mem-access 1
+targets -set -nocase -filter {name =~"APU*"}
+set mode [expr [mrd -value 0xFF5E0200] & 0xf]
+targets -set -nocase -filter {name =~ "*A53*#0"}
+rst -processor
+dow /home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/sw/design_1_wrapper/boot/fsbl.elf
+set bp_3_21_fsbl_bp [bpadd -addr &XFsbl_Exit]
+con -block -timeout 60
+bpremove $bp_3_21_fsbl_bp
+targets -set -nocase -filter {name =~ "*A53*#0"}
+rst -processor
+dow /home/y/fpga/project_9/workspace/hello/Debug/hello.elf
+configparams force-mem-access 0
+----------------End of Script----------------
+
+22:03:22 INFO  : Context for processor 'psu_cortexa53_0' is selected.
+22:03:22 INFO  : 'con' command is executed.
+22:03:22 INFO  : ----------------XSDB Script (After Launch)----------------
+targets -set -nocase -filter {name =~ "*A53*#0"}
+con
+----------------End of Script----------------
+
+22:03:22 INFO  : Launch script is exported to file '/home/y/fpga/project_9/workspace/hello_system/_ide/scripts/systemdebugger_hello_system_standalone.tcl'
+22:04:23 INFO  : Checking for BSP changes to sync application flags for project 'hello'...
+22:04:45 INFO  : Disconnected from the channel tcfchan#12.
+22:04:45 INFO  : Connected to target on host '127.0.0.1' and port '3121'.
+22:04:45 INFO  : Jtag cable 'Avnet USB-to-JTAG/UART Pod V1 1234-oj1A' is selected.
+22:04:45 INFO  : 'jtag frequency' command is executed.
+22:04:45 INFO  : Sourcing of '/tools/Xilinx/Vitis/2020.2/scripts/vitis/util/zynqmp_utils.tcl' is done.
+22:04:45 INFO  : Context for 'APU' is selected.
+22:04:46 INFO  : System reset is completed.
+22:04:49 INFO  : 'after 3000' command is executed.
+22:04:49 INFO  : 'targets -set -filter {jtag_cable_name =~ "Avnet USB-to-JTAG/UART Pod V1 1234-oj1A" && level==0 && jtag_device_ctx=="jsn-USB-to-JTAG/UART Pod V1-1234-oj1A-14710093-0"}' command is executed.
+22:04:52 INFO  : Device configured successfully with "/home/y/fpga/project_9/workspace/hello/_ide/bitstream/design_1_wrapper.bit"
+22:04:52 INFO  : Context for 'APU' is selected.
+22:04:52 INFO  : Hardware design and registers information is loaded from '/home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/hw/design_1_wrapper.xsa'.
+22:04:52 INFO  : 'configparams force-mem-access 1' command is executed.
+22:04:52 INFO  : Context for 'APU' is selected.
+22:04:52 INFO  : Boot mode is read from the target.
+22:04:52 INFO  : Context for processor 'psu_cortexa53_0' is selected.
+22:04:52 INFO  : Processor reset is completed for 'psu_cortexa53_0'.
+22:04:53 INFO  : The application '/home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/sw/design_1_wrapper/boot/fsbl.elf' is downloaded to processor 'psu_cortexa53_0'.
+22:04:53 INFO  : 'set bp_4_53_fsbl_bp [bpadd -addr &XFsbl_Exit]' command is executed.
+22:04:54 INFO  : 'con -block -timeout 60' command is executed.
+22:04:54 INFO  : 'bpremove $bp_4_53_fsbl_bp' command is executed.
+22:04:54 INFO  : Context for processor 'psu_cortexa53_0' is selected.
+22:04:54 INFO  : Processor reset is completed for 'psu_cortexa53_0'.
+22:04:54 INFO  : The application '/home/y/fpga/project_9/workspace/hello/Debug/hello.elf' is downloaded to processor 'psu_cortexa53_0'.
+22:04:54 INFO  : 'configparams force-mem-access 0' command is executed.
+22:04:54 INFO  : ----------------XSDB Script----------------
+connect -url tcp:127.0.0.1:3121
+source /tools/Xilinx/Vitis/2020.2/scripts/vitis/util/zynqmp_utils.tcl
+targets -set -nocase -filter {name =~"APU*"}
+rst -system
+after 3000
+targets -set -filter {jtag_cable_name =~ "Avnet USB-to-JTAG/UART Pod V1 1234-oj1A" && level==0 && jtag_device_ctx=="jsn-USB-to-JTAG/UART Pod V1-1234-oj1A-14710093-0"}
+fpga -file /home/y/fpga/project_9/workspace/hello/_ide/bitstream/design_1_wrapper.bit
+targets -set -nocase -filter {name =~"APU*"}
+loadhw -hw /home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/hw/design_1_wrapper.xsa -mem-ranges [list {0x80000000 0xbfffffff} {0x400000000 0x5ffffffff} {0x1000000000 0x7fffffffff}] -regs
+configparams force-mem-access 1
+targets -set -nocase -filter {name =~"APU*"}
+set mode [expr [mrd -value 0xFF5E0200] & 0xf]
+targets -set -nocase -filter {name =~ "*A53*#0"}
+rst -processor
+dow /home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/sw/design_1_wrapper/boot/fsbl.elf
+set bp_4_53_fsbl_bp [bpadd -addr &XFsbl_Exit]
+con -block -timeout 60
+bpremove $bp_4_53_fsbl_bp
+targets -set -nocase -filter {name =~ "*A53*#0"}
+rst -processor
+dow /home/y/fpga/project_9/workspace/hello/Debug/hello.elf
+configparams force-mem-access 0
+----------------End of Script----------------
+
+22:04:54 INFO  : Context for processor 'psu_cortexa53_0' is selected.
+22:04:54 INFO  : 'con' command is executed.
+22:04:54 INFO  : ----------------XSDB Script (After Launch)----------------
+targets -set -nocase -filter {name =~ "*A53*#0"}
+con
+----------------End of Script----------------
+
+22:04:54 INFO  : Launch script is exported to file '/home/y/fpga/project_9/workspace/hello_system/_ide/scripts/systemdebugger_hello_system_standalone.tcl'
+22:13:23 INFO  : Hardware specification for platform project 'design_1_wrapper' is updated.
+22:13:32 INFO  : Result from executing command 'getProjects': design_1_wrapper
+22:13:32 INFO  : Result from executing command 'getPlatforms': design_1_wrapper|/home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/design_1_wrapper.xpfm
+22:13:56 INFO  : Checking for BSP changes to sync application flags for project 'hello'...
+22:14:05 INFO  : The hardware specfication used by project 'hello' is out of sync with the platform. Resource files extracted from the hardware specfiication will be updated.
+22:14:05 INFO  : The file '/home/y/fpga/project_9/workspace/hello/_ide/bitstream/design_1_wrapper.bit' stored in project is removed.
+22:14:05 INFO  : The updated bitstream files are copied from platform to folder '/home/y/fpga/project_9/workspace/hello/_ide/bitstream' in project 'hello'.
+22:14:05 INFO  : The file '/home/y/fpga/project_9/workspace/hello/_ide/psinit/psu_init.tcl' stored in project is removed.
+22:14:06 INFO  : The updated ps init files are copied from platform to folder '/home/y/fpga/project_9/workspace/hello/_ide/psinit' in project 'hello'.
+22:17:49 INFO  : Checking for BSP changes to sync application flags for project 'hello'...
+22:21:14 INFO  : Disconnected from the channel tcfchan#14.
+22:21:14 INFO  : Connected to target on host '127.0.0.1' and port '3121'.
+22:21:15 INFO  : Jtag cable 'Avnet USB-to-JTAG/UART Pod V1 1234-oj1A' is selected.
+22:21:15 INFO  : 'jtag frequency' command is executed.
+22:21:15 INFO  : Sourcing of '/tools/Xilinx/Vitis/2020.2/scripts/vitis/util/zynqmp_utils.tcl' is done.
+22:21:15 INFO  : Context for 'APU' is selected.
+22:21:15 INFO  : Hardware design and registers information is loaded from '/home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/hw/design_1_wrapper.xsa'.
+22:21:15 INFO  : 'configparams force-mem-access 1' command is executed.
+22:21:15 INFO  : Context for 'APU' is selected.
+22:21:15 INFO  : Boot mode is read from the target.
+22:21:15 INFO  : Context for processor 'psu_cortexa53_0' is selected.
+22:21:15 INFO  : Processor reset is completed for 'psu_cortexa53_0'.
+22:21:16 INFO  : The application '/home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/sw/design_1_wrapper/boot/fsbl.elf' is downloaded to processor 'psu_cortexa53_0'.
+22:21:16 INFO  : 'set bp_21_16_fsbl_bp [bpadd -addr &XFsbl_Exit]' command is executed.
+22:21:50 WARN  : Exit breakpoint of FSBL (XFsbl_Exit) is not hit within allocated wait time of '60' seconds.
+Note: To wait for a fixed amount of time specify the FSBL function as empty in launch configuration. Use 'IDE_FSBL_BP_HIT_WAIT_TIME' environment variable in launch configuration to modify the wait time (seconds).
+Reason: 'con -block -timeout 60' is cancelled.
+22:21:50 INFO  : ----------------XSDB Script----------------
+connect -url tcp:127.0.0.1:3121
+source /tools/Xilinx/Vitis/2020.2/scripts/vitis/util/zynqmp_utils.tcl
+targets -set -nocase -filter {name =~"APU*"}
+loadhw -hw /home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/hw/design_1_wrapper.xsa -mem-ranges [list {0x80000000 0xbfffffff} {0x400000000 0x5ffffffff} {0x1000000000 0x7fffffffff}] -regs
+configparams force-mem-access 1
+targets -set -nocase -filter {name =~"APU*"}
+set mode [expr [mrd -value 0xFF5E0200] & 0xf]
+targets -set -nocase -filter {name =~ "*A53*#0"}
+rst -processor
+dow /home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/sw/design_1_wrapper/boot/fsbl.elf
+set bp_21_16_fsbl_bp [bpadd -addr &XFsbl_Exit]
+con -block -timeout 60
+bpremove $bp_21_16_fsbl_bp
+----------------End of Script----------------
+
+22:22:26 INFO  : Connected to target on host '127.0.0.1' and port '3121'.
+22:22:26 INFO  : Jtag cable 'Avnet USB-to-JTAG/UART Pod V1 1234-oj1A' is selected.
+22:22:26 INFO  : 'jtag frequency' command is executed.
+22:22:26 INFO  : Sourcing of '/tools/Xilinx/Vitis/2020.2/scripts/vitis/util/zynqmp_utils.tcl' is done.
+22:22:26 INFO  : Context for 'APU' is selected.
+22:22:26 INFO  : Hardware design and registers information is loaded from '/home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/hw/design_1_wrapper.xsa'.
+22:22:26 INFO  : 'configparams force-mem-access 1' command is executed.
+22:22:26 INFO  : Context for 'APU' is selected.
+22:22:26 INFO  : Boot mode is read from the target.
+22:22:26 INFO  : Context for processor 'psu_cortexa53_0' is selected.
+22:22:26 INFO  : Processor reset is completed for 'psu_cortexa53_0'.
+22:22:27 INFO  : The application '/home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/sw/design_1_wrapper/boot/fsbl.elf' is downloaded to processor 'psu_cortexa53_0'.
+22:22:27 INFO  : 'set bp_22_27_fsbl_bp [bpadd -addr &XFsbl_Exit]' command is executed.
+22:22:28 INFO  : 'con -block -timeout 60' command is executed.
+22:22:28 INFO  : 'bpremove $bp_22_27_fsbl_bp' command is executed.
+22:22:28 INFO  : Context for processor 'psu_cortexa53_0' is selected.
+22:22:28 INFO  : Processor reset is completed for 'psu_cortexa53_0'.
+22:22:28 INFO  : The application '/home/y/fpga/project_9/workspace/hello/Debug/hello.elf' is downloaded to processor 'psu_cortexa53_0'.
+22:22:28 INFO  : 'configparams force-mem-access 0' command is executed.
+22:22:28 INFO  : ----------------XSDB Script----------------
+connect -url tcp:127.0.0.1:3121
+source /tools/Xilinx/Vitis/2020.2/scripts/vitis/util/zynqmp_utils.tcl
+targets -set -nocase -filter {name =~"APU*"}
+loadhw -hw /home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/hw/design_1_wrapper.xsa -mem-ranges [list {0x80000000 0xbfffffff} {0x400000000 0x5ffffffff} {0x1000000000 0x7fffffffff}] -regs
+configparams force-mem-access 1
+targets -set -nocase -filter {name =~"APU*"}
+set mode [expr [mrd -value 0xFF5E0200] & 0xf]
+targets -set -nocase -filter {name =~ "*A53*#0"}
+rst -processor
+dow /home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/sw/design_1_wrapper/boot/fsbl.elf
+set bp_22_27_fsbl_bp [bpadd -addr &XFsbl_Exit]
+con -block -timeout 60
+bpremove $bp_22_27_fsbl_bp
+targets -set -nocase -filter {name =~ "*A53*#0"}
+rst -processor
+dow /home/y/fpga/project_9/workspace/hello/Debug/hello.elf
+configparams force-mem-access 0
+----------------End of Script----------------
+
+22:22:28 INFO  : Context for processor 'psu_cortexa53_0' is selected.
+22:22:28 INFO  : 'con' command is executed.
+22:22:28 INFO  : ----------------XSDB Script (After Launch)----------------
+targets -set -nocase -filter {name =~ "*A53*#0"}
+con
+----------------End of Script----------------
+
+22:22:28 INFO  : Launch script is exported to file '/home/y/fpga/project_9/workspace/hello_system/_ide/scripts/systemdebugger_hello_system_standalone.tcl'
+22:22:46 INFO  : Disconnected from the channel tcfchan#18.
+22:22:47 INFO  : Connected to target on host '127.0.0.1' and port '3121'.
+22:22:47 INFO  : Jtag cable 'Avnet USB-to-JTAG/UART Pod V1 1234-oj1A' is selected.
+22:22:47 INFO  : 'jtag frequency' command is executed.
+22:22:47 INFO  : Sourcing of '/tools/Xilinx/Vitis/2020.2/scripts/vitis/util/zynqmp_utils.tcl' is done.
+22:22:47 INFO  : Context for 'APU' is selected.
+22:22:47 INFO  : Hardware design and registers information is loaded from '/home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/hw/design_1_wrapper.xsa'.
+22:22:47 INFO  : 'configparams force-mem-access 1' command is executed.
+22:22:47 INFO  : Context for 'APU' is selected.
+22:22:47 INFO  : Boot mode is read from the target.
+22:22:47 INFO  : Context for processor 'psu_cortexa53_0' is selected.
+22:22:47 INFO  : Processor reset is completed for 'psu_cortexa53_0'.
+22:22:47 INFO  : The application '/home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/sw/design_1_wrapper/boot/fsbl.elf' is downloaded to processor 'psu_cortexa53_0'.
+22:22:47 INFO  : 'set bp_22_47_fsbl_bp [bpadd -addr &XFsbl_Exit]' command is executed.
+22:23:20 WARN  : Exit breakpoint of FSBL (XFsbl_Exit) is not hit within allocated wait time of '60' seconds.
+Note: To wait for a fixed amount of time specify the FSBL function as empty in launch configuration. Use 'IDE_FSBL_BP_HIT_WAIT_TIME' environment variable in launch configuration to modify the wait time (seconds).
+Reason: 'con -block -timeout 60' is cancelled.
+22:23:20 INFO  : ----------------XSDB Script----------------
+connect -url tcp:127.0.0.1:3121
+source /tools/Xilinx/Vitis/2020.2/scripts/vitis/util/zynqmp_utils.tcl
+targets -set -nocase -filter {name =~"APU*"}
+loadhw -hw /home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/hw/design_1_wrapper.xsa -mem-ranges [list {0x80000000 0xbfffffff} {0x400000000 0x5ffffffff} {0x1000000000 0x7fffffffff}] -regs
+configparams force-mem-access 1
+targets -set -nocase -filter {name =~"APU*"}
+set mode [expr [mrd -value 0xFF5E0200] & 0xf]
+targets -set -nocase -filter {name =~ "*A53*#0"}
+rst -processor
+dow /home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/sw/design_1_wrapper/boot/fsbl.elf
+set bp_22_47_fsbl_bp [bpadd -addr &XFsbl_Exit]
+con -block -timeout 60
+bpremove $bp_22_47_fsbl_bp
+----------------End of Script----------------
+
+22:26:37 INFO  : Connected to target on host '127.0.0.1' and port '3121'.
+22:26:37 INFO  : Jtag cable 'Avnet USB-to-JTAG/UART Pod V1 1234-oj1A' is selected.
+22:26:37 INFO  : 'jtag frequency' command is executed.
+22:26:37 INFO  : Sourcing of '/tools/Xilinx/Vitis/2020.2/scripts/vitis/util/zynqmp_utils.tcl' is done.
+22:26:37 INFO  : Context for 'APU' is selected.
+22:26:37 INFO  : Hardware design and registers information is loaded from '/home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/hw/design_1_wrapper.xsa'.
+22:26:37 INFO  : 'configparams force-mem-access 1' command is executed.
+22:26:37 INFO  : Context for 'APU' is selected.
+22:26:37 INFO  : Boot mode is read from the target.
+22:26:37 INFO  : Context for processor 'psu_cortexa53_0' is selected.
+22:26:37 INFO  : Processor reset is completed for 'psu_cortexa53_0'.
+22:26:38 INFO  : The application '/home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/sw/design_1_wrapper/boot/fsbl.elf' is downloaded to processor 'psu_cortexa53_0'.
+22:26:38 INFO  : 'set bp_26_38_fsbl_bp [bpadd -addr &XFsbl_Exit]' command is executed.
+22:26:39 INFO  : 'con -block -timeout 60' command is executed.
+22:26:39 INFO  : 'bpremove $bp_26_38_fsbl_bp' command is executed.
+22:26:39 INFO  : Context for processor 'psu_cortexa53_0' is selected.
+22:26:39 INFO  : Processor reset is completed for 'psu_cortexa53_0'.
+22:26:39 INFO  : The application '/home/y/fpga/project_9/workspace/hello/Debug/hello.elf' is downloaded to processor 'psu_cortexa53_0'.
+22:26:39 INFO  : 'configparams force-mem-access 0' command is executed.
+22:26:39 INFO  : ----------------XSDB Script----------------
+connect -url tcp:127.0.0.1:3121
+source /tools/Xilinx/Vitis/2020.2/scripts/vitis/util/zynqmp_utils.tcl
+targets -set -nocase -filter {name =~"APU*"}
+loadhw -hw /home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/hw/design_1_wrapper.xsa -mem-ranges [list {0x80000000 0xbfffffff} {0x400000000 0x5ffffffff} {0x1000000000 0x7fffffffff}] -regs
+configparams force-mem-access 1
+targets -set -nocase -filter {name =~"APU*"}
+set mode [expr [mrd -value 0xFF5E0200] & 0xf]
+targets -set -nocase -filter {name =~ "*A53*#0"}
+rst -processor
+dow /home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/sw/design_1_wrapper/boot/fsbl.elf
+set bp_26_38_fsbl_bp [bpadd -addr &XFsbl_Exit]
+con -block -timeout 60
+bpremove $bp_26_38_fsbl_bp
+targets -set -nocase -filter {name =~ "*A53*#0"}
+rst -processor
+dow /home/y/fpga/project_9/workspace/hello/Debug/hello.elf
+configparams force-mem-access 0
+----------------End of Script----------------
+
+22:26:39 INFO  : Context for processor 'psu_cortexa53_0' is selected.
+22:26:39 INFO  : 'con' command is executed.
+22:26:39 INFO  : ----------------XSDB Script (After Launch)----------------
+targets -set -nocase -filter {name =~ "*A53*#0"}
+con
+----------------End of Script----------------
+
+22:26:39 INFO  : Launch script is exported to file '/home/y/fpga/project_9/workspace/hello_system/_ide/scripts/systemdebugger_hello_system_standalone.tcl'
+22:28:29 INFO  : Disconnected from the channel tcfchan#19.
+22:28:29 INFO  : Connected to target on host '127.0.0.1' and port '3121'.
+22:28:29 INFO  : Jtag cable 'Avnet USB-to-JTAG/UART Pod V1 1234-oj1A' is selected.
+22:28:29 INFO  : 'jtag frequency' command is executed.
+22:28:29 INFO  : Sourcing of '/tools/Xilinx/Vitis/2020.2/scripts/vitis/util/zynqmp_utils.tcl' is done.
+22:28:29 INFO  : Context for 'APU' is selected.
+22:28:29 INFO  : Hardware design and registers information is loaded from '/home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/hw/design_1_wrapper.xsa'.
+22:28:29 INFO  : 'configparams force-mem-access 1' command is executed.
+22:28:29 INFO  : Context for 'APU' is selected.
+22:28:29 INFO  : Boot mode is read from the target.
+22:28:29 INFO  : Context for processor 'psu_cortexa53_0' is selected.
+22:28:29 INFO  : Processor reset is completed for 'psu_cortexa53_0'.
+22:28:30 INFO  : The application '/home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/sw/design_1_wrapper/boot/fsbl.elf' is downloaded to processor 'psu_cortexa53_0'.
+22:28:30 INFO  : 'set bp_28_30_fsbl_bp [bpadd -addr &XFsbl_Exit]' command is executed.
+22:29:30 WARN  : Exit breakpoint of FSBL (XFsbl_Exit) is not hit within allocated wait time of '60' seconds.
+Note: To wait for a fixed amount of time specify the FSBL function as empty in launch configuration. Use 'IDE_FSBL_BP_HIT_WAIT_TIME' environment variable in launch configuration to modify the wait time (seconds).
+Reason: timeout: target has not halted
+22:29:30 INFO  : 'bpremove $bp_28_30_fsbl_bp' command is executed.
+22:30:41 INFO  : ----------------XSDB Script----------------
+connect -url tcp:127.0.0.1:3121
+source /tools/Xilinx/Vitis/2020.2/scripts/vitis/util/zynqmp_utils.tcl
+targets -set -nocase -filter {name =~"APU*"}
+loadhw -hw /home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/hw/design_1_wrapper.xsa -mem-ranges [list {0x80000000 0xbfffffff} {0x400000000 0x5ffffffff} {0x1000000000 0x7fffffffff}] -regs
+configparams force-mem-access 1
+targets -set -nocase -filter {name =~"APU*"}
+set mode [expr [mrd -value 0xFF5E0200] & 0xf]
+targets -set -nocase -filter {name =~ "*A53*#0"}
+rst -processor
+dow /home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/sw/design_1_wrapper/boot/fsbl.elf
+set bp_28_30_fsbl_bp [bpadd -addr &XFsbl_Exit]
+con -block -timeout 60
+bpremove $bp_28_30_fsbl_bp
+----------------End of Script----------------
+
+22:32:04 INFO  : Connected to target on host '127.0.0.1' and port '3121'.
+22:32:04 INFO  : Jtag cable 'Avnet USB-to-JTAG/UART Pod V1 1234-oj1A' is selected.
+22:32:04 INFO  : 'jtag frequency' command is executed.
+22:32:04 INFO  : Sourcing of '/tools/Xilinx/Vitis/2020.2/scripts/vitis/util/zynqmp_utils.tcl' is done.
+22:32:04 INFO  : Context for 'APU' is selected.
+22:32:04 INFO  : Hardware design and registers information is loaded from '/home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/hw/design_1_wrapper.xsa'.
+22:32:04 INFO  : 'configparams force-mem-access 1' command is executed.
+22:32:04 INFO  : Context for 'APU' is selected.
+22:32:04 INFO  : Boot mode is read from the target.
+22:32:04 INFO  : Context for processor 'psu_cortexa53_0' is selected.
+22:32:04 INFO  : Processor reset is completed for 'psu_cortexa53_0'.
+22:32:05 INFO  : The application '/home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/sw/design_1_wrapper/boot/fsbl.elf' is downloaded to processor 'psu_cortexa53_0'.
+22:32:05 INFO  : 'set bp_32_5_fsbl_bp [bpadd -addr &XFsbl_Exit]' command is executed.
+22:32:06 INFO  : 'con -block -timeout 60' command is executed.
+22:32:06 INFO  : 'bpremove $bp_32_5_fsbl_bp' command is executed.
+22:32:06 INFO  : Context for processor 'psu_cortexa53_0' is selected.
+22:32:06 INFO  : Processor reset is completed for 'psu_cortexa53_0'.
+22:32:06 INFO  : The application '/home/y/fpga/project_9/workspace/hello/Debug/hello.elf' is downloaded to processor 'psu_cortexa53_0'.
+22:32:06 INFO  : 'configparams force-mem-access 0' command is executed.
+22:32:06 INFO  : ----------------XSDB Script----------------
+connect -url tcp:127.0.0.1:3121
+source /tools/Xilinx/Vitis/2020.2/scripts/vitis/util/zynqmp_utils.tcl
+targets -set -nocase -filter {name =~"APU*"}
+loadhw -hw /home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/hw/design_1_wrapper.xsa -mem-ranges [list {0x80000000 0xbfffffff} {0x400000000 0x5ffffffff} {0x1000000000 0x7fffffffff}] -regs
+configparams force-mem-access 1
+targets -set -nocase -filter {name =~"APU*"}
+set mode [expr [mrd -value 0xFF5E0200] & 0xf]
+targets -set -nocase -filter {name =~ "*A53*#0"}
+rst -processor
+dow /home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/sw/design_1_wrapper/boot/fsbl.elf
+set bp_32_5_fsbl_bp [bpadd -addr &XFsbl_Exit]
+con -block -timeout 60
+bpremove $bp_32_5_fsbl_bp
+targets -set -nocase -filter {name =~ "*A53*#0"}
+rst -processor
+dow /home/y/fpga/project_9/workspace/hello/Debug/hello.elf
+configparams force-mem-access 0
+----------------End of Script----------------
+
+22:32:06 INFO  : Context for processor 'psu_cortexa53_0' is selected.
+22:32:06 INFO  : 'con' command is executed.
+22:32:06 INFO  : ----------------XSDB Script (After Launch)----------------
+targets -set -nocase -filter {name =~ "*A53*#0"}
+con
+----------------End of Script----------------
+
+22:32:06 INFO  : Launch script is exported to file '/home/y/fpga/project_9/workspace/hello_system/_ide/scripts/systemdebugger_hello_system_standalone.tcl'
+21:54:43 INFO  : Launching XSCT server: xsct -n  -interactive /home/y/fpga/project_9/workspace/temp_xsdb_launch_script.tcl
+21:54:46 INFO  : XSCT server has started successfully.
+21:54:46 INFO  : Successfully done setting XSCT server connection channel  
+21:54:46 INFO  : plnx-install-location is set to ''
+21:54:46 INFO  : Successfully done setting workspace for the tool. 
+21:54:47 INFO  : Platform repository initialization has completed.
+21:54:48 INFO  : Registering command handlers for Vitis TCF services
+21:54:48 INFO  : Successfully done query RDI_DATADIR 
+23:18:04 INFO  : Connected to target on host '127.0.0.1' and port '3121'.
+23:18:04 INFO  : Jtag cable 'Avnet USB-to-JTAG/UART Pod V1 1234-oj1A' is selected.
+23:18:04 INFO  : 'jtag frequency' command is executed.
+23:18:04 INFO  : Sourcing of '/tools/Xilinx/Vitis/2020.2/scripts/vitis/util/zynqmp_utils.tcl' is done.
+23:18:04 INFO  : Context for 'APU' is selected.
+23:18:05 INFO  : Hardware design and registers information is loaded from '/home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/hw/design_1_wrapper.xsa'.
+23:18:05 INFO  : 'configparams force-mem-access 1' command is executed.
+23:18:05 INFO  : Context for 'APU' is selected.
+23:18:05 INFO  : Boot mode is read from the target.
+23:18:05 INFO  : Context for processor 'psu_cortexa53_0' is selected.
+23:18:05 INFO  : Processor reset is completed for 'psu_cortexa53_0'.
+23:18:05 INFO  : The application '/home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/sw/design_1_wrapper/boot/fsbl.elf' is downloaded to processor 'psu_cortexa53_0'.
+23:18:06 INFO  : 'set bp_18_5_fsbl_bp [bpadd -addr &XFsbl_Exit]' command is executed.
+23:18:09 INFO  : 'con -block -timeout 60' command is executed.
+23:18:09 INFO  : 'bpremove $bp_18_5_fsbl_bp' command is executed.
+23:18:09 INFO  : Context for processor 'psu_cortexa53_0' is selected.
+23:18:09 INFO  : Processor reset is completed for 'psu_cortexa53_0'.
+23:18:10 INFO  : The application '/home/y/fpga/project_9/workspace/hello/Debug/hello.elf' is downloaded to processor 'psu_cortexa53_0'.
+23:18:10 INFO  : 'configparams force-mem-access 0' command is executed.
+23:18:10 INFO  : ----------------XSDB Script----------------
+connect -url tcp:127.0.0.1:3121
+source /tools/Xilinx/Vitis/2020.2/scripts/vitis/util/zynqmp_utils.tcl
+targets -set -nocase -filter {name =~"APU*"}
+loadhw -hw /home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/hw/design_1_wrapper.xsa -mem-ranges [list {0x80000000 0xbfffffff} {0x400000000 0x5ffffffff} {0x1000000000 0x7fffffffff}] -regs
+configparams force-mem-access 1
+targets -set -nocase -filter {name =~"APU*"}
+set mode [expr [mrd -value 0xFF5E0200] & 0xf]
+targets -set -nocase -filter {name =~ "*A53*#0"}
+rst -processor
+dow /home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/sw/design_1_wrapper/boot/fsbl.elf
+set bp_18_5_fsbl_bp [bpadd -addr &XFsbl_Exit]
+con -block -timeout 60
+bpremove $bp_18_5_fsbl_bp
+targets -set -nocase -filter {name =~ "*A53*#0"}
+rst -processor
+dow /home/y/fpga/project_9/workspace/hello/Debug/hello.elf
+configparams force-mem-access 0
+----------------End of Script----------------
+
+23:18:10 INFO  : Context for processor 'psu_cortexa53_0' is selected.
+23:18:10 INFO  : 'con' command is executed.
+23:18:10 INFO  : ----------------XSDB Script (After Launch)----------------
+targets -set -nocase -filter {name =~ "*A53*#0"}
+con
+----------------End of Script----------------
+
+23:18:10 INFO  : Launch script is exported to file '/home/y/fpga/project_9/workspace/hello_system/_ide/scripts/systemdebugger_hello_system_standalone.tcl'
+23:19:10 INFO  : Disconnected from the channel tcfchan#1.
+23:19:10 INFO  : Connected to target on host '127.0.0.1' and port '3121'.
+23:19:10 INFO  : Jtag cable 'Avnet USB-to-JTAG/UART Pod V1 1234-oj1A' is selected.
+23:19:10 INFO  : 'jtag frequency' command is executed.
+23:19:10 INFO  : Sourcing of '/tools/Xilinx/Vitis/2020.2/scripts/vitis/util/zynqmp_utils.tcl' is done.
+23:19:10 INFO  : Context for 'APU' is selected.
+23:19:19 INFO  : Hardware design and registers information is loaded from '/home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/hw/design_1_wrapper.xsa'.
+23:19:19 INFO  : 'configparams force-mem-access 1' command is executed.
+23:19:20 INFO  : Context for 'APU' is selected.
+23:19:20 INFO  : Boot mode is read from the target.
+23:19:20 INFO  : Context for processor 'psu_cortexa53_0' is selected.
+23:19:20 INFO  : Processor reset is completed for 'psu_cortexa53_0'.
+23:19:20 INFO  : The application '/home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/sw/design_1_wrapper/boot/fsbl.elf' is downloaded to processor 'psu_cortexa53_0'.
+23:19:20 INFO  : 'set bp_19_20_fsbl_bp [bpadd -addr &XFsbl_Exit]' command is executed.
+23:19:21 INFO  : 'con -block -timeout 60' command is executed.
+23:19:21 INFO  : 'bpremove $bp_19_20_fsbl_bp' command is executed.
+23:19:21 INFO  : Context for processor 'psu_cortexa53_0' is selected.
+23:19:21 INFO  : Processor reset is completed for 'psu_cortexa53_0'.
+23:19:22 INFO  : The application '/home/y/fpga/project_9/workspace/hello/Debug/hello.elf' is downloaded to processor 'psu_cortexa53_0'.
+23:19:22 INFO  : 'configparams force-mem-access 0' command is executed.
+23:19:22 INFO  : ----------------XSDB Script----------------
+connect -url tcp:127.0.0.1:3121
+source /tools/Xilinx/Vitis/2020.2/scripts/vitis/util/zynqmp_utils.tcl
+targets -set -nocase -filter {name =~"APU*"}
+loadhw -hw /home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/hw/design_1_wrapper.xsa -mem-ranges [list {0x80000000 0xbfffffff} {0x400000000 0x5ffffffff} {0x1000000000 0x7fffffffff}] -regs
+configparams force-mem-access 1
+targets -set -nocase -filter {name =~"APU*"}
+set mode [expr [mrd -value 0xFF5E0200] & 0xf]
+targets -set -nocase -filter {name =~ "*A53*#0"}
+rst -processor
+dow /home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/sw/design_1_wrapper/boot/fsbl.elf
+set bp_19_20_fsbl_bp [bpadd -addr &XFsbl_Exit]
+con -block -timeout 60
+bpremove $bp_19_20_fsbl_bp
+targets -set -nocase -filter {name =~ "*A53*#0"}
+rst -processor
+dow /home/y/fpga/project_9/workspace/hello/Debug/hello.elf
+configparams force-mem-access 0
+----------------End of Script----------------
+
+23:19:22 INFO  : Context for processor 'psu_cortexa53_0' is selected.
+23:19:22 INFO  : 'con' command is executed.
+23:19:22 INFO  : ----------------XSDB Script (After Launch)----------------
+targets -set -nocase -filter {name =~ "*A53*#0"}
+con
+----------------End of Script----------------
+
+23:19:22 INFO  : Launch script is exported to file '/home/y/fpga/project_9/workspace/hello_system/_ide/scripts/systemdebugger_hello_system_standalone.tcl'
+23:42:37 INFO  : Disconnected from the channel tcfchan#2.
+23:19:50 INFO  : Launching XSCT server: xsct -n  -interactive /home/y/fpga/project_9/workspace/temp_xsdb_launch_script.tcl
+23:19:53 INFO  : XSCT server has started successfully.
+23:19:53 INFO  : Successfully done setting XSCT server connection channel  
+23:19:53 INFO  : plnx-install-location is set to ''
+23:19:53 INFO  : Successfully done setting workspace for the tool. 
+23:19:53 INFO  : Platform repository initialization has completed.
+23:19:54 INFO  : Registering command handlers for Vitis TCF services
+23:19:54 INFO  : Successfully done query RDI_DATADIR 
+20:00:23 INFO  : Launching XSCT server: xsct -n  -interactive /home/y/fpga/project_9/workspace/temp_xsdb_launch_script.tcl
+20:00:25 INFO  : XSCT server has started successfully.
+20:00:25 INFO  : Successfully done setting XSCT server connection channel  
+20:00:25 INFO  : plnx-install-location is set to ''
+20:00:25 INFO  : Successfully done setting workspace for the tool. 
+20:00:27 INFO  : Platform repository initialization has completed.
+20:00:27 INFO  : Registering command handlers for Vitis TCF services
+20:00:27 INFO  : Successfully done query RDI_DATADIR 
+20:00:53 INFO  : Connected to target on host '127.0.0.1' and port '3121'.
+20:00:54 INFO  : Jtag cable 'Avnet USB-to-JTAG/UART Pod V1 1234-oj1A' is selected.
+20:00:54 INFO  : 'jtag frequency' command is executed.
+20:00:54 INFO  : Sourcing of '/tools/Xilinx/Vitis/2020.2/scripts/vitis/util/zynqmp_utils.tcl' is done.
+20:00:54 INFO  : Context for 'APU' is selected.
+20:00:54 INFO  : Hardware design and registers information is loaded from '/home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/hw/design_1_wrapper.xsa'.
+20:00:54 INFO  : 'configparams force-mem-access 1' command is executed.
+20:00:54 INFO  : Context for 'APU' is selected.
+20:00:54 INFO  : Boot mode is read from the target.
+20:00:54 INFO  : Context for processor 'psu_cortexa53_0' is selected.
+20:00:54 INFO  : Processor reset is completed for 'psu_cortexa53_0'.
+20:00:55 INFO  : The application '/home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/sw/design_1_wrapper/boot/fsbl.elf' is downloaded to processor 'psu_cortexa53_0'.
+20:00:55 INFO  : 'set bp_0_55_fsbl_bp [bpadd -addr &XFsbl_Exit]' command is executed.
+20:00:56 INFO  : 'con -block -timeout 60' command is executed.
+20:00:56 INFO  : 'bpremove $bp_0_55_fsbl_bp' command is executed.
+20:00:56 INFO  : Context for processor 'psu_cortexa53_0' is selected.
+20:00:56 INFO  : Processor reset is completed for 'psu_cortexa53_0'.
+20:00:56 INFO  : The application '/home/y/fpga/project_9/workspace/hello/Debug/hello.elf' is downloaded to processor 'psu_cortexa53_0'.
+20:00:56 INFO  : 'configparams force-mem-access 0' command is executed.
+20:00:56 INFO  : ----------------XSDB Script----------------
+connect -url tcp:127.0.0.1:3121
+source /tools/Xilinx/Vitis/2020.2/scripts/vitis/util/zynqmp_utils.tcl
+targets -set -nocase -filter {name =~"APU*"}
+loadhw -hw /home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/hw/design_1_wrapper.xsa -mem-ranges [list {0x80000000 0xbfffffff} {0x400000000 0x5ffffffff} {0x1000000000 0x7fffffffff}] -regs
+configparams force-mem-access 1
+targets -set -nocase -filter {name =~"APU*"}
+set mode [expr [mrd -value 0xFF5E0200] & 0xf]
+targets -set -nocase -filter {name =~ "*A53*#0"}
+rst -processor
+dow /home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/sw/design_1_wrapper/boot/fsbl.elf
+set bp_0_55_fsbl_bp [bpadd -addr &XFsbl_Exit]
+con -block -timeout 60
+bpremove $bp_0_55_fsbl_bp
+targets -set -nocase -filter {name =~ "*A53*#0"}
+rst -processor
+dow /home/y/fpga/project_9/workspace/hello/Debug/hello.elf
+configparams force-mem-access 0
+----------------End of Script----------------
+
+20:00:56 INFO  : Context for processor 'psu_cortexa53_0' is selected.
+20:00:56 INFO  : 'con' command is executed.
+20:00:56 INFO  : ----------------XSDB Script (After Launch)----------------
+targets -set -nocase -filter {name =~ "*A53*#0"}
+con
+----------------End of Script----------------
+
+20:00:56 INFO  : Launch script is exported to file '/home/y/fpga/project_9/workspace/hello_system/_ide/scripts/systemdebugger_hello_system_standalone.tcl'
+20:01:28 INFO  : Disconnected from the channel tcfchan#1.
+20:01:29 INFO  : Connected to target on host '127.0.0.1' and port '3121'.
+20:01:29 INFO  : Jtag cable 'Avnet USB-to-JTAG/UART Pod V1 1234-oj1A' is selected.
+20:01:29 INFO  : 'jtag frequency' command is executed.
+20:01:29 INFO  : Sourcing of '/tools/Xilinx/Vitis/2020.2/scripts/vitis/util/zynqmp_utils.tcl' is done.
+20:01:29 INFO  : Context for 'APU' is selected.
+20:01:34 INFO  : Hardware design and registers information is loaded from '/home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/hw/design_1_wrapper.xsa'.
+20:01:34 INFO  : 'configparams force-mem-access 1' command is executed.
+20:01:34 INFO  : Context for 'APU' is selected.
+20:01:34 INFO  : Boot mode is read from the target.
+20:01:34 INFO  : Context for processor 'psu_cortexa53_0' is selected.
+20:01:34 INFO  : Processor reset is completed for 'psu_cortexa53_0'.
+20:01:35 INFO  : The application '/home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/sw/design_1_wrapper/boot/fsbl.elf' is downloaded to processor 'psu_cortexa53_0'.
+20:01:35 INFO  : 'set bp_1_35_fsbl_bp [bpadd -addr &XFsbl_Exit]' command is executed.
+20:01:36 INFO  : 'con -block -timeout 60' command is executed.
+20:01:36 INFO  : 'bpremove $bp_1_35_fsbl_bp' command is executed.
+20:01:36 INFO  : Context for processor 'psu_cortexa53_0' is selected.
+20:01:36 INFO  : Processor reset is completed for 'psu_cortexa53_0'.
+20:01:36 INFO  : The application '/home/y/fpga/project_9/workspace/hello/Debug/hello.elf' is downloaded to processor 'psu_cortexa53_0'.
+20:01:36 INFO  : 'configparams force-mem-access 0' command is executed.
+20:01:36 INFO  : ----------------XSDB Script----------------
+connect -url tcp:127.0.0.1:3121
+source /tools/Xilinx/Vitis/2020.2/scripts/vitis/util/zynqmp_utils.tcl
+targets -set -nocase -filter {name =~"APU*"}
+loadhw -hw /home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/hw/design_1_wrapper.xsa -mem-ranges [list {0x80000000 0xbfffffff} {0x400000000 0x5ffffffff} {0x1000000000 0x7fffffffff}] -regs
+configparams force-mem-access 1
+targets -set -nocase -filter {name =~"APU*"}
+set mode [expr [mrd -value 0xFF5E0200] & 0xf]
+targets -set -nocase -filter {name =~ "*A53*#0"}
+rst -processor
+dow /home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/sw/design_1_wrapper/boot/fsbl.elf
+set bp_1_35_fsbl_bp [bpadd -addr &XFsbl_Exit]
+con -block -timeout 60
+bpremove $bp_1_35_fsbl_bp
+targets -set -nocase -filter {name =~ "*A53*#0"}
+rst -processor
+dow /home/y/fpga/project_9/workspace/hello/Debug/hello.elf
+configparams force-mem-access 0
+----------------End of Script----------------
+
+20:01:36 INFO  : Context for processor 'psu_cortexa53_0' is selected.
+20:01:36 INFO  : 'con' command is executed.
+20:01:36 INFO  : ----------------XSDB Script (After Launch)----------------
+targets -set -nocase -filter {name =~ "*A53*#0"}
+con
+----------------End of Script----------------
+
+20:01:36 INFO  : Launch script is exported to file '/home/y/fpga/project_9/workspace/hello_system/_ide/scripts/systemdebugger_hello_system_standalone.tcl'
+20:03:25 INFO  : Disconnected from the channel tcfchan#2.
+20:03:25 INFO  : Connected to target on host '127.0.0.1' and port '3121'.
+20:03:25 INFO  : Jtag cable 'Avnet USB-to-JTAG/UART Pod V1 1234-oj1A' is selected.
+20:03:25 INFO  : 'jtag frequency' command is executed.
+20:03:25 INFO  : Sourcing of '/tools/Xilinx/Vitis/2020.2/scripts/vitis/util/zynqmp_utils.tcl' is done.
+20:03:25 INFO  : Context for 'APU' is selected.
+20:03:32 INFO  : Hardware design and registers information is loaded from '/home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/hw/design_1_wrapper.xsa'.
+20:03:32 INFO  : 'configparams force-mem-access 1' command is executed.
+20:03:32 INFO  : Context for 'APU' is selected.
+20:03:32 INFO  : Boot mode is read from the target.
+20:03:32 INFO  : Context for processor 'psu_cortexa53_0' is selected.
+20:03:32 INFO  : Processor reset is completed for 'psu_cortexa53_0'.
+20:03:33 INFO  : The application '/home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/sw/design_1_wrapper/boot/fsbl.elf' is downloaded to processor 'psu_cortexa53_0'.
+20:03:33 INFO  : 'set bp_3_33_fsbl_bp [bpadd -addr &XFsbl_Exit]' command is executed.
+20:03:34 INFO  : 'con -block -timeout 60' command is executed.
+20:03:34 INFO  : 'bpremove $bp_3_33_fsbl_bp' command is executed.
+20:03:34 INFO  : Context for processor 'psu_cortexa53_0' is selected.
+20:03:34 INFO  : Processor reset is completed for 'psu_cortexa53_0'.
+20:03:35 INFO  : The application '/home/y/fpga/project_9/workspace/hello/Debug/hello.elf' is downloaded to processor 'psu_cortexa53_0'.
+20:03:35 INFO  : 'configparams force-mem-access 0' command is executed.
+20:03:35 INFO  : ----------------XSDB Script----------------
+connect -url tcp:127.0.0.1:3121
+source /tools/Xilinx/Vitis/2020.2/scripts/vitis/util/zynqmp_utils.tcl
+targets -set -nocase -filter {name =~"APU*"}
+loadhw -hw /home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/hw/design_1_wrapper.xsa -mem-ranges [list {0x80000000 0xbfffffff} {0x400000000 0x5ffffffff} {0x1000000000 0x7fffffffff}] -regs
+configparams force-mem-access 1
+targets -set -nocase -filter {name =~"APU*"}
+set mode [expr [mrd -value 0xFF5E0200] & 0xf]
+targets -set -nocase -filter {name =~ "*A53*#0"}
+rst -processor
+dow /home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/sw/design_1_wrapper/boot/fsbl.elf
+set bp_3_33_fsbl_bp [bpadd -addr &XFsbl_Exit]
+con -block -timeout 60
+bpremove $bp_3_33_fsbl_bp
+targets -set -nocase -filter {name =~ "*A53*#0"}
+rst -processor
+dow /home/y/fpga/project_9/workspace/hello/Debug/hello.elf
+configparams force-mem-access 0
+----------------End of Script----------------
+
+20:03:35 INFO  : Context for processor 'psu_cortexa53_0' is selected.
+20:03:35 INFO  : 'con' command is executed.
+20:03:35 INFO  : ----------------XSDB Script (After Launch)----------------
+targets -set -nocase -filter {name =~ "*A53*#0"}
+con
+----------------End of Script----------------
+
+20:03:35 INFO  : Launch script is exported to file '/home/y/fpga/project_9/workspace/hello_system/_ide/scripts/systemdebugger_hello_system_standalone.tcl'
+20:19:26 INFO  : Disconnected from the channel tcfchan#3.
+20:19:26 INFO  : Connected to target on host '127.0.0.1' and port '3121'.
+20:19:26 INFO  : Jtag cable 'Avnet USB-to-JTAG/UART Pod V1 1234-oj1A' is selected.
+20:19:26 INFO  : 'jtag frequency' command is executed.
+20:19:26 INFO  : Sourcing of '/tools/Xilinx/Vitis/2020.2/scripts/vitis/util/zynqmp_utils.tcl' is done.
+20:19:26 INFO  : Context for 'APU' is selected.
+20:19:32 INFO  : Hardware design and registers information is loaded from '/home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/hw/design_1_wrapper.xsa'.
+20:19:32 INFO  : 'configparams force-mem-access 1' command is executed.
+20:19:32 INFO  : Context for 'APU' is selected.
+20:19:32 INFO  : Boot mode is read from the target.
+20:19:32 INFO  : Context for processor 'psu_cortexa53_0' is selected.
+20:19:32 INFO  : Processor reset is completed for 'psu_cortexa53_0'.
+20:19:33 INFO  : The application '/home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/sw/design_1_wrapper/boot/fsbl.elf' is downloaded to processor 'psu_cortexa53_0'.
+20:19:33 INFO  : 'set bp_19_33_fsbl_bp [bpadd -addr &XFsbl_Exit]' command is executed.
+20:19:34 INFO  : 'con -block -timeout 60' command is executed.
+20:19:34 INFO  : 'bpremove $bp_19_33_fsbl_bp' command is executed.
+20:19:34 INFO  : Context for processor 'psu_cortexa53_0' is selected.
+20:19:34 INFO  : Processor reset is completed for 'psu_cortexa53_0'.
+20:19:34 INFO  : The application '/home/y/fpga/project_9/workspace/hello/Debug/hello.elf' is downloaded to processor 'psu_cortexa53_0'.
+20:19:34 INFO  : 'configparams force-mem-access 0' command is executed.
+20:19:34 INFO  : ----------------XSDB Script----------------
+connect -url tcp:127.0.0.1:3121
+source /tools/Xilinx/Vitis/2020.2/scripts/vitis/util/zynqmp_utils.tcl
+targets -set -nocase -filter {name =~"APU*"}
+loadhw -hw /home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/hw/design_1_wrapper.xsa -mem-ranges [list {0x80000000 0xbfffffff} {0x400000000 0x5ffffffff} {0x1000000000 0x7fffffffff}] -regs
+configparams force-mem-access 1
+targets -set -nocase -filter {name =~"APU*"}
+set mode [expr [mrd -value 0xFF5E0200] & 0xf]
+targets -set -nocase -filter {name =~ "*A53*#0"}
+rst -processor
+dow /home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/sw/design_1_wrapper/boot/fsbl.elf
+set bp_19_33_fsbl_bp [bpadd -addr &XFsbl_Exit]
+con -block -timeout 60
+bpremove $bp_19_33_fsbl_bp
+targets -set -nocase -filter {name =~ "*A53*#0"}
+rst -processor
+dow /home/y/fpga/project_9/workspace/hello/Debug/hello.elf
+configparams force-mem-access 0
+----------------End of Script----------------
+
+20:19:34 INFO  : Context for processor 'psu_cortexa53_0' is selected.
+20:19:34 INFO  : 'con' command is executed.
+20:19:34 INFO  : ----------------XSDB Script (After Launch)----------------
+targets -set -nocase -filter {name =~ "*A53*#0"}
+con
+----------------End of Script----------------
+
+20:19:34 INFO  : Launch script is exported to file '/home/y/fpga/project_9/workspace/hello_system/_ide/scripts/systemdebugger_hello_system_standalone.tcl'
+22:03:12 INFO  : Disconnected from the channel tcfchan#4.
+22:03:12 INFO  : Connected to target on host '127.0.0.1' and port '3121'.
+22:03:12 INFO  : Jtag cable 'Avnet USB-to-JTAG/UART Pod V1 1234-oj1A' is selected.
+22:03:12 INFO  : 'jtag frequency' command is executed.
+22:03:12 INFO  : Sourcing of '/tools/Xilinx/Vitis/2020.2/scripts/vitis/util/zynqmp_utils.tcl' is done.
+22:03:12 INFO  : Context for 'APU' is selected.
+22:03:19 INFO  : Hardware design and registers information is loaded from '/home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/hw/design_1_wrapper.xsa'.
+22:03:19 INFO  : 'configparams force-mem-access 1' command is executed.
+22:03:19 INFO  : Context for 'APU' is selected.
+22:03:19 INFO  : Boot mode is read from the target.
+22:03:19 INFO  : Context for processor 'psu_cortexa53_0' is selected.
+22:03:19 INFO  : Processor reset is completed for 'psu_cortexa53_0'.
+22:03:20 INFO  : The application '/home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/sw/design_1_wrapper/boot/fsbl.elf' is downloaded to processor 'psu_cortexa53_0'.
+22:03:20 INFO  : 'set bp_3_20_fsbl_bp [bpadd -addr &XFsbl_Exit]' command is executed.
+22:03:20 INFO  : 'con -block -timeout 60' command is executed.
+22:03:20 INFO  : 'bpremove $bp_3_20_fsbl_bp' command is executed.
+22:03:20 INFO  : Context for processor 'psu_cortexa53_0' is selected.
+22:03:20 INFO  : Processor reset is completed for 'psu_cortexa53_0'.
+22:03:21 INFO  : The application '/home/y/fpga/project_9/workspace/hello/Debug/hello.elf' is downloaded to processor 'psu_cortexa53_0'.
+22:03:21 INFO  : 'configparams force-mem-access 0' command is executed.
+22:03:21 INFO  : ----------------XSDB Script----------------
+connect -url tcp:127.0.0.1:3121
+source /tools/Xilinx/Vitis/2020.2/scripts/vitis/util/zynqmp_utils.tcl
+targets -set -nocase -filter {name =~"APU*"}
+loadhw -hw /home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/hw/design_1_wrapper.xsa -mem-ranges [list {0x80000000 0xbfffffff} {0x400000000 0x5ffffffff} {0x1000000000 0x7fffffffff}] -regs
+configparams force-mem-access 1
+targets -set -nocase -filter {name =~"APU*"}
+set mode [expr [mrd -value 0xFF5E0200] & 0xf]
+targets -set -nocase -filter {name =~ "*A53*#0"}
+rst -processor
+dow /home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/sw/design_1_wrapper/boot/fsbl.elf
+set bp_3_20_fsbl_bp [bpadd -addr &XFsbl_Exit]
+con -block -timeout 60
+bpremove $bp_3_20_fsbl_bp
+targets -set -nocase -filter {name =~ "*A53*#0"}
+rst -processor
+dow /home/y/fpga/project_9/workspace/hello/Debug/hello.elf
+configparams force-mem-access 0
+----------------End of Script----------------
+
+22:03:21 INFO  : Context for processor 'psu_cortexa53_0' is selected.
+22:03:21 INFO  : 'con' command is executed.
+22:03:21 INFO  : ----------------XSDB Script (After Launch)----------------
+targets -set -nocase -filter {name =~ "*A53*#0"}
+con
+----------------End of Script----------------
+
+22:03:21 INFO  : Launch script is exported to file '/home/y/fpga/project_9/workspace/hello_system/_ide/scripts/systemdebugger_hello_system_standalone.tcl'
+22:32:41 INFO  : Disconnected from the channel tcfchan#5.
+22:32:41 INFO  : Connected to target on host '127.0.0.1' and port '3121'.
+22:32:41 INFO  : Jtag cable 'Avnet USB-to-JTAG/UART Pod V1 1234-oj1A' is selected.
+22:32:41 INFO  : 'jtag frequency' command is executed.
+22:32:41 INFO  : Sourcing of '/tools/Xilinx/Vitis/2020.2/scripts/vitis/util/zynqmp_utils.tcl' is done.
+22:32:41 INFO  : Context for 'APU' is selected.
+22:32:49 INFO  : Hardware design and registers information is loaded from '/home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/hw/design_1_wrapper.xsa'.
+22:32:49 INFO  : 'configparams force-mem-access 1' command is executed.
+22:32:49 INFO  : Context for 'APU' is selected.
+22:32:49 INFO  : Boot mode is read from the target.
+22:32:49 INFO  : Context for processor 'psu_cortexa53_0' is selected.
+22:32:49 INFO  : Processor reset is completed for 'psu_cortexa53_0'.
+22:32:50 INFO  : The application '/home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/sw/design_1_wrapper/boot/fsbl.elf' is downloaded to processor 'psu_cortexa53_0'.
+22:32:50 INFO  : 'set bp_32_50_fsbl_bp [bpadd -addr &XFsbl_Exit]' command is executed.
+22:32:51 INFO  : 'con -block -timeout 60' command is executed.
+22:32:51 INFO  : 'bpremove $bp_32_50_fsbl_bp' command is executed.
+22:32:51 INFO  : Context for processor 'psu_cortexa53_0' is selected.
+22:32:51 INFO  : Processor reset is completed for 'psu_cortexa53_0'.
+22:32:52 INFO  : The application '/home/y/fpga/project_9/workspace/hello/Debug/hello.elf' is downloaded to processor 'psu_cortexa53_0'.
+22:32:52 INFO  : 'configparams force-mem-access 0' command is executed.
+22:32:52 INFO  : ----------------XSDB Script----------------
+connect -url tcp:127.0.0.1:3121
+source /tools/Xilinx/Vitis/2020.2/scripts/vitis/util/zynqmp_utils.tcl
+targets -set -nocase -filter {name =~"APU*"}
+loadhw -hw /home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/hw/design_1_wrapper.xsa -mem-ranges [list {0x80000000 0xbfffffff} {0x400000000 0x5ffffffff} {0x1000000000 0x7fffffffff}] -regs
+configparams force-mem-access 1
+targets -set -nocase -filter {name =~"APU*"}
+set mode [expr [mrd -value 0xFF5E0200] & 0xf]
+targets -set -nocase -filter {name =~ "*A53*#0"}
+rst -processor
+dow /home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/sw/design_1_wrapper/boot/fsbl.elf
+set bp_32_50_fsbl_bp [bpadd -addr &XFsbl_Exit]
+con -block -timeout 60
+bpremove $bp_32_50_fsbl_bp
+targets -set -nocase -filter {name =~ "*A53*#0"}
+rst -processor
+dow /home/y/fpga/project_9/workspace/hello/Debug/hello.elf
+configparams force-mem-access 0
+----------------End of Script----------------
+
+22:32:52 INFO  : Context for processor 'psu_cortexa53_0' is selected.
+22:32:52 INFO  : 'con' command is executed.
+22:32:52 INFO  : ----------------XSDB Script (After Launch)----------------
+targets -set -nocase -filter {name =~ "*A53*#0"}
+con
+----------------End of Script----------------
+
+22:32:52 INFO  : Launch script is exported to file '/home/y/fpga/project_9/workspace/hello_system/_ide/scripts/systemdebugger_hello_system_standalone.tcl'
+22:55:59 INFO  : Disconnected from the channel tcfchan#6.
+22:56:00 INFO  : Connected to target on host '127.0.0.1' and port '3121'.
+22:56:00 INFO  : Jtag cable 'Avnet USB-to-JTAG/UART Pod V1 1234-oj1A' is selected.
+22:56:00 INFO  : 'jtag frequency' command is executed.
+22:56:00 INFO  : Sourcing of '/tools/Xilinx/Vitis/2020.2/scripts/vitis/util/zynqmp_utils.tcl' is done.
+22:56:00 INFO  : Context for 'APU' is selected.
+22:56:09 INFO  : Hardware design and registers information is loaded from '/home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/hw/design_1_wrapper.xsa'.
+22:56:09 INFO  : 'configparams force-mem-access 1' command is executed.
+22:56:09 INFO  : Context for 'APU' is selected.
+22:56:09 INFO  : Boot mode is read from the target.
+22:56:09 INFO  : Context for processor 'psu_cortexa53_0' is selected.
+22:56:09 INFO  : Processor reset is completed for 'psu_cortexa53_0'.
+22:56:10 INFO  : The application '/home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/sw/design_1_wrapper/boot/fsbl.elf' is downloaded to processor 'psu_cortexa53_0'.
+22:56:10 INFO  : 'set bp_56_10_fsbl_bp [bpadd -addr &XFsbl_Exit]' command is executed.
+22:56:11 INFO  : 'con -block -timeout 60' command is executed.
+22:56:11 INFO  : 'bpremove $bp_56_10_fsbl_bp' command is executed.
+22:56:11 INFO  : Context for processor 'psu_cortexa53_0' is selected.
+22:56:11 INFO  : Processor reset is completed for 'psu_cortexa53_0'.
+22:56:11 INFO  : The application '/home/y/fpga/project_9/workspace/hello/Debug/hello.elf' is downloaded to processor 'psu_cortexa53_0'.
+22:56:11 INFO  : 'configparams force-mem-access 0' command is executed.
+22:56:11 INFO  : ----------------XSDB Script----------------
+connect -url tcp:127.0.0.1:3121
+source /tools/Xilinx/Vitis/2020.2/scripts/vitis/util/zynqmp_utils.tcl
+targets -set -nocase -filter {name =~"APU*"}
+loadhw -hw /home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/hw/design_1_wrapper.xsa -mem-ranges [list {0x80000000 0xbfffffff} {0x400000000 0x5ffffffff} {0x1000000000 0x7fffffffff}] -regs
+configparams force-mem-access 1
+targets -set -nocase -filter {name =~"APU*"}
+set mode [expr [mrd -value 0xFF5E0200] & 0xf]
+targets -set -nocase -filter {name =~ "*A53*#0"}
+rst -processor
+dow /home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/sw/design_1_wrapper/boot/fsbl.elf
+set bp_56_10_fsbl_bp [bpadd -addr &XFsbl_Exit]
+con -block -timeout 60
+bpremove $bp_56_10_fsbl_bp
+targets -set -nocase -filter {name =~ "*A53*#0"}
+rst -processor
+dow /home/y/fpga/project_9/workspace/hello/Debug/hello.elf
+configparams force-mem-access 0
+----------------End of Script----------------
+
+22:56:11 INFO  : Context for processor 'psu_cortexa53_0' is selected.
+22:56:11 INFO  : 'con' command is executed.
+22:56:11 INFO  : ----------------XSDB Script (After Launch)----------------
+targets -set -nocase -filter {name =~ "*A53*#0"}
+con
+----------------End of Script----------------
+
+22:56:11 INFO  : Launch script is exported to file '/home/y/fpga/project_9/workspace/hello_system/_ide/scripts/systemdebugger_hello_system_standalone.tcl'
+23:08:24 INFO  : Disconnected from the channel tcfchan#7.
+23:08:24 INFO  : Connected to target on host '127.0.0.1' and port '3121'.
+23:08:24 INFO  : Jtag cable 'Avnet USB-to-JTAG/UART Pod V1 1234-oj1A' is selected.
+23:08:24 INFO  : 'jtag frequency' command is executed.
+23:08:24 INFO  : Sourcing of '/tools/Xilinx/Vitis/2020.2/scripts/vitis/util/zynqmp_utils.tcl' is done.
+23:08:24 INFO  : Context for 'APU' is selected.
+23:08:32 INFO  : Hardware design and registers information is loaded from '/home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/hw/design_1_wrapper.xsa'.
+23:08:32 INFO  : 'configparams force-mem-access 1' command is executed.
+23:08:32 INFO  : Context for 'APU' is selected.
+23:08:32 INFO  : Boot mode is read from the target.
+23:08:32 INFO  : Context for processor 'psu_cortexa53_0' is selected.
+23:08:32 INFO  : Processor reset is completed for 'psu_cortexa53_0'.
+23:08:33 INFO  : The application '/home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/sw/design_1_wrapper/boot/fsbl.elf' is downloaded to processor 'psu_cortexa53_0'.
+23:08:33 INFO  : 'set bp_8_33_fsbl_bp [bpadd -addr &XFsbl_Exit]' command is executed.
+23:08:34 INFO  : 'con -block -timeout 60' command is executed.
+23:08:34 INFO  : 'bpremove $bp_8_33_fsbl_bp' command is executed.
+23:08:34 INFO  : Context for processor 'psu_cortexa53_0' is selected.
+23:08:34 INFO  : Processor reset is completed for 'psu_cortexa53_0'.
+23:08:35 INFO  : The application '/home/y/fpga/project_9/workspace/hello/Debug/hello.elf' is downloaded to processor 'psu_cortexa53_0'.
+23:08:35 INFO  : 'configparams force-mem-access 0' command is executed.
+23:08:35 INFO  : ----------------XSDB Script----------------
+connect -url tcp:127.0.0.1:3121
+source /tools/Xilinx/Vitis/2020.2/scripts/vitis/util/zynqmp_utils.tcl
+targets -set -nocase -filter {name =~"APU*"}
+loadhw -hw /home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/hw/design_1_wrapper.xsa -mem-ranges [list {0x80000000 0xbfffffff} {0x400000000 0x5ffffffff} {0x1000000000 0x7fffffffff}] -regs
+configparams force-mem-access 1
+targets -set -nocase -filter {name =~"APU*"}
+set mode [expr [mrd -value 0xFF5E0200] & 0xf]
+targets -set -nocase -filter {name =~ "*A53*#0"}
+rst -processor
+dow /home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/sw/design_1_wrapper/boot/fsbl.elf
+set bp_8_33_fsbl_bp [bpadd -addr &XFsbl_Exit]
+con -block -timeout 60
+bpremove $bp_8_33_fsbl_bp
+targets -set -nocase -filter {name =~ "*A53*#0"}
+rst -processor
+dow /home/y/fpga/project_9/workspace/hello/Debug/hello.elf
+configparams force-mem-access 0
+----------------End of Script----------------
+
+23:08:35 INFO  : Context for processor 'psu_cortexa53_0' is selected.
+23:08:35 INFO  : 'con' command is executed.
+23:08:35 INFO  : ----------------XSDB Script (After Launch)----------------
+targets -set -nocase -filter {name =~ "*A53*#0"}
+con
+----------------End of Script----------------
+
+23:08:35 INFO  : Launch script is exported to file '/home/y/fpga/project_9/workspace/hello_system/_ide/scripts/systemdebugger_hello_system_standalone.tcl'
+23:10:28 INFO  : Disconnected from the channel tcfchan#8.
+23:10:28 INFO  : Connected to target on host '127.0.0.1' and port '3121'.
+23:10:28 INFO  : Jtag cable 'Avnet USB-to-JTAG/UART Pod V1 1234-oj1A' is selected.
+23:10:28 INFO  : 'jtag frequency' command is executed.
+23:10:28 INFO  : Sourcing of '/tools/Xilinx/Vitis/2020.2/scripts/vitis/util/zynqmp_utils.tcl' is done.
+23:10:28 INFO  : Context for 'APU' is selected.
+23:10:36 INFO  : Hardware design and registers information is loaded from '/home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/hw/design_1_wrapper.xsa'.
+23:10:36 INFO  : 'configparams force-mem-access 1' command is executed.
+23:10:36 INFO  : Context for 'APU' is selected.
+23:10:36 INFO  : Boot mode is read from the target.
+23:10:36 INFO  : Context for processor 'psu_cortexa53_0' is selected.
+23:10:36 INFO  : Processor reset is completed for 'psu_cortexa53_0'.
+23:10:37 INFO  : The application '/home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/sw/design_1_wrapper/boot/fsbl.elf' is downloaded to processor 'psu_cortexa53_0'.
+23:10:37 INFO  : 'set bp_10_37_fsbl_bp [bpadd -addr &XFsbl_Exit]' command is executed.
+23:10:38 INFO  : 'con -block -timeout 60' command is executed.
+23:10:38 INFO  : 'bpremove $bp_10_37_fsbl_bp' command is executed.
+23:10:38 INFO  : Context for processor 'psu_cortexa53_0' is selected.
+23:10:38 INFO  : Processor reset is completed for 'psu_cortexa53_0'.
+23:10:38 INFO  : The application '/home/y/fpga/project_9/workspace/hello/Debug/hello.elf' is downloaded to processor 'psu_cortexa53_0'.
+23:10:38 INFO  : 'configparams force-mem-access 0' command is executed.
+23:10:38 INFO  : ----------------XSDB Script----------------
+connect -url tcp:127.0.0.1:3121
+source /tools/Xilinx/Vitis/2020.2/scripts/vitis/util/zynqmp_utils.tcl
+targets -set -nocase -filter {name =~"APU*"}
+loadhw -hw /home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/hw/design_1_wrapper.xsa -mem-ranges [list {0x80000000 0xbfffffff} {0x400000000 0x5ffffffff} {0x1000000000 0x7fffffffff}] -regs
+configparams force-mem-access 1
+targets -set -nocase -filter {name =~"APU*"}
+set mode [expr [mrd -value 0xFF5E0200] & 0xf]
+targets -set -nocase -filter {name =~ "*A53*#0"}
+rst -processor
+dow /home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/sw/design_1_wrapper/boot/fsbl.elf
+set bp_10_37_fsbl_bp [bpadd -addr &XFsbl_Exit]
+con -block -timeout 60
+bpremove $bp_10_37_fsbl_bp
+targets -set -nocase -filter {name =~ "*A53*#0"}
+rst -processor
+dow /home/y/fpga/project_9/workspace/hello/Debug/hello.elf
+configparams force-mem-access 0
+----------------End of Script----------------
+
+23:10:38 INFO  : Context for processor 'psu_cortexa53_0' is selected.
+23:10:38 INFO  : 'con' command is executed.
+23:10:38 INFO  : ----------------XSDB Script (After Launch)----------------
+targets -set -nocase -filter {name =~ "*A53*#0"}
+con
+----------------End of Script----------------
+
+23:10:38 INFO  : Launch script is exported to file '/home/y/fpga/project_9/workspace/hello_system/_ide/scripts/systemdebugger_hello_system_standalone.tcl'
+23:17:22 INFO  : Disconnected from the channel tcfchan#9.
+23:17:22 INFO  : Connected to target on host '127.0.0.1' and port '3121'.
+23:17:22 INFO  : Jtag cable 'Avnet USB-to-JTAG/UART Pod V1 1234-oj1A' is selected.
+23:17:22 INFO  : 'jtag frequency' command is executed.
+23:17:22 INFO  : Sourcing of '/tools/Xilinx/Vitis/2020.2/scripts/vitis/util/zynqmp_utils.tcl' is done.
+23:17:22 INFO  : Context for 'APU' is selected.
+23:17:29 INFO  : Hardware design and registers information is loaded from '/home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/hw/design_1_wrapper.xsa'.
+23:17:29 INFO  : 'configparams force-mem-access 1' command is executed.
+23:17:29 INFO  : Context for 'APU' is selected.
+23:17:29 INFO  : Boot mode is read from the target.
+23:17:29 INFO  : Context for processor 'psu_cortexa53_0' is selected.
+23:17:29 INFO  : Processor reset is completed for 'psu_cortexa53_0'.
+23:17:30 INFO  : The application '/home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/sw/design_1_wrapper/boot/fsbl.elf' is downloaded to processor 'psu_cortexa53_0'.
+23:17:30 INFO  : 'set bp_17_30_fsbl_bp [bpadd -addr &XFsbl_Exit]' command is executed.
+23:17:31 INFO  : 'con -block -timeout 60' command is executed.
+23:17:31 INFO  : 'bpremove $bp_17_30_fsbl_bp' command is executed.
+23:17:31 INFO  : Context for processor 'psu_cortexa53_0' is selected.
+23:17:31 INFO  : Processor reset is completed for 'psu_cortexa53_0'.
+23:17:32 INFO  : The application '/home/y/fpga/project_9/workspace/hello/Debug/hello.elf' is downloaded to processor 'psu_cortexa53_0'.
+23:17:32 INFO  : 'configparams force-mem-access 0' command is executed.
+23:17:32 INFO  : ----------------XSDB Script----------------
+connect -url tcp:127.0.0.1:3121
+source /tools/Xilinx/Vitis/2020.2/scripts/vitis/util/zynqmp_utils.tcl
+targets -set -nocase -filter {name =~"APU*"}
+loadhw -hw /home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/hw/design_1_wrapper.xsa -mem-ranges [list {0x80000000 0xbfffffff} {0x400000000 0x5ffffffff} {0x1000000000 0x7fffffffff}] -regs
+configparams force-mem-access 1
+targets -set -nocase -filter {name =~"APU*"}
+set mode [expr [mrd -value 0xFF5E0200] & 0xf]
+targets -set -nocase -filter {name =~ "*A53*#0"}
+rst -processor
+dow /home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/sw/design_1_wrapper/boot/fsbl.elf
+set bp_17_30_fsbl_bp [bpadd -addr &XFsbl_Exit]
+con -block -timeout 60
+bpremove $bp_17_30_fsbl_bp
+targets -set -nocase -filter {name =~ "*A53*#0"}
+rst -processor
+dow /home/y/fpga/project_9/workspace/hello/Debug/hello.elf
+configparams force-mem-access 0
+----------------End of Script----------------
+
+23:17:32 INFO  : Context for processor 'psu_cortexa53_0' is selected.
+23:17:32 INFO  : 'con' command is executed.
+23:17:32 INFO  : ----------------XSDB Script (After Launch)----------------
+targets -set -nocase -filter {name =~ "*A53*#0"}
+con
+----------------End of Script----------------
+
+23:17:32 INFO  : Launch script is exported to file '/home/y/fpga/project_9/workspace/hello_system/_ide/scripts/systemdebugger_hello_system_standalone.tcl'
+23:18:37 INFO  : Disconnected from the channel tcfchan#10.
+23:18:37 INFO  : Connected to target on host '127.0.0.1' and port '3121'.
+23:18:37 INFO  : Jtag cable 'Avnet USB-to-JTAG/UART Pod V1 1234-oj1A' is selected.
+23:18:37 INFO  : 'jtag frequency' command is executed.
+23:18:37 INFO  : Sourcing of '/tools/Xilinx/Vitis/2020.2/scripts/vitis/util/zynqmp_utils.tcl' is done.
+23:18:37 INFO  : Context for 'APU' is selected.
+23:18:44 INFO  : Hardware design and registers information is loaded from '/home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/hw/design_1_wrapper.xsa'.
+23:18:44 INFO  : 'configparams force-mem-access 1' command is executed.
+23:18:44 INFO  : Context for 'APU' is selected.
+23:18:44 INFO  : Boot mode is read from the target.
+23:18:44 INFO  : Context for processor 'psu_cortexa53_0' is selected.
+23:18:44 INFO  : Processor reset is completed for 'psu_cortexa53_0'.
+23:18:45 INFO  : The application '/home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/sw/design_1_wrapper/boot/fsbl.elf' is downloaded to processor 'psu_cortexa53_0'.
+23:18:45 INFO  : 'set bp_18_45_fsbl_bp [bpadd -addr &XFsbl_Exit]' command is executed.
+23:18:46 INFO  : 'con -block -timeout 60' command is executed.
+23:18:46 INFO  : 'bpremove $bp_18_45_fsbl_bp' command is executed.
+23:18:46 INFO  : Context for processor 'psu_cortexa53_0' is selected.
+23:18:46 INFO  : Processor reset is completed for 'psu_cortexa53_0'.
+23:18:46 INFO  : The application '/home/y/fpga/project_9/workspace/hello/Debug/hello.elf' is downloaded to processor 'psu_cortexa53_0'.
+23:18:46 INFO  : 'configparams force-mem-access 0' command is executed.
+23:18:46 INFO  : ----------------XSDB Script----------------
+connect -url tcp:127.0.0.1:3121
+source /tools/Xilinx/Vitis/2020.2/scripts/vitis/util/zynqmp_utils.tcl
+targets -set -nocase -filter {name =~"APU*"}
+loadhw -hw /home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/hw/design_1_wrapper.xsa -mem-ranges [list {0x80000000 0xbfffffff} {0x400000000 0x5ffffffff} {0x1000000000 0x7fffffffff}] -regs
+configparams force-mem-access 1
+targets -set -nocase -filter {name =~"APU*"}
+set mode [expr [mrd -value 0xFF5E0200] & 0xf]
+targets -set -nocase -filter {name =~ "*A53*#0"}
+rst -processor
+dow /home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/sw/design_1_wrapper/boot/fsbl.elf
+set bp_18_45_fsbl_bp [bpadd -addr &XFsbl_Exit]
+con -block -timeout 60
+bpremove $bp_18_45_fsbl_bp
+targets -set -nocase -filter {name =~ "*A53*#0"}
+rst -processor
+dow /home/y/fpga/project_9/workspace/hello/Debug/hello.elf
+configparams force-mem-access 0
+----------------End of Script----------------
+
+23:18:46 INFO  : Context for processor 'psu_cortexa53_0' is selected.
+23:18:46 INFO  : 'con' command is executed.
+23:18:46 INFO  : ----------------XSDB Script (After Launch)----------------
+targets -set -nocase -filter {name =~ "*A53*#0"}
+con
+----------------End of Script----------------
+
+23:18:46 INFO  : Launch script is exported to file '/home/y/fpga/project_9/workspace/hello_system/_ide/scripts/systemdebugger_hello_system_standalone.tcl'
+23:34:36 INFO  : Disconnected from the channel tcfchan#11.
+23:34:36 INFO  : Connected to target on host '127.0.0.1' and port '3121'.
+23:34:37 INFO  : Jtag cable 'Avnet USB-to-JTAG/UART Pod V1 1234-oj1A' is selected.
+23:34:37 INFO  : 'jtag frequency' command is executed.
+23:34:37 INFO  : Sourcing of '/tools/Xilinx/Vitis/2020.2/scripts/vitis/util/zynqmp_utils.tcl' is done.
+23:34:37 INFO  : Context for 'APU' is selected.
+23:34:44 INFO  : Hardware design and registers information is loaded from '/home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/hw/design_1_wrapper.xsa'.
+23:34:44 INFO  : 'configparams force-mem-access 1' command is executed.
+23:34:44 INFO  : Context for 'APU' is selected.
+23:34:44 INFO  : Boot mode is read from the target.
+23:34:44 INFO  : Context for processor 'psu_cortexa53_0' is selected.
+23:34:44 INFO  : Processor reset is completed for 'psu_cortexa53_0'.
+23:34:45 INFO  : The application '/home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/sw/design_1_wrapper/boot/fsbl.elf' is downloaded to processor 'psu_cortexa53_0'.
+23:34:45 INFO  : 'set bp_34_45_fsbl_bp [bpadd -addr &XFsbl_Exit]' command is executed.
+23:34:46 INFO  : 'con -block -timeout 60' command is executed.
+23:34:46 INFO  : 'bpremove $bp_34_45_fsbl_bp' command is executed.
+23:34:46 INFO  : Context for processor 'psu_cortexa53_0' is selected.
+23:34:46 INFO  : Processor reset is completed for 'psu_cortexa53_0'.
+23:34:46 INFO  : The application '/home/y/fpga/project_9/workspace/hello/Debug/hello.elf' is downloaded to processor 'psu_cortexa53_0'.
+23:34:46 INFO  : 'configparams force-mem-access 0' command is executed.
+23:34:46 INFO  : ----------------XSDB Script----------------
+connect -url tcp:127.0.0.1:3121
+source /tools/Xilinx/Vitis/2020.2/scripts/vitis/util/zynqmp_utils.tcl
+targets -set -nocase -filter {name =~"APU*"}
+loadhw -hw /home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/hw/design_1_wrapper.xsa -mem-ranges [list {0x80000000 0xbfffffff} {0x400000000 0x5ffffffff} {0x1000000000 0x7fffffffff}] -regs
+configparams force-mem-access 1
+targets -set -nocase -filter {name =~"APU*"}
+set mode [expr [mrd -value 0xFF5E0200] & 0xf]
+targets -set -nocase -filter {name =~ "*A53*#0"}
+rst -processor
+dow /home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/sw/design_1_wrapper/boot/fsbl.elf
+set bp_34_45_fsbl_bp [bpadd -addr &XFsbl_Exit]
+con -block -timeout 60
+bpremove $bp_34_45_fsbl_bp
+targets -set -nocase -filter {name =~ "*A53*#0"}
+rst -processor
+dow /home/y/fpga/project_9/workspace/hello/Debug/hello.elf
+configparams force-mem-access 0
+----------------End of Script----------------
+
+23:34:46 INFO  : Context for processor 'psu_cortexa53_0' is selected.
+23:34:46 INFO  : 'con' command is executed.
+23:34:46 INFO  : ----------------XSDB Script (After Launch)----------------
+targets -set -nocase -filter {name =~ "*A53*#0"}
+con
+----------------End of Script----------------
+
+23:34:46 INFO  : Launch script is exported to file '/home/y/fpga/project_9/workspace/hello_system/_ide/scripts/systemdebugger_hello_system_standalone.tcl'
+23:49:32 INFO  : Disconnected from the channel tcfchan#12.
+23:49:32 INFO  : Connected to target on host '127.0.0.1' and port '3121'.
+23:49:32 INFO  : Jtag cable 'Avnet USB-to-JTAG/UART Pod V1 1234-oj1A' is selected.
+23:49:32 INFO  : 'jtag frequency' command is executed.
+23:49:32 INFO  : Sourcing of '/tools/Xilinx/Vitis/2020.2/scripts/vitis/util/zynqmp_utils.tcl' is done.
+23:49:32 INFO  : Context for 'APU' is selected.
+23:49:38 INFO  : Hardware design and registers information is loaded from '/home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/hw/design_1_wrapper.xsa'.
+23:49:38 INFO  : 'configparams force-mem-access 1' command is executed.
+23:49:38 INFO  : Context for 'APU' is selected.
+23:49:38 INFO  : Boot mode is read from the target.
+23:49:38 INFO  : Context for processor 'psu_cortexa53_0' is selected.
+23:49:38 INFO  : Processor reset is completed for 'psu_cortexa53_0'.
+23:49:39 INFO  : The application '/home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/sw/design_1_wrapper/boot/fsbl.elf' is downloaded to processor 'psu_cortexa53_0'.
+23:49:39 INFO  : 'set bp_49_39_fsbl_bp [bpadd -addr &XFsbl_Exit]' command is executed.
+23:49:40 INFO  : 'con -block -timeout 60' command is executed.
+23:49:40 INFO  : 'bpremove $bp_49_39_fsbl_bp' command is executed.
+23:49:40 INFO  : Context for processor 'psu_cortexa53_0' is selected.
+23:49:40 INFO  : Processor reset is completed for 'psu_cortexa53_0'.
+23:49:41 INFO  : The application '/home/y/fpga/project_9/workspace/hello/Debug/hello.elf' is downloaded to processor 'psu_cortexa53_0'.
+23:49:41 INFO  : 'configparams force-mem-access 0' command is executed.
+23:49:41 INFO  : ----------------XSDB Script----------------
+connect -url tcp:127.0.0.1:3121
+source /tools/Xilinx/Vitis/2020.2/scripts/vitis/util/zynqmp_utils.tcl
+targets -set -nocase -filter {name =~"APU*"}
+loadhw -hw /home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/hw/design_1_wrapper.xsa -mem-ranges [list {0x80000000 0xbfffffff} {0x400000000 0x5ffffffff} {0x1000000000 0x7fffffffff}] -regs
+configparams force-mem-access 1
+targets -set -nocase -filter {name =~"APU*"}
+set mode [expr [mrd -value 0xFF5E0200] & 0xf]
+targets -set -nocase -filter {name =~ "*A53*#0"}
+rst -processor
+dow /home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/sw/design_1_wrapper/boot/fsbl.elf
+set bp_49_39_fsbl_bp [bpadd -addr &XFsbl_Exit]
+con -block -timeout 60
+bpremove $bp_49_39_fsbl_bp
+targets -set -nocase -filter {name =~ "*A53*#0"}
+rst -processor
+dow /home/y/fpga/project_9/workspace/hello/Debug/hello.elf
+configparams force-mem-access 0
+----------------End of Script----------------
+
+23:49:41 INFO  : Context for processor 'psu_cortexa53_0' is selected.
+23:49:41 INFO  : 'con' command is executed.
+23:49:41 INFO  : ----------------XSDB Script (After Launch)----------------
+targets -set -nocase -filter {name =~ "*A53*#0"}
+con
+----------------End of Script----------------
+
+23:49:41 INFO  : Launch script is exported to file '/home/y/fpga/project_9/workspace/hello_system/_ide/scripts/systemdebugger_hello_system_standalone.tcl'
+00:02:14 INFO  : Disconnected from the channel tcfchan#13.
+00:02:14 INFO  : Connected to target on host '127.0.0.1' and port '3121'.
+00:02:14 INFO  : Jtag cable 'Avnet USB-to-JTAG/UART Pod V1 1234-oj1A' is selected.
+00:02:14 INFO  : 'jtag frequency' command is executed.
+00:02:14 INFO  : Sourcing of '/tools/Xilinx/Vitis/2020.2/scripts/vitis/util/zynqmp_utils.tcl' is done.
+00:02:14 INFO  : Context for 'APU' is selected.
+00:02:21 INFO  : Hardware design and registers information is loaded from '/home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/hw/design_1_wrapper.xsa'.
+00:02:21 INFO  : 'configparams force-mem-access 1' command is executed.
+00:02:21 INFO  : Context for 'APU' is selected.
+00:02:21 INFO  : Boot mode is read from the target.
+00:02:21 INFO  : Context for processor 'psu_cortexa53_0' is selected.
+00:02:21 INFO  : Processor reset is completed for 'psu_cortexa53_0'.
+00:02:21 INFO  : The application '/home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/sw/design_1_wrapper/boot/fsbl.elf' is downloaded to processor 'psu_cortexa53_0'.
+00:02:22 INFO  : 'set bp_2_21_fsbl_bp [bpadd -addr &XFsbl_Exit]' command is executed.
+00:02:23 INFO  : 'con -block -timeout 60' command is executed.
+00:02:23 INFO  : 'bpremove $bp_2_21_fsbl_bp' command is executed.
+00:02:23 INFO  : Context for processor 'psu_cortexa53_0' is selected.
+00:02:23 INFO  : Processor reset is completed for 'psu_cortexa53_0'.
+00:02:23 INFO  : The application '/home/y/fpga/project_9/workspace/hello/Debug/hello.elf' is downloaded to processor 'psu_cortexa53_0'.
+00:02:23 INFO  : 'configparams force-mem-access 0' command is executed.
+00:02:23 INFO  : ----------------XSDB Script----------------
+connect -url tcp:127.0.0.1:3121
+source /tools/Xilinx/Vitis/2020.2/scripts/vitis/util/zynqmp_utils.tcl
+targets -set -nocase -filter {name =~"APU*"}
+loadhw -hw /home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/hw/design_1_wrapper.xsa -mem-ranges [list {0x80000000 0xbfffffff} {0x400000000 0x5ffffffff} {0x1000000000 0x7fffffffff}] -regs
+configparams force-mem-access 1
+targets -set -nocase -filter {name =~"APU*"}
+set mode [expr [mrd -value 0xFF5E0200] & 0xf]
+targets -set -nocase -filter {name =~ "*A53*#0"}
+rst -processor
+dow /home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/sw/design_1_wrapper/boot/fsbl.elf
+set bp_2_21_fsbl_bp [bpadd -addr &XFsbl_Exit]
+con -block -timeout 60
+bpremove $bp_2_21_fsbl_bp
+targets -set -nocase -filter {name =~ "*A53*#0"}
+rst -processor
+dow /home/y/fpga/project_9/workspace/hello/Debug/hello.elf
+configparams force-mem-access 0
+----------------End of Script----------------
+
+00:02:23 INFO  : Context for processor 'psu_cortexa53_0' is selected.
+00:02:23 INFO  : 'con' command is executed.
+00:02:23 INFO  : ----------------XSDB Script (After Launch)----------------
+targets -set -nocase -filter {name =~ "*A53*#0"}
+con
+----------------End of Script----------------
+
+00:02:23 INFO  : Launch script is exported to file '/home/y/fpga/project_9/workspace/hello_system/_ide/scripts/systemdebugger_hello_system_standalone.tcl'
+00:03:03 INFO  : Disconnected from the channel tcfchan#14.
+21:31:26 INFO  : Launching XSCT server: xsct -n  -interactive /home/y/fpga/project_9/workspace/temp_xsdb_launch_script.tcl
+21:31:29 INFO  : XSCT server has started successfully.
+21:31:29 INFO  : plnx-install-location is set to ''
+21:31:29 INFO  : Successfully done setting XSCT server connection channel  
+21:31:29 INFO  : Successfully done setting workspace for the tool. 
+21:31:31 INFO  : Platform repository initialization has completed.
+21:31:31 INFO  : Registering command handlers for Vitis TCF services
+21:31:31 INFO  : Successfully done query RDI_DATADIR 
+21:32:30 INFO  : Connected to target on host '127.0.0.1' and port '3121'.
+21:32:30 INFO  : Jtag cable 'Avnet USB-to-JTAG/UART Pod V1 1234-oj1A' is selected.
+21:32:30 INFO  : 'jtag frequency' command is executed.
+21:32:30 INFO  : Sourcing of '/tools/Xilinx/Vitis/2020.2/scripts/vitis/util/zynqmp_utils.tcl' is done.
+21:32:30 INFO  : Context for 'APU' is selected.
+21:32:31 INFO  : Hardware design and registers information is loaded from '/home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/hw/design_1_wrapper.xsa'.
+21:32:31 INFO  : 'configparams force-mem-access 1' command is executed.
+21:32:31 INFO  : Context for 'APU' is selected.
+21:32:31 INFO  : Boot mode is read from the target.
+21:32:31 INFO  : Context for processor 'psu_cortexa53_0' is selected.
+21:32:31 INFO  : Processor reset is completed for 'psu_cortexa53_0'.
+21:32:31 INFO  : The application '/home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/sw/design_1_wrapper/boot/fsbl.elf' is downloaded to processor 'psu_cortexa53_0'.
+21:32:31 INFO  : 'set bp_32_31_fsbl_bp [bpadd -addr &XFsbl_Exit]' command is executed.
+21:32:33 INFO  : 'con -block -timeout 60' command is executed.
+21:32:33 INFO  : 'bpremove $bp_32_31_fsbl_bp' command is executed.
+21:32:33 INFO  : Context for processor 'psu_cortexa53_0' is selected.
+21:32:33 INFO  : Processor reset is completed for 'psu_cortexa53_0'.
+21:32:33 INFO  : The application '/home/y/fpga/project_9/workspace/hello/Debug/hello.elf' is downloaded to processor 'psu_cortexa53_0'.
+21:32:33 INFO  : 'configparams force-mem-access 0' command is executed.
+21:32:33 INFO  : ----------------XSDB Script----------------
+connect -url tcp:127.0.0.1:3121
+source /tools/Xilinx/Vitis/2020.2/scripts/vitis/util/zynqmp_utils.tcl
+targets -set -nocase -filter {name =~"APU*"}
+loadhw -hw /home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/hw/design_1_wrapper.xsa -mem-ranges [list {0x80000000 0xbfffffff} {0x400000000 0x5ffffffff} {0x1000000000 0x7fffffffff}] -regs
+configparams force-mem-access 1
+targets -set -nocase -filter {name =~"APU*"}
+set mode [expr [mrd -value 0xFF5E0200] & 0xf]
+targets -set -nocase -filter {name =~ "*A53*#0"}
+rst -processor
+dow /home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/sw/design_1_wrapper/boot/fsbl.elf
+set bp_32_31_fsbl_bp [bpadd -addr &XFsbl_Exit]
+con -block -timeout 60
+bpremove $bp_32_31_fsbl_bp
+targets -set -nocase -filter {name =~ "*A53*#0"}
+rst -processor
+dow /home/y/fpga/project_9/workspace/hello/Debug/hello.elf
+configparams force-mem-access 0
+----------------End of Script----------------
+
+21:32:33 INFO  : Context for processor 'psu_cortexa53_0' is selected.
+21:32:33 INFO  : 'con' command is executed.
+21:32:33 INFO  : ----------------XSDB Script (After Launch)----------------
+targets -set -nocase -filter {name =~ "*A53*#0"}
+con
+----------------End of Script----------------
+
+21:32:33 INFO  : Launch script is exported to file '/home/y/fpga/project_9/workspace/hello_system/_ide/scripts/systemdebugger_hello_system_standalone.tcl'
+22:20:12 INFO  : Disconnected from the channel tcfchan#1.
+22:20:12 INFO  : Connected to target on host '127.0.0.1' and port '3121'.
+22:20:12 INFO  : Jtag cable 'Avnet USB-to-JTAG/UART Pod V1 1234-oj1A' is selected.
+22:20:12 INFO  : 'jtag frequency' command is executed.
+22:20:12 INFO  : Sourcing of '/tools/Xilinx/Vitis/2020.2/scripts/vitis/util/zynqmp_utils.tcl' is done.
+22:20:13 INFO  : Context for 'APU' is selected.
+22:20:20 INFO  : Hardware design and registers information is loaded from '/home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/hw/design_1_wrapper.xsa'.
+22:20:20 INFO  : 'configparams force-mem-access 1' command is executed.
+22:20:20 INFO  : Context for 'APU' is selected.
+22:20:20 INFO  : Boot mode is read from the target.
+22:20:20 INFO  : Context for processor 'psu_cortexa53_0' is selected.
+22:20:20 INFO  : Processor reset is completed for 'psu_cortexa53_0'.
+22:20:21 INFO  : The application '/home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/sw/design_1_wrapper/boot/fsbl.elf' is downloaded to processor 'psu_cortexa53_0'.
+22:20:21 INFO  : 'set bp_20_21_fsbl_bp [bpadd -addr &XFsbl_Exit]' command is executed.
+22:20:21 INFO  : 'con -block -timeout 60' command is executed.
+22:20:21 INFO  : 'bpremove $bp_20_21_fsbl_bp' command is executed.
+22:20:21 INFO  : Context for processor 'psu_cortexa53_0' is selected.
+22:20:21 INFO  : Processor reset is completed for 'psu_cortexa53_0'.
+22:20:21 INFO  : The application '/home/y/fpga/project_9/workspace/hello/Debug/hello.elf' is downloaded to processor 'psu_cortexa53_0'.
+22:20:21 INFO  : 'configparams force-mem-access 0' command is executed.
+22:20:21 INFO  : ----------------XSDB Script----------------
+connect -url tcp:127.0.0.1:3121
+source /tools/Xilinx/Vitis/2020.2/scripts/vitis/util/zynqmp_utils.tcl
+targets -set -nocase -filter {name =~"APU*"}
+loadhw -hw /home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/hw/design_1_wrapper.xsa -mem-ranges [list {0x80000000 0xbfffffff} {0x400000000 0x5ffffffff} {0x1000000000 0x7fffffffff}] -regs
+configparams force-mem-access 1
+targets -set -nocase -filter {name =~"APU*"}
+set mode [expr [mrd -value 0xFF5E0200] & 0xf]
+targets -set -nocase -filter {name =~ "*A53*#0"}
+rst -processor
+dow /home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/sw/design_1_wrapper/boot/fsbl.elf
+set bp_20_21_fsbl_bp [bpadd -addr &XFsbl_Exit]
+con -block -timeout 60
+bpremove $bp_20_21_fsbl_bp
+targets -set -nocase -filter {name =~ "*A53*#0"}
+rst -processor
+dow /home/y/fpga/project_9/workspace/hello/Debug/hello.elf
+configparams force-mem-access 0
+----------------End of Script----------------
+
+22:20:21 INFO  : Context for processor 'psu_cortexa53_0' is selected.
+22:20:21 INFO  : 'con' command is executed.
+22:20:21 INFO  : ----------------XSDB Script (After Launch)----------------
+targets -set -nocase -filter {name =~ "*A53*#0"}
+con
+----------------End of Script----------------
+
+22:20:21 INFO  : Launch script is exported to file '/home/y/fpga/project_9/workspace/hello_system/_ide/scripts/systemdebugger_hello_system_standalone.tcl'
+22:34:37 INFO  : Disconnected from the channel tcfchan#2.
+22:34:37 INFO  : Connected to target on host '127.0.0.1' and port '3121'.
+22:34:37 INFO  : Jtag cable 'Avnet USB-to-JTAG/UART Pod V1 1234-oj1A' is selected.
+22:34:37 INFO  : 'jtag frequency' command is executed.
+22:34:37 INFO  : Sourcing of '/tools/Xilinx/Vitis/2020.2/scripts/vitis/util/zynqmp_utils.tcl' is done.
+22:34:37 INFO  : Context for 'APU' is selected.
+22:34:45 INFO  : Hardware design and registers information is loaded from '/home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/hw/design_1_wrapper.xsa'.
+22:34:45 INFO  : 'configparams force-mem-access 1' command is executed.
+22:34:45 INFO  : Context for 'APU' is selected.
+22:34:45 INFO  : Boot mode is read from the target.
+22:34:45 INFO  : Context for processor 'psu_cortexa53_0' is selected.
+22:34:45 INFO  : Processor reset is completed for 'psu_cortexa53_0'.
+22:34:45 INFO  : The application '/home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/sw/design_1_wrapper/boot/fsbl.elf' is downloaded to processor 'psu_cortexa53_0'.
+22:34:45 INFO  : 'set bp_34_45_fsbl_bp [bpadd -addr &XFsbl_Exit]' command is executed.
+22:34:46 INFO  : 'con -block -timeout 60' command is executed.
+22:34:46 INFO  : 'bpremove $bp_34_45_fsbl_bp' command is executed.
+22:34:46 INFO  : Context for processor 'psu_cortexa53_0' is selected.
+22:34:47 INFO  : Processor reset is completed for 'psu_cortexa53_0'.
+22:34:47 INFO  : The application '/home/y/fpga/project_9/workspace/hello/Debug/hello.elf' is downloaded to processor 'psu_cortexa53_0'.
+22:34:47 INFO  : 'configparams force-mem-access 0' command is executed.
+22:34:47 INFO  : ----------------XSDB Script----------------
+connect -url tcp:127.0.0.1:3121
+source /tools/Xilinx/Vitis/2020.2/scripts/vitis/util/zynqmp_utils.tcl
+targets -set -nocase -filter {name =~"APU*"}
+loadhw -hw /home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/hw/design_1_wrapper.xsa -mem-ranges [list {0x80000000 0xbfffffff} {0x400000000 0x5ffffffff} {0x1000000000 0x7fffffffff}] -regs
+configparams force-mem-access 1
+targets -set -nocase -filter {name =~"APU*"}
+set mode [expr [mrd -value 0xFF5E0200] & 0xf]
+targets -set -nocase -filter {name =~ "*A53*#0"}
+rst -processor
+dow /home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/sw/design_1_wrapper/boot/fsbl.elf
+set bp_34_45_fsbl_bp [bpadd -addr &XFsbl_Exit]
+con -block -timeout 60
+bpremove $bp_34_45_fsbl_bp
+targets -set -nocase -filter {name =~ "*A53*#0"}
+rst -processor
+dow /home/y/fpga/project_9/workspace/hello/Debug/hello.elf
+configparams force-mem-access 0
+----------------End of Script----------------
+
+22:34:47 INFO  : Context for processor 'psu_cortexa53_0' is selected.
+22:34:47 INFO  : 'con' command is executed.
+22:34:47 INFO  : ----------------XSDB Script (After Launch)----------------
+targets -set -nocase -filter {name =~ "*A53*#0"}
+con
+----------------End of Script----------------
+
+22:34:47 INFO  : Launch script is exported to file '/home/y/fpga/project_9/workspace/hello_system/_ide/scripts/systemdebugger_hello_system_standalone.tcl'
+22:46:30 INFO  : Disconnected from the channel tcfchan#3.
+22:46:30 INFO  : Connected to target on host '127.0.0.1' and port '3121'.
+22:46:30 INFO  : Jtag cable 'Avnet USB-to-JTAG/UART Pod V1 1234-oj1A' is selected.
+22:46:30 INFO  : 'jtag frequency' command is executed.
+22:46:30 INFO  : Sourcing of '/tools/Xilinx/Vitis/2020.2/scripts/vitis/util/zynqmp_utils.tcl' is done.
+22:46:30 INFO  : Context for 'APU' is selected.
+22:46:36 INFO  : Hardware design and registers information is loaded from '/home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/hw/design_1_wrapper.xsa'.
+22:46:36 INFO  : 'configparams force-mem-access 1' command is executed.
+22:46:36 INFO  : Context for 'APU' is selected.
+22:46:36 INFO  : Boot mode is read from the target.
+22:46:36 INFO  : Context for processor 'psu_cortexa53_0' is selected.
+22:46:36 INFO  : Processor reset is completed for 'psu_cortexa53_0'.
+22:46:37 INFO  : The application '/home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/sw/design_1_wrapper/boot/fsbl.elf' is downloaded to processor 'psu_cortexa53_0'.
+22:46:37 INFO  : 'set bp_46_37_fsbl_bp [bpadd -addr &XFsbl_Exit]' command is executed.
+22:46:38 INFO  : 'con -block -timeout 60' command is executed.
+22:46:38 INFO  : 'bpremove $bp_46_37_fsbl_bp' command is executed.
+22:46:38 INFO  : Context for processor 'psu_cortexa53_0' is selected.
+22:46:38 INFO  : Processor reset is completed for 'psu_cortexa53_0'.
+22:46:38 INFO  : The application '/home/y/fpga/project_9/workspace/hello/Debug/hello.elf' is downloaded to processor 'psu_cortexa53_0'.
+22:46:38 INFO  : 'configparams force-mem-access 0' command is executed.
+22:46:38 INFO  : ----------------XSDB Script----------------
+connect -url tcp:127.0.0.1:3121
+source /tools/Xilinx/Vitis/2020.2/scripts/vitis/util/zynqmp_utils.tcl
+targets -set -nocase -filter {name =~"APU*"}
+loadhw -hw /home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/hw/design_1_wrapper.xsa -mem-ranges [list {0x80000000 0xbfffffff} {0x400000000 0x5ffffffff} {0x1000000000 0x7fffffffff}] -regs
+configparams force-mem-access 1
+targets -set -nocase -filter {name =~"APU*"}
+set mode [expr [mrd -value 0xFF5E0200] & 0xf]
+targets -set -nocase -filter {name =~ "*A53*#0"}
+rst -processor
+dow /home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/sw/design_1_wrapper/boot/fsbl.elf
+set bp_46_37_fsbl_bp [bpadd -addr &XFsbl_Exit]
+con -block -timeout 60
+bpremove $bp_46_37_fsbl_bp
+targets -set -nocase -filter {name =~ "*A53*#0"}
+rst -processor
+dow /home/y/fpga/project_9/workspace/hello/Debug/hello.elf
+configparams force-mem-access 0
+----------------End of Script----------------
+
+22:46:38 INFO  : Context for processor 'psu_cortexa53_0' is selected.
+22:46:38 INFO  : 'con' command is executed.
+22:46:38 INFO  : ----------------XSDB Script (After Launch)----------------
+targets -set -nocase -filter {name =~ "*A53*#0"}
+con
+----------------End of Script----------------
+
+22:46:38 INFO  : Launch script is exported to file '/home/y/fpga/project_9/workspace/hello_system/_ide/scripts/systemdebugger_hello_system_standalone.tcl'
+20:18:01 INFO  : Launching XSCT server: xsct -n  -interactive /home/y/fpga/project_9/workspace/temp_xsdb_launch_script.tcl
+20:18:04 INFO  : XSCT server has started successfully.
+20:18:04 INFO  : plnx-install-location is set to ''
+20:18:04 INFO  : Successfully done setting XSCT server connection channel  
+20:18:04 INFO  : Successfully done setting workspace for the tool. 
+20:18:05 INFO  : Platform repository initialization has completed.
+20:18:06 INFO  : Registering command handlers for Vitis TCF services
+20:18:06 INFO  : Successfully done query RDI_DATADIR 
+20:24:26 INFO  : Connected to target on host '127.0.0.1' and port '3121'.
+20:24:26 INFO  : Jtag cable 'Avnet USB-to-JTAG/UART Pod V1 1234-oj1A' is selected.
+20:24:26 INFO  : 'jtag frequency' command is executed.
+20:24:26 INFO  : Sourcing of '/tools/Xilinx/Vitis/2020.2/scripts/vitis/util/zynqmp_utils.tcl' is done.
+20:24:26 INFO  : Context for 'APU' is selected.
+20:24:27 INFO  : Hardware design and registers information is loaded from '/home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/hw/design_1_wrapper.xsa'.
+20:24:27 INFO  : 'configparams force-mem-access 1' command is executed.
+20:24:27 INFO  : Context for 'APU' is selected.
+20:24:27 INFO  : Boot mode is read from the target.
+20:24:27 INFO  : Context for processor 'psu_cortexa53_0' is selected.
+20:24:27 INFO  : Processor reset is completed for 'psu_cortexa53_0'.
+20:24:27 INFO  : The application '/home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/sw/design_1_wrapper/boot/fsbl.elf' is downloaded to processor 'psu_cortexa53_0'.
+20:24:27 INFO  : 'set bp_24_27_fsbl_bp [bpadd -addr &XFsbl_Exit]' command is executed.
+20:24:29 INFO  : 'con -block -timeout 60' command is executed.
+20:24:29 INFO  : 'bpremove $bp_24_27_fsbl_bp' command is executed.
+20:24:29 INFO  : Context for processor 'psu_cortexa53_0' is selected.
+20:24:29 INFO  : Processor reset is completed for 'psu_cortexa53_0'.
+20:24:29 INFO  : The application '/home/y/fpga/project_9/workspace/hello/Debug/hello.elf' is downloaded to processor 'psu_cortexa53_0'.
+20:24:29 INFO  : 'configparams force-mem-access 0' command is executed.
+20:24:29 INFO  : ----------------XSDB Script----------------
+connect -url tcp:127.0.0.1:3121
+source /tools/Xilinx/Vitis/2020.2/scripts/vitis/util/zynqmp_utils.tcl
+targets -set -nocase -filter {name =~"APU*"}
+loadhw -hw /home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/hw/design_1_wrapper.xsa -mem-ranges [list {0x80000000 0xbfffffff} {0x400000000 0x5ffffffff} {0x1000000000 0x7fffffffff}] -regs
+configparams force-mem-access 1
+targets -set -nocase -filter {name =~"APU*"}
+set mode [expr [mrd -value 0xFF5E0200] & 0xf]
+targets -set -nocase -filter {name =~ "*A53*#0"}
+rst -processor
+dow /home/y/fpga/project_9/workspace/design_1_wrapper/export/design_1_wrapper/sw/design_1_wrapper/boot/fsbl.elf
+set bp_24_27_fsbl_bp [bpadd -addr &XFsbl_Exit]
+con -block -timeout 60
+bpremove $bp_24_27_fsbl_bp
+targets -set -nocase -filter {name =~ "*A53*#0"}
+rst -processor
+dow /home/y/fpga/project_9/workspace/hello/Debug/hello.elf
+configparams force-mem-access 0
+----------------End of Script----------------
+
+20:24:29 INFO  : Context for processor 'psu_cortexa53_0' is selected.
+20:24:29 INFO  : 'con' command is executed.
+20:24:29 INFO  : ----------------XSDB Script (After Launch)----------------
+targets -set -nocase -filter {name =~ "*A53*#0"}
+con
+----------------End of Script----------------
+
+20:24:29 INFO  : Launch script is exported to file '/home/y/fpga/project_9/workspace/hello_system/_ide/scripts/systemdebugger_hello_system_standalone.tcl'
+15:37:03 INFO  : Launching XSCT server: xsct -n  -interactive /home/y/fpga/project_9_workspace/temp_xsdb_launch_script.tcl
+15:37:06 INFO  : XSCT server has started successfully.
+15:37:06 INFO  : Successfully done setting XSCT server connection channel  
+15:37:06 INFO  : plnx-install-location is set to ''
+15:37:06 INFO  : Successfully done setting workspace for the tool. 
+15:37:07 ERROR : Error encountered while initializing user repository paths
+Reason: No Platforms Found.
+
+
+15:37:07 INFO  : Platform repository initialization has completed.
+15:37:07 INFO  : Successfully done query RDI_DATADIR 
+15:37:07 INFO  : Registering command handlers for Vitis TCF services
+15:38:13 INFO  : Result from executing command 'getProjects': design_1_wrapper
+15:38:13 INFO  : Result from executing command 'getPlatforms': 
+15:39:04 INFO  : Result from executing command 'getProjects': design_1_wrapper
+15:39:04 INFO  : Result from executing command 'getPlatforms': design_1_wrapper|/home/y/fpga/project_9_workspace/design_1_wrapper/export/design_1_wrapper/design_1_wrapper.xpfm
+15:39:08 INFO  : Checking for BSP changes to sync application flags for project 'hello'...
+15:39:53 INFO  : Connected to target on host '127.0.0.1' and port '3121'.
+15:39:54 INFO  : Jtag cable 'Avnet USB-to-JTAG/UART Pod V1 1234-oj1A' is selected.
+15:39:54 INFO  : 'jtag frequency' command is executed.
+15:39:54 INFO  : Sourcing of '/tools/Xilinx/Vitis/2020.2/scripts/vitis/util/zynqmp_utils.tcl' is done.
+15:39:54 INFO  : Context for 'APU' is selected.
+15:39:54 INFO  : Hardware design and registers information is loaded from '/home/y/fpga/project_9_workspace/design_1_wrapper/export/design_1_wrapper/hw/design_1_wrapper.xsa'.
+15:39:54 INFO  : 'configparams force-mem-access 1' command is executed.
+15:39:54 INFO  : Context for 'APU' is selected.
+15:39:54 INFO  : Boot mode is read from the target.
+15:39:54 INFO  : Context for processor 'psu_cortexa53_0' is selected.
+15:39:54 INFO  : Processor reset is completed for 'psu_cortexa53_0'.
+15:39:55 INFO  : The application '/home/y/fpga/project_9_workspace/design_1_wrapper/export/design_1_wrapper/sw/design_1_wrapper/boot/fsbl.elf' is downloaded to processor 'psu_cortexa53_0'.
+15:39:55 INFO  : 'set bp_39_55_fsbl_bp [bpadd -addr &XFsbl_Exit]' command is executed.
+15:39:56 INFO  : 'con -block -timeout 60' command is executed.
+15:39:56 INFO  : 'bpremove $bp_39_55_fsbl_bp' command is executed.
+15:39:56 INFO  : Context for processor 'psu_cortexa53_0' is selected.
+15:39:56 INFO  : Processor reset is completed for 'psu_cortexa53_0'.
+15:39:56 INFO  : The application '/home/y/fpga/project_9_workspace/hello/Debug/hello.elf' is downloaded to processor 'psu_cortexa53_0'.
+15:39:56 INFO  : 'configparams force-mem-access 0' command is executed.
+15:39:56 INFO  : ----------------XSDB Script----------------
+connect -url tcp:127.0.0.1:3121
+source /tools/Xilinx/Vitis/2020.2/scripts/vitis/util/zynqmp_utils.tcl
+targets -set -nocase -filter {name =~"APU*"}
+loadhw -hw /home/y/fpga/project_9_workspace/design_1_wrapper/export/design_1_wrapper/hw/design_1_wrapper.xsa -mem-ranges [list {0x80000000 0xbfffffff} {0x400000000 0x5ffffffff} {0x1000000000 0x7fffffffff}] -regs
+configparams force-mem-access 1
+targets -set -nocase -filter {name =~"APU*"}
+set mode [expr [mrd -value 0xFF5E0200] & 0xf]
+targets -set -nocase -filter {name =~ "*A53*#0"}
+rst -processor
+dow /home/y/fpga/project_9_workspace/design_1_wrapper/export/design_1_wrapper/sw/design_1_wrapper/boot/fsbl.elf
+set bp_39_55_fsbl_bp [bpadd -addr &XFsbl_Exit]
+con -block -timeout 60
+bpremove $bp_39_55_fsbl_bp
+targets -set -nocase -filter {name =~ "*A53*#0"}
+rst -processor
+dow /home/y/fpga/project_9_workspace/hello/Debug/hello.elf
+configparams force-mem-access 0
+----------------End of Script----------------
+
+15:39:57 INFO  : Context for processor 'psu_cortexa53_0' is selected.
+15:39:57 INFO  : 'con' command is executed.
+15:39:57 INFO  : ----------------XSDB Script (After Launch)----------------
+targets -set -nocase -filter {name =~ "*A53*#0"}
+con
+----------------End of Script----------------
+
+15:39:57 INFO  : Launch script is exported to file '/home/y/fpga/project_9_workspace/hello_system/_ide/scripts/systemdebugger_hello_system_standalone.tcl'
